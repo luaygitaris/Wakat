@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml" class="theme-1" lang="en">
-    <!-- BEGIN: Head -->
-    <?php include(__DIR__.'/../layout/view_head.html');?>
-    <!-- END: Head -->
-    <body>
-        <?php include(__DIR__.'/../layout/view_sidemenu.html');?>
-        
-        <!-- BEGIN: Vendor JS Assets-->
-        <?php include(__DIR__.'/../layout/view_js_footer.html');?>
-        <!-- BEGIN: Pages, layouts, components JS Assets-->
-        <!-- END: Pages, layouts, components JS Assets-->
-    </body>
-    </html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="theme-1" lang="en">
+  <!-- BEGIN: Head -->
+  <?php include(__DIR__.'/../layout/view_head.html');?>
+  <!-- END: Head -->
+  <body class="py-5 md:py-0">
+    <?php include(__DIR__.'/../layout/view_mobile_sidemenu.html');?>
+
+    <?php include(__DIR__.'/../layout/view_top_bar.html');?>
+    <div class="flex overflow-hidden">
+      <?php include(__DIR__.'/../layout/view_sidemenu.html');?>
+      <?php include(__DIR__.'/../waris/page_waris.html');?>
+    </div>
+
+    <div></div>
+
+    <!-- BEGIN: Vendor JS Assets-->
+    <?php include(__DIR__.'/../layout/view_js_footer.html');?>
+    <!-- BEGIN: Pages, layouts, components JS Assets-->
+    <!-- END: Pages, layouts, components JS Assets-->
+  </body>
+</html>
