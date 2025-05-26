@@ -12262,6 +12262,14 @@ html body{
     padding-bottom: 4rem;
     padding-top: 8rem;
 }
+.side-menu__sub-open {
+  display: block !important;
+}
+
+.side-nav ul ul {
+  display: none; /* sembunyikan default */
+}
+
 @media (max-width: calc(1280px - 1px)) {
     .side-nav {
         width: 105px;
