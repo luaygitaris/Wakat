@@ -10,18 +10,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // function handleMenuClick(menuItem, parentId, subId) {
+  //   document.querySelectorAll(".side-menu").forEach((menu) => {
+  //     menu.classList.remove("side-menu--active");
+  //   });
+
+  //   menuItem.classList.add("side-menu--active");
+
+  //   const newUrl = `/${parentId}/${subId}`;
+  //   history.pushState(null, "", newUrl);
+
+  //   switchPage(parentId, subId);
+  // }
+
   function handleMenuClick(menuItem, parentId, subId) {
-    document.querySelectorAll(".side-menu").forEach((menu) => {
-      menu.classList.remove("side-menu--active");
-    });
+  // Hapus semua active class
+  document.querySelectorAll(".side-menu").forEach((menu) => {
+    menu.classList.remove("side-menu--active");
+  });
 
-    menuItem.classList.add("side-menu--active");
+  // Tambahkan active class pada menu yang diklik
+  menuItem.classList.add("side-menu--active");
 
-    const newUrl = `${parentId}/${subId}`;
-    history.pushState(null, "", newUrl);
+  // Tentukan URL baru
+  const newUrl = subId === "dashboard" ? "/" : `/${parentId}/${subId}`;
+  history.pushState(null, "", newUrl);
 
-    switchPage(parentId, subId);
-  }
+  // Tampilkan halaman sesuai ID
+  switchPage(parentId, subId);
+}
+
 
   function setupMenuListeners() {
     const subMenus = document.querySelectorAll("li[data-page] > a");
@@ -61,28 +79,26 @@ document.addEventListener("DOMContentLoaded", function () {
   setupMenuListeners();
 });
 
-
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   const toggleMenu = (menuLink) => {
-    const parentLi = menuLink.closest('li');
-    const submenu = parentLi.querySelector('ul');
-    const icon = menuLink.querySelector('.side-menu__sub-icon');
+    const parentLi = menuLink.closest("li");
+    const submenu = parentLi.querySelector("ul");
+    const icon = menuLink.querySelector(".side-menu__sub-icon");
 
     if (submenu) {
-      submenu.classList.toggle('side-menu__sub-open');
+      submenu.classList.toggle("side-menu__sub-open");
     }
 
     if (icon) {
-      icon.classList.toggle('rotate-180');
+      icon.classList.toggle("rotate-180");
     }
   };
 
   // Ambil semua menu yang punya submenu
-  const menuLinks = document.querySelectorAll('.side-nav > ul > li > a');
+  const menuLinks = document.querySelectorAll(".side-nav > ul > li > a");
 
-  menuLinks.forEach(link => {
-    link.addEventListener('click', function (e) {
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
       e.preventDefault(); // Hindari href="javascript:;"
       toggleMenu(this);
     });
