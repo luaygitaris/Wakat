@@ -7,6 +7,7 @@
 $dt['route']=[
 'index 				| Dashboard      				| public',
 'dashboard 			| Dashboard 					| public',
+'account 			| Account/login					| public',
 
 'not_found			| StaticPage/not_found			| public', 
 'access_denied		| StaticPage/access_denied		| public',
