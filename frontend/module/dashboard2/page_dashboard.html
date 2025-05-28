@@ -1,10 +1,14 @@
-<div id="dashboard-dashboard-aaa" class="content">
+<div
+  id="dashboard-dashboard-aaa"
+  class="content"
+  style="font-family: poppins, sans-serif"
+>
   <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12 2xl:col-span-9">
       <div class="flex flex-col gap-6">
         <!-- BEGIN: Notification -->
         <div class="col-span-12 mt-6 -mb-6 intro-y">
-          <div
+          <!-- <div
             class="alert alert-dismissible show box bg-primary text-white flex items-center mb-6"
             role="alert"
           >
@@ -25,12 +29,12 @@
             >
               <i data-lucide="x" class="w-4 h-4"></i>
             </button>
-          </div>
+          </div> -->
         </div>
         <!-- BEGIN: Notification -->
         <!-- BEGIN: General Report -->
         <div class="col-span-12 lg:col-span-8 xl:col-span-6 mt-2">
-          <div class="intro-y block sm:flex items-center h-10">
+          <!-- <div class="intro-y block sm:flex items-center h-10">
             <h2 class="text-lg font-medium truncate mr-5">General Report</h2>
             <select class="sm:ml-auto mt-3 sm:mt-0 sm:w-auto form-select box">
               <option value="daily">Daily</option>
@@ -39,26 +43,62 @@
               <option value="yearly">Yearly</option>
               <option value="custom-date">Custom Date</option>
             </select>
-          </div>
+          </div> -->
 
           <div class="report-box-2 intro-y mt-12 sm:mt-5">
-            <div class="box sm:flex">
-              <div id="tree"></div>
+            <div class="box flex">
+              <section class="">
+                <div
+                  class="px-5 mx-auto flex flex-col lg:flex-row items-center justify-between py-4"
+                >
+                  <!-- Konten Kiri -->
+                  <div class="flex flex-col gap-6 w-1/2">
+                    <h1 class="text-4xl font-bold intro-y">Waris dan Zakat</h1>
+                    <h3 class="text-2xl font-medium mt-2 intro-y">
+                      Jangan biarkan harta menjadi sumber sengketa. Tundukkan ia
+                      dengan ilmu waris, sucikan ia dengan zakat.
+                    </h3>
+                    <a
+                      href="#"
+                      class="justify-center flex items-center mt-3 border bg-primary w-40 py-2 px-5 rounded-lg text-white cursor-pointer intro-y"
+                    >
+                      Login
+                    </a>
+                  </div>
+
+                  <!-- Gambar -->
+                  <div class="w-full lg:w-1/2 relative mt-10 lg:mt-0">
+                    <!-- Gradient Overlay -->
+                    <div
+                      class="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white to-transparent z-10"
+                    ></div>
+
+                    <!-- Gambar -->
+                    <div class="intro-y">
+                      <img
+                        src="/dist/images/Zakat-2.jpg"
+                        alt="Zakat"
+                        class="w-full h-auto object-cover rounded-md shadow-lg"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>
         <!-- END: General Report -->
         <!-- BEGIN: Visitors -->
         <div class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2">
-          <div class="intro-y flex items-center h-10">
-            <h2 class="text-lg font-medium truncate mr-5 capitalize">
+          <div class="flex items-center h-10">
+            <h2 class="text-lg font-medium truncate mr-5 capitalize intro-y">
               dalil hukum waris
             </h2>
           </div>
 
           <div class="report-box-2 intro-y mt-5 flex flex-row flex-1">
             <div class="box p-5">
-              <div class="text-xl font-medium flex items-center">
+              <div class="text-xl font-medium flex items-center intro-y">
                 Hadits Rasulullah SAW
                 <div class="dropdown ml-auto">
                   <a
@@ -93,12 +133,12 @@
                 </div>
               </div>
 
-              <div class="flex flex-col w-50 flex-1">
+              <div class="flex flex-col w-50 flex-1 intro-y">
                 <h3 class="mt-2 text-lg">
                   Rasulullah pun menjelaskan melalui hadits-hadits tentang hukum
                   waris, di antaranya sebagai berikut:
                 </h3>
-                <div class="border-b border-slate-300 mt-2"></div>
+                <!-- <div class="border-b border-slate-300 mt-2"></div> -->
 
                 <div class="mt-2 border-b broder-slate-200 leading-9">
                   <ul>
@@ -106,19 +146,14 @@
                       class="text-center items-center mb-3 justify-center flex-col"
                     >
                       <div
-                        class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-2"
+                        style="font-family: 'Amiri', serif"
+                        class="flex items-center justify-center text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-2"
                       >
-                        <p class="pt-6">
-                          عَنِ ابْنِ عَبَّاسٍ رَضِيَ اللهُ عَنْهُمَا قَالَ:
-                        </p>
-                        <p class="pt-6">
-                          قَالَ رَسُوْلُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ:
-                        </p>
-                        <p class="pt-6">أَلْحِقُوا الفَرائِضَ بأَهْلِها،</p>
-                        <p class="pt-6">
-                          فَمَا أَبْقَتِ الفَرائِضُ فَلِأَوْلى رَجُلٍ ذَكَرٍ .
-                        </p>
-                        <p class="pt-6">خَرَّجَهُ البُخَارِيُّ وَمُسْلِمٌ</p>
+                        عَنِ ابْنِ عَبَّاسٍ رَضِيَ اللهُ عَنْهُمَا قَالَ: قَالَ
+                        رَسُوْلُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ:
+                        أَلْحِقُوا الفَرائِضَ بأَهْلِها فَمَا أَبْقَتِ
+                        الفَرائِضُ فَلِأَوْلى رَجُلٍ ذَكَرٍ . خَرَّجَهُ
+                        البُخَارِيُّ وَمُسْلِمٌ
                       </div>
 
                       <h3 class="pt-3 italic text-base">
@@ -130,10 +165,13 @@
                       </h3>
                     </li>
                   </ul>
-                  <div class="border-t  border-slate-300 mt-4">
+
+                  <div class="border-t border-slate-300 mt-4">
                     <div class="flex flex-col">
-                      <h1 class="text-xl font-medium">Penjelasan Hadits</h1>
-                      <h3 class="mt-2 text-lg">
+                      <h1 class="text-xl font-medium mt-3 mb-2">
+                        Penjelasan Hadits :
+                      </h1>
+                      <h3 class="text-lg">
                         Ibnu Rajab rahimahullah berkata, “Hadits ini mencakup
                         segala hukum waris dan sudah terhimpun di dalamnya.”
                         (Jaami’ Al-‘Ulum wa Al-Hikam, 2:419) Para ulama berbeda
@@ -153,10 +191,12 @@
                 </div>
               </div>
 
-              <div class="border-b border-slate-300 flex mb-2 pb-2 mt-4">
+              <div class="border-b border-slate-300 flex mt-3 mb-2 pb-2 mt-4">
                 <div class="flex flex-col">
-                  <h1 class="text-xl font-medium">Berdasarkan Al Qur'an</h1>
-                  <h3 class="mt-2 text-lg">
+                  <h1 class="text-xl font-medium intro-y">
+                    Berdasarkan Al Qur'an
+                  </h1>
+                  <h3 class="mb-2 text-lg">
                     Al-Qur'an mengatur secara rinci mengenai pembagian harta
                     warisan. Beberapa ayatnya berada dalam surat QS. An-Nisa
                     Ayat 11
@@ -164,44 +204,43 @@
                 </div>
               </div>
 
-              <div class="mt-2 border-b broder-slate-200 leading-9">
-                <ul>
-                  <li
-                    class="text-center items-center mb-3 justify-center flex-col"
+              <div class="mt-6 border-b border-slate-300 pb-6">
+                <div class="text-center">
+                  <div
+                    class="text-2xl sm:text-base font-medium leading-relaxed text-gray-800 tracking-wide"
                   >
                     <div
-                      class="text-2xl font-sm pt-2 sm:text-xs leading-loose text-center space-y-2"
+                      class="text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y"
+                      style="font-family: 'Amiri', serif"
                     >
-                      <div>
-                        يُوۡصِيۡكُمُ اللّٰهُ فِىۡۤ اَوۡلَادِكُمۡ‌ ۖ لِلذَّكَرِ
-                        مِثۡلُ حَظِّ الۡاُنۡثَيَيۡنِ‌ ۚ فَاِنۡ كُنَّ نِسَآءً
-                      </div>
-                      <div class="pt-4">
-                        فَوۡقَ اثۡنَتَيۡنِ فَلَهُنَّ ثُلُثَا مَا تَرَكَ‌ ۚ
-                        وَاِنۡ كَانَتۡ وَاحِدَةً فَلَهَا النِّصۡفُ‌ ؕ وَلِاَ
-                        بَوَيۡهِ
-                      </div>
-                      <div class="pt-6">
-                        لِكُلِّ وَاحِدٍ مِّنۡهُمَا السُّدُسُ مِمَّا تَرَكَ اِنۡ
-                        كَانَ لَهٗ وَلَدٌ ۚ فَاِنۡ لَّمۡ يَكُنۡ لَّهٗ وَلَدٌ
-                      </div>
-                      <div class="pt-6">
-                        وَّوَرِثَهٗۤ اَبَوٰهُ فَلِاُمِّهِ الثُّلُثُ‌ ؕ فَاِنۡ
-                        كَانَ لَهٗۤ اِخۡوَةٌ فَلِاُمِّهِ السُّدُسُ مِنۡۢ بَعۡدِ
-                        وَصِيَّةٍ
-                      </div>
-                      <div class="pt-6">
-                        يُّوۡصِىۡ بِهَاۤ اَوۡ دَيۡنٍ‌ ؕ اٰبَآؤُكُمۡ
-                        وَاَبۡنَآؤُكُمۡ ۚ لَا تَدۡرُوۡنَ اَيُّهُمۡ اَقۡرَبُ
-                        لَـكُمۡ نَفۡعًا‌ ؕ
-                      </div>
-                      <div class="pt-6">
-                        فَرِيۡضَةً مِّنَ اللّٰهِ ‌ؕ اِنَّ اللّٰهَ كَانَ
-                        عَلِيۡمًا حَكِيۡمًا
-                      </div>
+                      يُوۡصِيۡكُمُ اللّٰهُ فِىۡۤ اَوۡلَادِكُمۡ‌ ۖ لِلذَّكَرِ
+                      مِثۡلُ حَظِّ الۡاُنۡثَيَيۡنِ‌ ۚ فَاِنۡ كُنَّ نِسَآءً
+                      فَوۡقَ اثۡنَتَيۡنِ فَلَهُنَّ ثُلُثَا مَا تَرَكَ‌ ۚ وَاِنۡ
+                      كَانَتۡ وَاحِدَةً فَلَهَا النِّصۡفُ‌ ؕ
                     </div>
-
-                    <h3 class="mt-4 font-sm text-base">
+                    <div
+                      class="text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y mt-4"
+                      style="font-family: 'Amiri', serif"
+                    >
+                      وَلِاَ بَوَيۡهِ لِكُلِّ وَاحِدٍ مِّنۡهُمَا السُّدُسُ
+                      مِمَّا تَرَكَ اِنۡ كَانَ لَهٗ وَلَدٌ ۚ فَاِنۡ لَّمۡ يَكُنۡ
+                      لَّهٗ وَلَدٌ وَّوَرِثَهٗۤ اَبَوٰهُ فَلِاُمِّهِ الثُّلُثُ‌
+                      ؕ فَاِنۡ كَانَ لَهٗۤ اِخۡوَةٌ فَلِاُمِّهِ
+                    </div>
+                    <div
+                      class="text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y mt-4"
+                      style="font-family: 'Amiri', serif"
+                    >
+                      السُّدُسُ مِنۡۢ بَعۡدِ وَصِيَّةٍ يُّوۡصِىۡ بِهَاۤ اَوۡ
+                      دَيۡنٍ‌ ؕ اٰبَآؤُكُمۡ وَاَبۡنَآؤُكُمۡ ۚ لَا تَدۡرُوۡنَ
+                      اَيُّهُمۡ اَقۡرَبُ لَـكُمۡ نَفۡعًا‌ ؕ فَرِيۡضَةً مِّنَ
+                      اللّٰهِ ‌ؕ اِنَّ اللّٰهَ كَانَ عَلِيۡمًا حَكِيۡمًا
+                    </div>
+                  </div>
+                  <div class="mt-6">
+                    <div
+                      class="leading-relaxed text-justify text-gray-700 sm:text-lg md:text-xl intro-y"
+                    >
                       Allah mensyariatkan (mewajibkan) kepadamu tentang
                       (pembagian warisan untuk) anak-anakmu, (yaitu) bagian
                       seorang anak laki-laki sama dengan bagian dua orang anak
@@ -221,14 +260,9 @@
                       anak-anakmu, kamu tidak mengetahui siapa di antara mereka
                       yang lebih banyak manfaatnya bagimu. Ini adalah ketetapan
                       Allah. Sungguh, Allah Maha Mengetahui, Mahabijaksana.
-                    </h3>
-                  </li>
-                </ul>
-                <!-- <div class="-mb-1.5 -ml-2.5">
-                  <div class="h-[79px]">
-                    <canvas id="report-bar-chart"></canvas>
+                    </div>
                   </div>
-                  </div> -->
+                </div>
               </div>
 
               <a
@@ -240,98 +274,310 @@
             </div>
           </div>
         </div>
-        <!-- END: Visitors -->
-        <!-- BEGIN: Users By Age -->
-        <div
-          class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2 lg:mt-6 xl:mt-2"
-        >
+        <div class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2">
           <div class="intro-y flex items-center h-10">
-            <h2 class="text-lg font-medium truncate mr-5">Pembagian Warisan</h2>
-            <a href="" class="ml-auto text-primary truncate">Show More</a>
+            <h2 class="text-lg font-medium truncate mr-5 capitalize">
+              Dalil tentang Zakat dalam Al-Qur'an
+            </h2>
           </div>
-          <div class="report-box-2 intro-y mt-5">
+
+          <div class="report-box-2 intro-y mt-5 flex flex-row flex-1">
             <div class="box p-5">
-              <ul
-                class="nav nav-pills w-4/5 bg-slate-100 dark:bg-black/20 rounded-md mx-auto"
-                role="tablist"
-              >
-                <li
-                  id="active-users-tab"
-                  class="nav-item flex-1"
-                  role="presentation"
-                >
-                  <button
-                    class="nav-link w-full py-1.5 px-2 active"
-                    data-tw-toggle="pill"
-                    data-tw-target="#active-users"
-                    type="button"
-                    role="tab"
-                    aria-controls="active-users"
-                    aria-selected="true"
+              <div class="text-xl font-medium flex items-center">
+                <div class="dropdown ml-auto">
+                  <a
+                    class="dropdown-toggle w-5 h-5 block -mr-2"
+                    href="javascript:;"
+                    aria-expanded="false"
+                    data-tw-toggle="dropdown"
                   >
-                    Active
-                  </button>
-                </li>
-                <li
-                  id="inactive-users-tab"
-                  class="nav-item flex-1"
-                  role="presentation"
-                >
-                  <button
-                    class="nav-link w-full py-1.5 px-2"
-                    data-tw-toggle="pill"
-                    data-tw-target="#inactive-users"
-                    type="button"
-                    role="tab"
-                    aria-selected="false"
-                  >
-                    Inactive
-                  </button>
-                </li>
-              </ul>
-              <div class="tab-content mt-6">
-                <div
-                  class="tab-pane active"
-                  id="active-users"
-                  role="tabpanel"
-                  aria-labelledby="active-users-tab"
-                >
-                  <div class="relative">
-                    <div class="h-[208px]">
-                      <canvas class="mt-3" id="report-donut-chart"></canvas>
-                    </div>
-                    <div
-                      class="flex flex-col justify-center items-center absolute w-full h-full top-0 left-0"
-                    >
-                      <div class="text-2xl font-medium">2.501</div>
-                      <div class="text-slate-500 mt-0.5">Active Users</div>
-                    </div>
+                    <i
+                      data-lucide="more-vertical"
+                      class="w-5 h-5 text-slate-500"
+                    ></i>
+                  </a>
+
+                  <div class="dropdown-menu w-40">
+                    <ul class="dropdown-content">
+                      <li>
+                        <a href="" class="dropdown-item">
+                          <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                          Export
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="" class="dropdown-item">
+                          <i data-lucide="settings" class="w-4 h-4 mr-2"></i>
+                          Settings
+                        </a>
+                      </li>
+                    </ul>
                   </div>
-                  <div class="w-52 sm:w-auto mx-auto mt-5">
-                    <div class="flex items-center">
-                      <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                      <span class="truncate">17 - 30 Years old</span>
-                      <span class="font-medium ml-auto">62%</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col w-50 flex-1 intro-y">
+                <h3 class="mt-2 text-lg">Al-Baqarah Ayat 43 :</h3>
+                <div class="border-b border-slate-300 mt-2"></div>
+
+                <div class="mt-2 border-b broder-slate-200 leading-9">
+                  <ul>
+                    <li
+                      class="text-center items-center mb-3 justify-center flex-col"
+                    >
+                      <div
+                        class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-"
+                      >
+                        <p class="pt-6">
+                          وَأَقِيمُوا۟ ٱلصَّلَوٰةَ وَءَاتُوا۟ ٱلزَّكَوٰةَ
+                          وَٱرْكَعُوا۟ مَعَ ٱلرَّٰكِعِينَ
+                        </p>
+                      </div>
+
+                      <h3 class="pt-3 italic text-base">
+                        "Dan dirikanlah sholat, tunaikanlah zakat, dan rukuklah
+                        beserta orang-orang yang rukuk." (QS Al-Baqarah: 43).
+                      </h3>
+                    </li>
+                  </ul>
+                  <!-- <div class="border-t border-slate-300 mt-4">
+                    <div class="flex flex-col">
+                      <h1 class="text-xl font-medium">Penjelasan Hadits</h1>
+                      <h3 class="mt-2 text-lg">
+                        Ibnu Rajab rahimahullah berkata, “Hadits ini mencakup
+                        segala hukum waris dan sudah terhimpun di dalamnya.”
+                        (Jaami’ Al-‘Ulum wa Al-Hikam, 2:419) Para ulama berbeda
+                        pendapat mengenai makna hadits “Berikan bagian warisan
+                        kepada ahli warisnya”, ada ulama yang berpendapat makna
+                        dari al-faraidh adalah ashabul furudh yang sudah
+                        ditetapkan dalam Al-Qur’an. Apa saja yang sisa setelah
+                        ashabul furudh diberi, maka didahulukan laki-laki yang
+                        paling dekat dengan mayit. Yang dimaksud al-awla dalam
+                        hadits adalah al-aqrab, yang lebih dekat. Laki-laki yang
+                        paling dekat, itulah ashabah yang paling dekat. Maka
+                        sisanya yang mendapatkan jatah ‘ashabah. (Jaami’
+                        Al-‘Ulum wa Al-Hikam, 2:419-420)
+                      </h3>
                     </div>
-                    <div class="flex items-center mt-4">
-                      <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
-                      <span class="truncate">31 - 50 Years old</span>
-                      <span class="font-medium ml-auto">33%</span>
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="border-b border-slate-300 flex mb-2 pb-2 mt-4">
+                <div class="flex flex-col">
+                  <h3 class="mb-2 text-lg">Al-Bayyinah Ayat 5 :</h3>
+                </div>
+              </div>
+
+              <div class="mt-2 border-b broder-slate-200 leading-9 intro-y">
+                <ul>
+                  <li
+                    class="text-center items-center mb-3 justify-center flex-col"
+                  >
+                    <div
+                      class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-"
+                    >
+                      <p class="pt-6">
+                        وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ
+                        مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟
+                        ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ وَذَٰلِكَ دِينُ
+                        ٱلْقَيِّمَةِ
+                      </p>
                     </div>
-                    <div class="flex items-center mt-4">
-                      <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
-                      <span class="truncate">>= 50 Years old</span>
-                      <span class="font-medium ml-auto">10%</span>
+
+                    <h3 class="pt-3 italic text-base">
+                      "Padahal mereka tidak disuruh kecuali supaya menyembah
+                      Allah dengan memurnikan ketaatan kepada-Nya dalam
+                      (menjalankan) agama yang lurus, dan supaya mereka
+                      mendirikan shalat dan menunaikan zakat; dan yang demikian
+                      itulah agama yang lurus." (QS Al-Bayyinah: 5).
+                    </h3>
+                  </li>
+                </ul>
+                <!-- <div class="border-t border-slate-300 mt-4">
+                    <div class="flex flex-col">
+                      <h1 class="text-xl font-medium">Penjelasan Hadits</h1>
+                      <h3 class="mt-2 text-lg">
+                        Ibnu Rajab rahimahullah berkata, “Hadits ini mencakup
+                        segala hukum waris dan sudah terhimpun di dalamnya.”
+                        (Jaami’ Al-‘Ulum wa Al-Hikam, 2:419) Para ulama berbeda
+                        pendapat mengenai makna hadits “Berikan bagian warisan
+                        kepada ahli warisnya”, ada ulama yang berpendapat makna
+                        dari al-faraidh adalah ashabul furudh yang sudah
+                        ditetapkan dalam Al-Qur’an. Apa saja yang sisa setelah
+                        ashabul furudh diberi, maka didahulukan laki-laki yang
+                        paling dekat dengan mayit. Yang dimaksud al-awla dalam
+                        hadits adalah al-aqrab, yang lebih dekat. Laki-laki yang
+                        paling dekat, itulah ashabah yang paling dekat. Maka
+                        sisanya yang mendapatkan jatah ‘ashabah. (Jaami’
+                        Al-‘Ulum wa Al-Hikam, 2:419-420)
+                      </h3>
+                    </div>
+                  </div> -->
+                <div class="border-t border-slate-300 flex mt-2 pb-2 mt-4">
+                  <div class="flex flex-col">
+                    <h3 class="mt-2 text-lg">At-Taubah Ayat 103 :</h3>
+                  </div>
+                </div>
+
+                <div class="mt-2 border-t broder-slate-200 leading-9">
+                  <ul>
+                    <li
+                      class="text-center items-center mb-3 justify-center flex-col"
+                    >
+                      <div
+                        class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-2"
+                      >
+                        <p class="pt-6">
+                          خُذْ مِنْ أَمْوَٰلِهِمْ صَدَقَةً تُطَهِّرُهُمْ
+                          وَتُزَكِّيهِم بِهَا وَصَلِّ عَلَيْهِمْ ۖ إِنَّ
+                          صَلَوٰتَكَ سَكَنٌ لَّهُمْ ۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ
+                        </p>
+                      </div>
+
+                      <h3 class="pt-3 italic text-base">
+                        "(14) Sesungguhnya beruntunglah orang yang membersihkan
+                        diri (dengan membayar zakat fitrah), (15) dan dia ingat
+                        nama Tuhannya (dengan mengumandangkan takbir), lalu dia
+                        melaksanakan sholat (Idul Fitri)." (QS Al-A'la: 14-15).
+                      </h3>
+                    </li>
+                  </ul>
+                  <!-- <div class="border-t border-slate-300 mt-4">
+                    <div class="flex flex-col">
+                      <h1 class="text-xl font-medium">Penjelasan Hadits</h1>
+                      <h3 class="mt-2 text-lg">
+                        Ibnu Rajab rahimahullah berkata, “Hadits ini mencakup
+                        segala hukum waris dan sudah terhimpun di dalamnya.”
+                        (Jaami’ Al-‘Ulum wa Al-Hikam, 2:419) Para ulama berbeda
+                        pendapat mengenai makna hadits “Berikan bagian warisan
+                        kepada ahli warisnya”, ada ulama yang berpendapat makna
+                        dari al-faraidh adalah ashabul furudh yang sudah
+                        ditetapkan dalam Al-Qur’an. Apa saja yang sisa setelah
+                        ashabul furudh diberi, maka didahulukan laki-laki yang
+                        paling dekat dengan mayit. Yang dimaksud al-awla dalam
+                        hadits adalah al-aqrab, yang lebih dekat. Laki-laki yang
+                        paling dekat, itulah ashabah yang paling dekat. Maka
+                        sisanya yang mendapatkan jatah ‘ashabah. (Jaami’
+                        Al-‘Ulum wa Al-Hikam, 2:419-420)
+                      </h3>
+                    </div>
+                  </div> -->
+                </div>
+
+                <div class="mt-2 border-b broder-slate-200 leading-9">
+                  <!-- <div class="-mb-1.5 -ml-2.5">
+                  <div class="h-[79px]">
+                    <canvas id="report-bar-chart"></canvas>
+                  </div>
+                  </div> -->
+                </div>
+
+                <a
+                  class="btn btn-outline-secondary border-dashed w-full py-1 px-2 mt-4"
+                  href="https://rumaysho.com/25126-inilah-dalil-penting-untuk-perhitungan-waris-hadits-jamiul-ulum-wal-hikam-43.html"
+                >
+                  sumber : https://rumaysho.com/
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- END: Visitors -->
+          <!-- BEGIN: Users By Age -->
+          <!-- <div
+            class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2 lg:mt-6 xl:mt-2"
+          >
+            <div class="intro-y flex items-center h-10">
+              <h2 class="text-lg font-medium truncate mr-5">
+                Pembagian Warisan
+              </h2>
+              <a href="" class="ml-auto text-primary truncate">Show More</a>
+            </div>
+            <div class="report-box-2 intro-y mt-5">
+              <div class="box p-5">
+                <ul
+                  class="nav nav-pills w-4/5 bg-slate-100 dark:bg-black/20 rounded-md mx-auto"
+                  role="tablist"
+                >
+                  <li
+                    id="active-users-tab"
+                    class="nav-item flex-1"
+                    role="presentation"
+                  >
+                    <button
+                      class="nav-link w-full py-1.5 px-2 active"
+                      data-tw-toggle="pill"
+                      data-tw-target="#active-users"
+                      type="button"
+                      role="tab"
+                      aria-controls="active-users"
+                      aria-selected="true"
+                    >
+                      Active
+                    </button>
+                  </li>
+                  <li
+                    id="inactive-users-tab"
+                    class="nav-item flex-1"
+                    role="presentation"
+                  >
+                    <button
+                      class="nav-link w-full py-1.5 px-2"
+                      data-tw-toggle="pill"
+                      data-tw-target="#inactive-users"
+                      type="button"
+                      role="tab"
+                      aria-selected="false"
+                    >
+                      Inactive
+                    </button>
+                  </li>
+                </ul>
+                <div class="tab-content mt-6">
+                  <div
+                    class="tab-pane active"
+                    id="active-users"
+                    role="tabpanel"
+                    aria-labelledby="active-users-tab"
+                  >
+                    <div class="relative">
+                      <div class="h-[208px]">
+                        <canvas class="mt-3" id="report-donut-chart"></canvas>
+                      </div>
+                      <div
+                        class="flex flex-col justify-center items-center absolute w-full h-full top-0 left-0"
+                      >
+                        <div class="text-2xl font-medium">2.501</div>
+                        <div class="text-slate-500 mt-0.5">Active Users</div>
+                      </div>
+                    </div>
+                    <div class="w-52 sm:w-auto mx-auto mt-5">
+                      <div class="flex items-center">
+                        <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                        <span class="truncate">17 - 30 Years old</span>
+                        <span class="font-medium ml-auto">62%</span>
+                      </div>
+                      <div class="flex items-center mt-4">
+                        <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
+                        <span class="truncate">31 - 50 Years old</span>
+                        <span class="font-medium ml-auto">33%</span>
+                      </div>
+                      <div class="flex items-center mt-4">
+                        <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
+                        <span class="truncate">>= 50 Years old</span>
+                        <span class="font-medium ml-auto">10%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- END: Users By Age -->
-        <!-- BEGIN: Official Store -->
-        <div class="col-span-12 lg:col-span-8 mt-6">
+          </div> -->
+          <!-- END: Users By Age -->
+
+          <!-- BEGIN: Official Store -->
+          <!-- <div class="col-span-12 lg:col-span-8 mt-6">
           <div class="intro-y block sm:flex items-center h-10">
             <h2 class="text-lg font-medium truncate mr-5">Official Store</h2>
             <div class="sm:ml-auto mt-3 sm:mt-0 relative text-slate-500">
@@ -357,125 +603,130 @@
               data-sources="/dist/json/location.json"
             ></div>
           </div>
-        </div>
-        <!-- END: Official Store -->
-        <!-- BEGIN: Weekly Best Sellers -->
-        <div class="col-span-12 xl:col-span-4 mt-6">
-          <div class="intro-y flex items-center h-10">
-            <h2 class="text-lg font-medium truncate mr-5">
-              Weekly Best Sellers
-            </h2>
-          </div>
-          <div class="mt-5">
-            <div class="intro-y">
-              <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-                <div
-                  class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-                >
-                  <img
-                    alt="Midone - HTML Admin Template"
-                    src="dist/images/profile-11.jpg"
-                  />
-                </div>
-                <div class="ml-4 mr-auto">
-                  <div class="font-medium">Al Pacino</div>
-                  <div class="text-slate-500 text-xs mt-0.5">
-                    23 September 2020
-                  </div>
-                </div>
-                <div
-                  class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
-                >
-                  137 Sales
-                </div>
-              </div>
-            </div>
-            <div class="intro-y">
-              <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-                <div
-                  class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-                >
-                  <img
-                    alt="Midone - HTML Admin Template"
-                    src="dist/images/profile-9.jpg"
-                  />
-                </div>
-                <div class="ml-4 mr-auto">
-                  <div class="font-medium">Kevin Spacey</div>
-                  <div class="text-slate-500 text-xs mt-0.5">17 March 2022</div>
-                </div>
-                <div
-                  class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
-                >
-                  137 Sales
-                </div>
-              </div>
-            </div>
-            <div class="intro-y">
-              <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-                <div
-                  class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-                >
-                  <img
-                    alt="Midone - HTML Admin Template"
-                    src="dist/images/profile-7.jpg"
-                  />
-                </div>
-                <div class="ml-4 mr-auto">
-                  <div class="font-medium">Sylvester Stallone</div>
-                  <div class="text-slate-500 text-xs mt-0.5">
-                    28 August 2022
-                  </div>
-                </div>
-                <div
-                  class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
-                >
-                  137 Sales
-                </div>
-              </div>
-            </div>
-            <div class="intro-y">
-              <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-                <div
-                  class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-                >
-                  <img
-                    alt="Midone - HTML Admin Template"
-                    src="dist/images/profile-3.jpg"
-                  />
-                </div>
-                <div class="ml-4 mr-auto">
-                  <div class="font-medium">Christian Bale</div>
-                  <div class="text-slate-500 text-xs mt-0.5">
-                    11 August 2020
-                  </div>
-                </div>
-                <div
-                  class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
-                >
-                  137 Sales
-                </div>
-              </div>
-            </div>
-            <a
-              href=""
-              class="intro-y w-full block text-center rounded-md py-4 border border-dotted border-slate-400 dark:border-darkmode-300 text-slate-500"
-              >View More</a
-            >
-          </div>
-        </div>
-        <!-- END: Weekly Best Sellers -->
-        <!-- BEGIN: Ads 1 -->
-        <div class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2">
-          <div class="intro-y flex items-center h-10">
-            <h1></h1>
-          </div>
+        </div> -->
+          <!-- END: Official Store -->
 
+          <!-- BEGIN: Weekly Best Sellers -->
+          <!-- <div class="col-span-12 xl:col-span-4 mt-6">
+            <div class="intro-y flex items-center h-10">
+              <h2 class="text-lg font-medium truncate mr-5">
+                Weekly Best Sellers
+              </h2>
+            </div>
+            <div class="mt-5">
+              <div class="intro-y">
+                <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
+                  <div
+                    class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
+                  >
+                    <img
+                      alt="Midone - HTML Admin Template"
+                      src="dist/images/profile-11.jpg"
+                    />
+                  </div>
+                  <div class="ml-4 mr-auto">
+                    <div class="font-medium">Al Pacino</div>
+                    <div class="text-slate-500 text-xs mt-0.5">
+                      23 September 2020
+                    </div>
+                  </div>
+                  <div
+                    class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
+                  >
+                    137 Sales
+                  </div>
+                </div>
+              </div>
+              <div class="intro-y">
+                <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
+                  <div
+                    class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
+                  >
+                    <img
+                      alt="Midone - HTML Admin Template"
+                      src="dist/images/profile-9.jpg"
+                    />
+                  </div>
+                  <div class="ml-4 mr-auto">
+                    <div class="font-medium">Kevin Spacey</div>
+                    <div class="text-slate-500 text-xs mt-0.5">
+                      17 March 2022
+                    </div>
+                  </div>
+                  <div
+                    class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
+                  >
+                    137 Sales
+                  </div>
+                </div>
+              </div>
+              <div class="intro-y">
+                <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
+                  <div
+                    class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
+                  >
+                    <img
+                      alt="Midone - HTML Admin Template"
+                      src="dist/images/profile-7.jpg"
+                    />
+                  </div>
+                  <div class="ml-4 mr-auto">
+                    <div class="font-medium">Sylvester Stallone</div>
+                    <div class="text-slate-500 text-xs mt-0.5">
+                      28 August 2022
+                    </div>
+                  </div>
+                  <div
+                    class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
+                  >
+                    137 Sales
+                  </div>
+                </div>
+              </div>
+              <div class="intro-y">
+                <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
+                  <div
+                    class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
+                  >
+                    <img
+                      alt="Midone - HTML Admin Template"
+                      src="dist/images/profile-3.jpg"
+                    />
+                  </div>
+                  <div class="ml-4 mr-auto">
+                    <div class="font-medium">Christian Bale</div>
+                    <div class="text-slate-500 text-xs mt-0.5">
+                      11 August 2020
+                    </div>
+                  </div>
+                  <div
+                    class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
+                  >
+                    137 Sales
+                  </div>
+                </div>
+              </div>
+              <a
+                href=""
+                class="intro-y w-full block text-center rounded-md py-4 border border-dotted border-slate-400 dark:border-darkmode-300 text-slate-500"
+                >View More</a
+              >
+            </div>
+          </div> -->
+          <!-- END: Weekly Best Sellers -->
+          <!-- BEGIN: Ads 1 -->
           <div
-            class="text-white intro-y mt-5 flex flex-row flex-1 bg-primary rounded-lg"
+            class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2"
           >
-            <div class="p-5">
-              <!-- <div class="text-xl font-medium flex items-center">
+            <div class="intro-y flex items-center h-10">
+              <h1></h1>
+            </div>
+
+            <div
+              class="text-white intro-y mt-5 flex flex-row flex-1 bg-primary rounded-lg"
+            >
+              <div class="p-5">
+                <!-- <div class="text-xl font-medium flex items-center">
                 Hadits Rasulullah SAW
                 <div class="dropdown ml-auto">
                   <a
@@ -510,67 +761,69 @@
                 </div>
               </div> -->
 
-              <div class="flex flex-col w-50 flex-1">
-                <h3 class="mt-2 text-xl font-medium intro-y">
-                  Hal-hal yang Menyebabkan Hak Waris Gugur
-                </h3>
-                <div class="border-b border-slate-300 mt-2"></div>
-              </div>
+                <div class="flex flex-col w-50 flex-1">
+                  <h3 class="mt-2 text-xl font-medium intro-y">
+                    Hal-hal yang Menyebabkan Hak Waris Gugur
+                  </h3>
+                  <div class="border-b border-slate-300 mt-2"></div>
+                </div>
 
-              <div class="border-b border-slate-300 flex mb-2 pb-2 mt-4">
-                <div class="mx-auto flex-col p-5">
-                  <ul style="list-style: disc">
-                    <li>
-                      <h1 class="text-xl font-semibold intro-y">Murtad</h1>
-                      <h3 class="mt-2 text-lg intro-y">
-                        Dalam hukum Islam, apabila seorang ahli waris murtad
-                        (keluar dari agama Islam), maka ia tidak berhak menerima
-                        warisan dari pewaris yang Muslim.
-                      </h3>
-                    </li>
-                    <li class="mt-3">
-                      <h1 class="text-xl font-semibold intro-y">Budak</h1>
-                      <h3 class="mt-2 text-lg intro-y">
-                        karena seorang yang berstatus budak tidak memiliki hak
-                        waris sekalipun dari saudaranya. Hal ini dikarenakan
-                        budak dimiliki oleh tuannya, sehingga apa pun yang
-                        dimilikinya akan menjadi milik tuannya.
-                      </h3>
-                    </li>
-                    <li class="mt-3">
-                      <h1 class="text-xl font-semibold intro-y">Pembunuhan</h1>
-                      <h3 class="mt-2 text-lg intro-y">
-                        apabila seorang ahli waris membunuh pewarisnya, maka ia
-                        tidak berhak mendapat warisan. Misalnya, anak membunuh
-                        ayahnya. Seperti dalam hadis Rasulullah Saw, “Tidaklah
-                        seorang pembunuh berhak mewarisi harta orang yang
-                        dibunuhnya.”
-                      </h3>
-                    </li>
-                    <li class="mt-3">
-                      <h1 class="text-xl font-semibold intro-y">
-                        Perbedaan agama
-                      </h1>
-                      <h3 class="mt-2 text-lg intro-y">
-                        seorang muslim tidak dapat mewarisi ataupun diwarisi
-                        oleh orang nonmuslim, apa pun agamanya. Ini seperti yang
-                        disampaikan dalam oleh Rasulullah Saw, “Tidaklah berhak
-                        seorang muslim mewarisi orang kafir dan tidak pula orang
-                        kafir mewarisi muslim”.
-                      </h3>
-                    </li>
-                  </ul>
-                  <div class="mt-5 text-lg">
-                    Demikian penjelasan singkat tentang hukum waris dan
-                    pembagiannya dalam Islam. Sebagai muslim, sudah semestinya
-                    kita mengikuti aturan yang telah ditetapkan oleh Allah Swt,
-                    karena akan membawa kemaslahatan dan kebaikan untuk kita
-                    yang menjalaninya.
+                <div class="border-b border-slate-300 flex mb-2 pb-2 mt-4">
+                  <div class="mx-auto flex-col p-5">
+                    <ul style="list-style: disc">
+                      <li>
+                        <h1 class="text-xl font-semibold intro-y">Murtad</h1>
+                        <h3 class="mt-2 text-lg intro-y">
+                          Dalam hukum Islam, apabila seorang ahli waris murtad
+                          (keluar dari agama Islam), maka ia tidak berhak
+                          menerima warisan dari pewaris yang Muslim.
+                        </h3>
+                      </li>
+                      <li class="mt-3">
+                        <h1 class="text-xl font-semibold intro-y">Budak</h1>
+                        <h3 class="mt-2 text-lg intro-y">
+                          karena seorang yang berstatus budak tidak memiliki hak
+                          waris sekalipun dari saudaranya. Hal ini dikarenakan
+                          budak dimiliki oleh tuannya, sehingga apa pun yang
+                          dimilikinya akan menjadi milik tuannya.
+                        </h3>
+                      </li>
+                      <li class="mt-3">
+                        <h1 class="text-xl font-semibold intro-y">
+                          Pembunuhan
+                        </h1>
+                        <h3 class="mt-2 text-lg intro-y">
+                          apabila seorang ahli waris membunuh pewarisnya, maka
+                          ia tidak berhak mendapat warisan. Misalnya, anak
+                          membunuh ayahnya. Seperti dalam hadis Rasulullah Saw,
+                          “Tidaklah seorang pembunuh berhak mewarisi harta orang
+                          yang dibunuhnya.”
+                        </h3>
+                      </li>
+                      <li class="mt-3">
+                        <h1 class="text-xl font-semibold intro-y">
+                          Perbedaan agama
+                        </h1>
+                        <h3 class="mt-2 text-lg intro-y">
+                          seorang muslim tidak dapat mewarisi ataupun diwarisi
+                          oleh orang nonmuslim, apa pun agamanya. Ini seperti
+                          yang disampaikan dalam oleh Rasulullah Saw, “Tidaklah
+                          berhak seorang muslim mewarisi orang kafir dan tidak
+                          pula orang kafir mewarisi muslim”.
+                        </h3>
+                      </li>
+                    </ul>
+                    <div class="mt-5 text-lg">
+                      Demikian penjelasan singkat tentang hukum waris dan
+                      pembagiannya dalam Islam. Sebagai muslim, sudah semestinya
+                      kita mengikuti aturan yang telah ditetapkan oleh Allah
+                      Swt, karena akan membawa kemaslahatan dan kebaikan untuk
+                      kita yang menjalaninya.
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- <div class="border-b border-slate-300 flex mb-2 pb-2 mt-4">
+                <!-- <div class="border-b border-slate-300 flex mb-2 pb-2 mt-4">
                 <div class="flex flex-col">
                   <h1 class="text-xl font-medium">Penjelasan Hadits</h1>
                   <h3 class="mt-2 text-lg">
@@ -589,37 +842,37 @@
                   </h3>
                 </div>
               </div> -->
-              <!-- 
+                <!-- 
               <a
                 class="btn btn-outline-secondary border-dashed w-full py-1 px-2 mt-4"
                 href="https://rumaysho.com/25126-inilah-dalil-penting-untuk-perhitungan-waris-hadits-jamiul-ulum-wal-hikam-43.html"
               >
                 sumber : https://rumaysho.com/
               </a> -->
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- END: Ads 1 -->
-        <!-- BEGIN: Ads 2 -->
-        <div class="col-span-12 lg:col-span-6 mt-6">
-          <div class="box p-8 relative overflow-hidden intro-y">
-            <h1 class="leading-[2.15rem] w-full sm:w-72 text-2xl -mt-3">
-              Zakat Online
-            </h1>
-            <div
-              class="w-full sm:w-72 leading-relaxed text-base dark:text-slate-500 mt-3"
-            >
-              Kini, Zakat bisa Dilakukan dengan Praktis.Lebih Praktis, Berkahnya
-              pun Sama Persis
-            </div>
-            <a
-              href=""
-              class="btn w-50 bg-white dark:bg-darkmode-800 dark:text-white mt-6 sm:mt-10"
-            >
-              Segera Berzakat
-            </a>
-            <!-- <div
+          <!-- END: Ads 1 -->
+          <!-- BEGIN: Ads 2 -->
+          <div class="col-span-12 lg:col-span-6 mt-6">
+            <div class="box p-8 relative overflow-hidden intro-y">
+              <h1 class="leading-[2.15rem] w-full sm:w-72 text-2xl -mt-3">
+                Zakat Online
+              </h1>
+              <div
+                class="w-full sm:w-72 leading-relaxed text-base dark:text-slate-500 mt-3"
+              >
+                Kini, Zakat bisa Dilakukan dengan Praktis.Lebih Praktis,
+                Berkahnya pun Sama Persis
+              </div>
+              <a
+                href=""
+                class="btn w-50 bg-white dark:bg-darkmode-800 dark:text-white mt-6 sm:mt-10"
+              >
+                Segera Berzakat
+              </a>
+              <!-- <div
               class="w-48 relative mt-6 cursor-pointer tooltip"
               title="Copy referral link"
             >
@@ -633,388 +886,413 @@
                 class="absolute right-0 top-0 bottom-0 my-auto mr-4 w-4 h-4"
               ></i>
             </div> -->
-            <img
-              class="hidden sm:block absolute top-0 right-0 w-1/2 mt-1 -mr-12"
-              alt="Midone - HTML Admin Template"
-              src="dist/images/phone-illustration.svg"
-            />
-          </div>
-        </div>
-        <!-- END: Ads 2 -->
-        <!-- BEGIN: Weekly Top Products -->
-        <div class="col-span-12 mt-6">
-          <div class="intro-y block sm:flex items-center h-10">
-            <h2 class="text-lg font-medium truncate mr-5">
-              Weekly Top Products
-            </h2>
-            <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
-              <button
-                class="btn box flex items-center text-slate-600 dark:text-slate-300"
-              >
-                <i
-                  data-lucide="file-text"
-                  class="hidden sm:block w-4 h-4 mr-2"
-                ></i>
-                Export to Excel
-              </button>
-              <button
-                class="ml-3 btn box flex items-center text-slate-600 dark:text-slate-300"
-              >
-                <i
-                  data-lucide="file-text"
-                  class="hidden sm:block w-4 h-4 mr-2"
-                ></i>
-                Export to PDF
-              </button>
+              <img
+                class="hidden sm:block absolute top-0 right-0 w-1/2 mt-1 -mr-12"
+                alt="Midone - HTML Admin Template"
+                src="dist/images/phone-illustration.svg"
+              />
             </div>
           </div>
-          <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-            <table class="table table-report sm:mt-2">
-              <thead>
-                <tr>
-                  <th class="whitespace-nowrap">IMAGES</th>
-                  <th class="whitespace-nowrap">PRODUCT NAME</th>
-                  <th class="text-center whitespace-nowrap">STOCK</th>
-                  <th class="text-center whitespace-nowrap">STATUS</th>
-                  <th class="text-center whitespace-nowrap">ACTIONS</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="intro-x">
-                  <td class="w-40">
-                    <div class="flex">
-                      <div class="w-10 h-10 image-fit zoom-in">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-5.jpg"
-                          title="Uploaded at 23 September 2020"
-                        />
-                      </div>
-                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-12.jpg"
-                          title="Uploaded at 6 April 2022"
-                        />
-                      </div>
-                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-2.jpg"
-                          title="Uploaded at 22 July 2022"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="" class="font-medium whitespace-nowrap"
-                      >Sony Master Series A9G</a
-                    >
-                    <div
-                      class="text-slate-500 text-xs whitespace-nowrap mt-0.5"
-                    >
-                      Electronic
-                    </div>
-                  </td>
-                  <td class="text-center">59</td>
-                  <td class="w-40">
-                    <div class="flex items-center justify-center text-success">
-                      <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
-                      Active
-                    </div>
-                  </td>
-                  <td class="table-report__action w-56">
-                    <div class="flex justify-center items-center">
-                      <a class="flex items-center mr-3" href="">
-                        <i data-lucide="check-square" class="w-4 h-4 mr-1"></i>
-                        Edit
-                      </a>
-                      <a class="flex items-center text-danger" href="">
-                        <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
-                        Delete
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="intro-x">
-                  <td class="w-40">
-                    <div class="flex">
-                      <div class="w-10 h-10 image-fit zoom-in">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-13.jpg"
-                          title="Uploaded at 17 March 2022"
-                        />
-                      </div>
-                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-14.jpg"
-                          title="Uploaded at 12 December 2022"
-                        />
-                      </div>
-                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-6.jpg"
-                          title="Uploaded at 20 January 2022"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="" class="font-medium whitespace-nowrap"
-                      >Oppo Find X2 Pro</a
-                    >
-                    <div
-                      class="text-slate-500 text-xs whitespace-nowrap mt-0.5"
-                    >
-                      Smartphone &amp; Tablet
-                    </div>
-                  </td>
-                  <td class="text-center">211</td>
-                  <td class="w-40">
-                    <div class="flex items-center justify-center text-success">
-                      <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
-                      Active
-                    </div>
-                  </td>
-                  <td class="table-report__action w-56">
-                    <div class="flex justify-center items-center">
-                      <a class="flex items-center mr-3" href="">
-                        <i data-lucide="check-square" class="w-4 h-4 mr-1"></i>
-                        Edit
-                      </a>
-                      <a class="flex items-center text-danger" href="">
-                        <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
-                        Delete
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="intro-x">
-                  <td class="w-40">
-                    <div class="flex">
-                      <div class="w-10 h-10 image-fit zoom-in">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-12.jpg"
-                          title="Uploaded at 28 August 2022"
-                        />
-                      </div>
-                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-9.jpg"
-                          title="Uploaded at 1 June 2022"
-                        />
-                      </div>
-                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-12.jpg"
-                          title="Uploaded at 16 September 2020"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="" class="font-medium whitespace-nowrap"
-                      >Sony Master Series A9G</a
-                    >
-                    <div
-                      class="text-slate-500 text-xs whitespace-nowrap mt-0.5"
-                    >
-                      Electronic
-                    </div>
-                  </td>
-                  <td class="text-center">84</td>
-                  <td class="w-40">
-                    <div class="flex items-center justify-center text-success">
-                      <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
-                      Active
-                    </div>
-                  </td>
-                  <td class="table-report__action w-56">
-                    <div class="flex justify-center items-center">
-                      <a class="flex items-center mr-3" href="">
-                        <i data-lucide="check-square" class="w-4 h-4 mr-1"></i>
-                        Edit
-                      </a>
-                      <a class="flex items-center text-danger" href="">
-                        <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
-                        Delete
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-                <tr class="intro-x">
-                  <td class="w-40">
-                    <div class="flex">
-                      <div class="w-10 h-10 image-fit zoom-in">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-9.jpg"
-                          title="Uploaded at 11 August 2020"
-                        />
-                      </div>
-                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-10.jpg"
-                          title="Uploaded at 18 June 2022"
-                        />
-                      </div>
-                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="tooltip rounded-full"
-                          src="dist/images/preview-13.jpg"
-                          title="Uploaded at 19 June 2021"
-                        />
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <a href="" class="font-medium whitespace-nowrap"
-                      >Apple MacBook Pro 13</a
-                    >
-                    <div
-                      class="text-slate-500 text-xs whitespace-nowrap mt-0.5"
-                    >
-                      PC &amp; Laptop
-                    </div>
-                  </td>
-                  <td class="text-center">150</td>
-                  <td class="w-40">
-                    <div class="flex items-center justify-center text-success">
-                      <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
-                      Active
-                    </div>
-                  </td>
-                  <td class="table-report__action w-56">
-                    <div class="flex justify-center items-center">
-                      <a class="flex items-center mr-3" href="">
-                        <i data-lucide="check-square" class="w-4 h-4 mr-1"></i>
-                        Edit
-                      </a>
-                      <a class="flex items-center text-danger" href="">
-                        <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
-                        Delete
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div
-            class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3"
-          >
-            <nav class="w-full sm:w-auto sm:mr-auto">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    <i class="w-4 h-4" data-lucide="chevrons-left"></i>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    <i class="w-4 h-4" data-lucide="chevron-left"></i>
-                  </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    <i class="w-4 h-4" data-lucide="chevron-right"></i>
-                  </a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    <i class="w-4 h-4" data-lucide="chevrons-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-            <select class="w-20 form-select box mt-3 sm:mt-0">
-              <option>10</option>
-              <option>25</option>
-              <option>35</option>
-              <option>50</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- END: Weekly Top Products -->
-      </div>
-    </div>
-    <div class="col-span-12 2xl:col-span-3">
-      <div class="2xl:border-l -mb-10 pb-10">
-        <div class="2xl:pl-6 grid grid-cols-12 gap-x-6 2xl:gap-x-0 gap-y-6">
-          <!-- BEGIN: Important Notes -->
-          <div class="col-span-12 md:col-span-6 xl:col-span-12 mt-3 2xl:mt-8">
-            <div class="intro-x flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-auto">
-                Manfaat Warisan
+          <!-- END: Ads 2 -->
+          <!-- BEGIN: Weekly Top Products -->
+          <!-- <div class="col-span-12 mt-6">
+            <div class="intro-y block sm:flex items-center h-10">
+              <h2 class="text-lg font-medium truncate mr-5">
+                Weekly Top Products
               </h2>
-              <button
-                data-carousel="important-notes"
-                data-target="prev"
-                class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2"
-              >
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button
-                data-carousel="important-notes"
-                data-target="next"
-                class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2"
-              >
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
+              <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+                <button
+                  class="btn box flex items-center text-slate-600 dark:text-slate-300"
+                >
+                  <i
+                    data-lucide="file-text"
+                    class="hidden sm:block w-4 h-4 mr-2"
+                  ></i>
+                  Export to Excel
+                </button>
+                <button
+                  class="ml-3 btn box flex items-center text-slate-600 dark:text-slate-300"
+                >
+                  <i
+                    data-lucide="file-text"
+                    class="hidden sm:block w-4 h-4 mr-2"
+                  ></i>
+                  Export to PDF
+                </button>
+              </div>
             </div>
-            <div class="mt-5 intro-x">
-              <div class="box zoom-in">
-                <div class="tiny-slider" id="important-notes">
-                  <div
-                    class="md:flex-row items-center justify-between rounded-lg overflow-hidden"
-                  >
-                    <!-- Kiri: Teks -->
-                    <div class="p-5">
-                      <h1
-                        class="text-base font-semibold text-xl truncate text-green"
+            <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+              <table class="table table-report sm:mt-2">
+                <thead>
+                  <tr>
+                    <th class="whitespace-nowrap">IMAGES</th>
+                    <th class="whitespace-nowrap">PRODUCT NAME</th>
+                    <th class="text-center whitespace-nowrap">STOCK</th>
+                    <th class="text-center whitespace-nowrap">STATUS</th>
+                    <th class="text-center whitespace-nowrap">ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="intro-x">
+                    <td class="w-40">
+                      <div class="flex">
+                        <div class="w-10 h-10 image-fit zoom-in">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-5.jpg"
+                            title="Uploaded at 23 September 2020"
+                          />
+                        </div>
+                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-12.jpg"
+                            title="Uploaded at 6 April 2022"
+                          />
+                        </div>
+                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-2.jpg"
+                            title="Uploaded at 22 July 2022"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="" class="font-medium whitespace-nowrap"
+                        >Sony Master Series A9G</a
                       >
-                        Mencegah Sengketa <br />Keluarga
-                      </h1>
-                      <!-- <div class="font-medium text-lg mt-1">
+                      <div
+                        class="text-slate-500 text-xs whitespace-nowrap mt-0.5"
+                      >
+                        Electronic
+                      </div>
+                    </td>
+                    <td class="text-center">59</td>
+                    <td class="w-40">
+                      <div
+                        class="flex items-center justify-center text-success"
+                      >
+                        <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
+                        Active
+                      </div>
+                    </td>
+                    <td class="table-report__action w-56">
+                      <div class="flex justify-center items-center">
+                        <a class="flex items-center mr-3" href="">
+                          <i
+                            data-lucide="check-square"
+                            class="w-4 h-4 mr-1"
+                          ></i>
+                          Edit
+                        </a>
+                        <a class="flex items-center text-danger" href="">
+                          <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
+                          Delete
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="intro-x">
+                    <td class="w-40">
+                      <div class="flex">
+                        <div class="w-10 h-10 image-fit zoom-in">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-13.jpg"
+                            title="Uploaded at 17 March 2022"
+                          />
+                        </div>
+                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-14.jpg"
+                            title="Uploaded at 12 December 2022"
+                          />
+                        </div>
+                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-6.jpg"
+                            title="Uploaded at 20 January 2022"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="" class="font-medium whitespace-nowrap"
+                        >Oppo Find X2 Pro</a
+                      >
+                      <div
+                        class="text-slate-500 text-xs whitespace-nowrap mt-0.5"
+                      >
+                        Smartphone &amp; Tablet
+                      </div>
+                    </td>
+                    <td class="text-center">211</td>
+                    <td class="w-40">
+                      <div
+                        class="flex items-center justify-center text-success"
+                      >
+                        <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
+                        Active
+                      </div>
+                    </td>
+                    <td class="table-report__action w-56">
+                      <div class="flex justify-center items-center">
+                        <a class="flex items-center mr-3" href="">
+                          <i
+                            data-lucide="check-square"
+                            class="w-4 h-4 mr-1"
+                          ></i>
+                          Edit
+                        </a>
+                        <a class="flex items-center text-danger" href="">
+                          <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
+                          Delete
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="intro-x">
+                    <td class="w-40">
+                      <div class="flex">
+                        <div class="w-10 h-10 image-fit zoom-in">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-12.jpg"
+                            title="Uploaded at 28 August 2022"
+                          />
+                        </div>
+                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-9.jpg"
+                            title="Uploaded at 1 June 2022"
+                          />
+                        </div>
+                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-12.jpg"
+                            title="Uploaded at 16 September 2020"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="" class="font-medium whitespace-nowrap"
+                        >Sony Master Series A9G</a
+                      >
+                      <div
+                        class="text-slate-500 text-xs whitespace-nowrap mt-0.5"
+                      >
+                        Electronic
+                      </div>
+                    </td>
+                    <td class="text-center">84</td>
+                    <td class="w-40">
+                      <div
+                        class="flex items-center justify-center text-success"
+                      >
+                        <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
+                        Active
+                      </div>
+                    </td>
+                    <td class="table-report__action w-56">
+                      <div class="flex justify-center items-center">
+                        <a class="flex items-center mr-3" href="">
+                          <i
+                            data-lucide="check-square"
+                            class="w-4 h-4 mr-1"
+                          ></i>
+                          Edit
+                        </a>
+                        <a class="flex items-center text-danger" href="">
+                          <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
+                          Delete
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="intro-x">
+                    <td class="w-40">
+                      <div class="flex">
+                        <div class="w-10 h-10 image-fit zoom-in">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-9.jpg"
+                            title="Uploaded at 11 August 2020"
+                          />
+                        </div>
+                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-10.jpg"
+                            title="Uploaded at 18 June 2022"
+                          />
+                        </div>
+                        <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="tooltip rounded-full"
+                            src="dist/images/preview-13.jpg"
+                            title="Uploaded at 19 June 2021"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="" class="font-medium whitespace-nowrap"
+                        >Apple MacBook Pro 13</a
+                      >
+                      <div
+                        class="text-slate-500 text-xs whitespace-nowrap mt-0.5"
+                      >
+                        PC &amp; Laptop
+                      </div>
+                    </td>
+                    <td class="text-center">150</td>
+                    <td class="w-40">
+                      <div
+                        class="flex items-center justify-center text-success"
+                      >
+                        <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
+                        Active
+                      </div>
+                    </td>
+                    <td class="table-report__action w-56">
+                      <div class="flex justify-center items-center">
+                        <a class="flex items-center mr-3" href="">
+                          <i
+                            data-lucide="check-square"
+                            class="w-4 h-4 mr-1"
+                          ></i>
+                          Edit
+                        </a>
+                        <a class="flex items-center text-danger" href="">
+                          <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
+                          Delete
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div
+              class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-3"
+            >
+              <nav class="w-full sm:w-auto sm:mr-auto">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      <i class="w-4 h-4" data-lucide="chevrons-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      <i class="w-4 h-4" data-lucide="chevron-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">...</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active">
+                    <a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">...</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      <i class="w-4 h-4" data-lucide="chevron-right"></i>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      <i class="w-4 h-4" data-lucide="chevrons-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+              <select class="w-20 form-select box mt-3 sm:mt-0">
+                <option>10</option>
+                <option>25</option>
+                <option>35</option>
+                <option>50</option>
+              </select>
+            </div>
+          </div> -->
+
+          <!-- END: Weekly Top Products -->
+        </div>
+      </div>
+      <div class="col-span-12 2xl:col-span-3">
+        <div class="2xl:border-l -mb-10 pb-10">
+          <div class="2xl:pl-6 grid grid-cols-12 gap-x-6 2xl:gap-x-0 gap-y-6">
+            <!-- BEGIN: Important Notes -->
+            <div class="col-span-12 md:col-span-6 xl:col-span-12 mt-3 2xl:mt-8">
+              <div class="intro-x flex items-center h-10">
+                <h2 class="text-lg font-medium truncate mr-auto">
+                  Manfaat Warisan
+                </h2>
+                <button
+                  data-carousel="important-notes"
+                  data-target="prev"
+                  class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2"
+                >
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <button
+                  data-carousel="important-notes"
+                  data-target="next"
+                  class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2"
+                >
+                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <div class="mt-5 intro-x">
+                <div class="box zoom-in">
+                  <div class="tiny-slider" id="important-notes">
+                    <div
+                      class="md:flex-row items-center justify-between rounded-lg overflow-hidden"
+                    >
+                      <!-- Kiri: Teks -->
+                      <div class="p-5">
+                        <h1
+                          class="text-base font-semibold text-xl truncate text-green"
+                        >
+                          Mencegah Sengketa <br />Keluarga
+                        </h1>
+                        <!-- <div class="font-medium text-lg mt-1">
                         Zakat yang Tidak Boleh Ditinggal Saat Ramadhan
                       </div> -->
-                      <div class="text-gray-500 text-justify mt-3">
-                        Salah satu manfaat utama dari pemahaman yang baik
-                        tentang warisan adalah mencegah sengketa di antara
-                        anggota keluarga. Sering kali, konflik muncul karena
-                        ketidakjelasan atau ketidaksepahaman mengenai bagaimana
-                        harta warisan akan didistribusikan. Dengan pengetahuan
-                        yang baik tentang hak waris dan peraturan yang berlaku,
-                        Anda dapat membantu menghindari sengketa ini.
-                      </div>
-                      <!-- <div class="font-medium flex mt-5">
+                        <div class="text-gray-500 text-justify mt-3">
+                          Salah satu manfaat utama dari pemahaman yang baik
+                          tentang warisan adalah mencegah sengketa di antara
+                          anggota keluarga. Sering kali, konflik muncul karena
+                          ketidakjelasan atau ketidaksepahaman mengenai
+                          bagaimana harta warisan akan didistribusikan. Dengan
+                          pengetahuan yang baik tentang hak waris dan peraturan
+                          yang berlaku, Anda dapat membantu menghindari sengketa
+                          ini.
+                        </div>
+                        <!-- <div class="font-medium flex mt-5">
                         <button
                           type="button"
                           class="btn btn-secondary py-1 px-2"
@@ -1028,50 +1306,50 @@
                           Dismiss
                         </button>
                       </div> -->
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="p-5">
-                    <div
-                      class="text-base font-semibold text-xl truncate text-green"
-                    >
-                      Memperkuat Keuangan <br />Keluarga
-                    </div>
-                    <!-- <div class="font-medium text-lg mt-1">
+                    <div class="p-5">
+                      <div
+                        class="text-base font-semibold text-xl truncate text-green"
+                      >
+                        Memperkuat Keuangan <br />Keluarga
+                      </div>
+                      <!-- <div class="font-medium text-lg mt-1">
                       Zakat Atas Harta yang Kita Miliki
                     </div> -->
-                    <div class="text-gray-500 text-justify mt-3">
-                      Warisan merupakan aset berharga yang ditinggalkan oleh
-                      seseorang. Dengan pemahaman yang baik tentang cara
-                      mengelola warisan, Anda dapat memastikan bahwa harta
-                      warisan tersebut digunakan dengan bijak. Hal ini bisa
-                      melibatkan investasi yang cerdas, manajemen utang, atau
-                      penyusunan rencana keuangan yang kokoh. Dengan demikian,
-                      warisan dapat menjadi sumber keuangan yang kuat bagi
-                      keluarga Anda.
+                      <div class="text-gray-500 text-justify mt-3">
+                        Warisan merupakan aset berharga yang ditinggalkan oleh
+                        seseorang. Dengan pemahaman yang baik tentang cara
+                        mengelola warisan, Anda dapat memastikan bahwa harta
+                        warisan tersebut digunakan dengan bijak. Hal ini bisa
+                        melibatkan investasi yang cerdas, manajemen utang, atau
+                        penyusunan rencana keuangan yang kokoh. Dengan demikian,
+                        warisan dapat menjadi sumber keuangan yang kuat bagi
+                        keluarga Anda.
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="p-5">
-                    <div
-                      style="list-style: disc"
-                      class="text-base font-semibold text-xl truncate text-green"
-                    >
-                      Meningkatkan Kesejahteraan <br />Keluarga
-                    </div>
-                    <!-- <div class="font-medium text-lg mt-1">
+                    <div class="p-5">
+                      <div
+                        style="list-style: disc"
+                        class="text-base font-semibold text-xl truncate text-green"
+                      >
+                        Meningkatkan Kesejahteraan <br />Keluarga
+                      </div>
+                      <!-- <div class="font-medium text-lg mt-1">
                       Pengganti Bagi yang Tidak Sanggup Puasa di Bulan Ramadhan
                     </div> -->
-                    <div class="text-gray-500 text-justify mt-3">
-                      Penggunaan yang bijak dari warisan juga dapat meningkatkan
-                      kesejahteraan keluarga. Anda dapat menggunakannya untuk
-                      membiayai pendidikan anak-anak, perawatan kesehatan, atau
-                      investasi yang akan memberikan manfaat jangka panjang.
-                      Warisan dapat memberikan peluang yang lebih baik bagi
-                      anggota keluarga untuk mencapai kualitas hidup yang lebih
-                      baik.
-                    </div>
-                    <!-- <div class="font-medium flex mt-5">
+                      <div class="text-gray-500 text-justify mt-3">
+                        Penggunaan yang bijak dari warisan juga dapat
+                        meningkatkan kesejahteraan keluarga. Anda dapat
+                        menggunakannya untuk membiayai pendidikan anak-anak,
+                        perawatan kesehatan, atau investasi yang akan memberikan
+                        manfaat jangka panjang. Warisan dapat memberikan peluang
+                        yang lebih baik bagi anggota keluarga untuk mencapai
+                        kualitas hidup yang lebih baik.
+                      </div>
+                      <!-- <div class="font-medium flex mt-5">
                       <button type="button" class="btn btn-secondary py-1 px-2">
                         View Notes
                       </button>
@@ -1082,382 +1360,412 @@
                         Dismiss
                       </button>
                     </div> -->
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- END: Important Notes -->
-          <!-- BEGIN: Recent Activities -->
-          <div
-            class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3"
-          >
-            <div class="intro-x flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-5">
-                Recent Activities
-              </h2>
-              <a href="" class="ml-auto text-primary truncate">Show More</a>
-            </div>
+            <!-- END: Important Notes -->
+            <!-- BEGIN: Recent Activities -->
             <div
-              class="mt-5 relative before:block before:absolute before:w-px before:h-[85%] before:bg-slate-200 before:dark:bg-darkmode-400 before:ml-5 before:mt-5"
+              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3"
             >
-              <div class="intro-x relative flex items-center mb-3">
-                <div
-                  class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
-                >
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-10.jpg"
-                    />
-                  </div>
-                </div>
-                <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
-                  <div class="flex items-center">
-                    <div class="font-medium">Leonardo DiCaprio</div>
-                    <div class="text-xs text-slate-500 ml-auto">07:00 PM</div>
-                  </div>
-                  <div class="text-slate-500 mt-1">Has joined the team</div>
-                </div>
+              <div class="intro-x flex items-center h-10">
+                <h2 class="text-lg font-medium truncate mr-5">
+                  Recent Activities
+                </h2>
+                <a href="" class="ml-auto text-primary truncate">Show More</a>
               </div>
-              <div class="intro-x relative flex items-center mb-3">
-                <div
-                  class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
-                >
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-5.jpg"
-                    />
-                  </div>
-                </div>
-                <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
-                  <div class="flex items-center">
-                    <div class="font-medium">Keanu Reeves</div>
-                    <div class="text-xs text-slate-500 ml-auto">07:00 PM</div>
-                  </div>
-                  <div class="text-slate-500">
-                    <div class="mt-1">Added 3 new photos</div>
-                    <div class="flex mt-2">
-                      <div
-                        class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
-                        title="Sony Master Series A9G"
-                      >
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="rounded-md border border-white"
-                          src="dist/images/preview-15.jpg"
-                        />
-                      </div>
-                      <div
-                        class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
-                        title="Oppo Find X2 Pro"
-                      >
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="rounded-md border border-white"
-                          src="dist/images/preview-6.jpg"
-                        />
-                      </div>
-                      <div
-                        class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
-                        title="Sony Master Series A9G"
-                      >
-                        <img
-                          alt="Midone - HTML Admin Template"
-                          class="rounded-md border border-white"
-                          src="dist/images/preview-12.jpg"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="intro-x text-slate-500 text-xs text-center my-4">
-                12 November
-              </div>
-              <div class="intro-x relative flex items-center mb-3">
-                <div
-                  class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
-                >
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-5.jpg"
-                    />
-                  </div>
-                </div>
-                <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
-                  <div class="flex items-center">
-                    <div class="font-medium">Arnold Schwarzenegger</div>
-                    <div class="text-xs text-slate-500 ml-auto">07:00 PM</div>
-                  </div>
-                  <div class="text-slate-500 mt-1">
-                    Has changed
-                    <a class="text-primary" href="">Samsung Galaxy S20 Ultra</a>
-                    price and description
-                  </div>
-                </div>
-              </div>
-              <div class="intro-x relative flex items-center mb-3">
-                <div
-                  class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
-                >
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-14.jpg"
-                    />
-                  </div>
-                </div>
-                <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
-                  <div class="flex items-center">
-                    <div class="font-medium">John Travolta</div>
-                    <div class="text-xs text-slate-500 ml-auto">07:00 PM</div>
-                  </div>
-                  <div class="text-slate-500 mt-1">
-                    Has changed
-                    <a class="text-primary" href="">Sony A7 III</a> description
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- END: Recent Activities -->
-          <!-- BEGIN: Transactions -->
-          <div
-            class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3"
-          >
-            <div class="intro-x flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-5">Transactions</h2>
-            </div>
-            <div class="mt-5">
-              <div class="intro-x">
-                <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-11.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Al Pacino</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      23 September 2020
-                    </div>
-                  </div>
-                  <div class="text-success">+$63</div>
-                </div>
-              </div>
-              <div class="intro-x">
-                <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-9.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Kevin Spacey</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      17 March 2022
-                    </div>
-                  </div>
-                  <div class="text-success">+$26</div>
-                </div>
-              </div>
-              <div class="intro-x">
-                <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-7.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Sylvester Stallone</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      28 August 2022
-                    </div>
-                  </div>
-                  <div class="text-success">+$73</div>
-                </div>
-              </div>
-              <div class="intro-x">
-                <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-3.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Christian Bale</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      11 August 2020
-                    </div>
-                  </div>
-                  <div class="text-success">+$167</div>
-                </div>
-              </div>
-              <div class="intro-x">
-                <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-1.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Leonardo DiCaprio</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      5 February 2021
-                    </div>
-                  </div>
-                  <div class="text-success">+$107</div>
-                </div>
-              </div>
-              <a
-                href=""
-                class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-slate-400 dark:border-darkmode-300 text-slate-500"
-                >View More</a
+              <div
+                class="mt-5 relative before:block before:absolute before:w-px before:h-[85%] before:bg-slate-200 before:dark:bg-darkmode-400 before:ml-5 before:mt-5"
               >
-            </div>
-          </div>
-          <!-- END: Transactions -->
-          <!-- BEGIN: Schedules -->
-          <div
-            class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 xl:col-start-1 xl:row-start-2 2xl:col-start-auto 2xl:row-start-auto mt-3"
-          >
-            <div class="intro-x flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-5">Schedules</h2>
-              <a
-                href=""
-                class="ml-auto text-primary truncate flex items-center"
-              >
-                <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Add New
-                Schedules
-              </a>
-            </div>
-            <div class="mt-5">
-              <div class="intro-x box">
-                <div class="p-5">
-                  <div class="flex">
-                    <i
-                      data-lucide="chevron-left"
-                      class="w-5 h-5 text-slate-500"
-                    ></i>
-                    <div class="font-medium text-base mx-auto">April</div>
-                    <i
-                      data-lucide="chevron-right"
-                      class="w-5 h-5 text-slate-500"
-                    ></i>
+                <div class="intro-x relative flex items-center mb-3">
+                  <div
+                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
+                  >
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-10.jpg"
+                      />
+                    </div>
                   </div>
-                  <div class="grid grid-cols-7 gap-4 mt-5 text-center">
-                    <div class="font-medium">Su</div>
-                    <div class="font-medium">Mo</div>
-                    <div class="font-medium">Tu</div>
-                    <div class="font-medium">We</div>
-                    <div class="font-medium">Th</div>
-                    <div class="font-medium">Fr</div>
-                    <div class="font-medium">Sa</div>
-                    <div class="py-0.5 rounded relative text-slate-500">29</div>
-                    <div class="py-0.5 rounded relative text-slate-500">30</div>
-                    <div class="py-0.5 rounded relative text-slate-500">31</div>
-                    <div class="py-0.5 rounded relative">1</div>
-                    <div class="py-0.5 rounded relative">2</div>
-                    <div class="py-0.5 rounded relative">3</div>
-                    <div class="py-0.5 rounded relative">4</div>
-                    <div class="py-0.5 rounded relative">5</div>
-                    <div
-                      class="py-0.5 bg-success/20 dark:bg-success/30 rounded relative"
-                    >
-                      6
+                  <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
+                    <div class="flex items-center">
+                      <div class="font-medium">Leonardo DiCaprio</div>
+                      <div class="text-xs text-slate-500 ml-auto">07:00 PM</div>
                     </div>
-                    <div class="py-0.5 rounded relative">7</div>
-                    <div class="py-0.5 bg-primary text-white rounded relative">
-                      8
-                    </div>
-                    <div class="py-0.5 rounded relative">9</div>
-                    <div class="py-0.5 rounded relative">10</div>
-                    <div class="py-0.5 rounded relative">11</div>
-                    <div class="py-0.5 rounded relative">12</div>
-                    <div class="py-0.5 rounded relative">13</div>
-                    <div class="py-0.5 rounded relative">14</div>
-                    <div class="py-0.5 rounded relative">15</div>
-                    <div class="py-0.5 rounded relative">16</div>
-                    <div class="py-0.5 rounded relative">17</div>
-                    <div class="py-0.5 rounded relative">18</div>
-                    <div class="py-0.5 rounded relative">19</div>
-                    <div class="py-0.5 rounded relative">20</div>
-                    <div class="py-0.5 rounded relative">21</div>
-                    <div class="py-0.5 rounded relative">22</div>
-                    <div
-                      class="py-0.5 bg-pending/20 dark:bg-pending/30 rounded relative"
-                    >
-                      23
-                    </div>
-                    <div class="py-0.5 rounded relative">24</div>
-                    <div class="py-0.5 rounded relative">25</div>
-                    <div class="py-0.5 rounded relative">26</div>
-                    <div
-                      class="py-0.5 bg-primary/10 dark:bg-primary/50 rounded relative"
-                    >
-                      27
-                    </div>
-                    <div class="py-0.5 rounded relative">28</div>
-                    <div class="py-0.5 rounded relative">29</div>
-                    <div class="py-0.5 rounded relative">30</div>
-                    <div class="py-0.5 rounded relative text-slate-500">1</div>
-                    <div class="py-0.5 rounded relative text-slate-500">2</div>
-                    <div class="py-0.5 rounded relative text-slate-500">3</div>
-                    <div class="py-0.5 rounded relative text-slate-500">4</div>
-                    <div class="py-0.5 rounded relative text-slate-500">5</div>
-                    <div class="py-0.5 rounded relative text-slate-500">6</div>
-                    <div class="py-0.5 rounded relative text-slate-500">7</div>
-                    <div class="py-0.5 rounded relative text-slate-500">8</div>
-                    <div class="py-0.5 rounded relative text-slate-500">9</div>
+                    <div class="text-slate-500 mt-1">Has joined the team</div>
                   </div>
                 </div>
-                <div class="border-t border-slate-200/60 p-5">
-                  <div class="flex items-center">
-                    <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
-                    <span class="truncate">UI/UX Workshop</span>
-                    <span class="font-medium xl:ml-auto">23th</span>
+                <div class="intro-x relative flex items-center mb-3">
+                  <div
+                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
+                  >
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-5.jpg"
+                      />
+                    </div>
                   </div>
-                  <div class="flex items-center mt-4">
-                    <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                    <span class="truncate">VueJs Frontend Development</span>
-                    <span class="font-medium xl:ml-auto">10th</span>
+                  <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
+                    <div class="flex items-center">
+                      <div class="font-medium">Keanu Reeves</div>
+                      <div class="text-xs text-slate-500 ml-auto">07:00 PM</div>
+                    </div>
+                    <div class="text-slate-500">
+                      <div class="mt-1">Added 3 new photos</div>
+                      <div class="flex mt-2">
+                        <div
+                          class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
+                          title="Sony Master Series A9G"
+                        >
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="rounded-md border border-white"
+                            src="dist/images/preview-15.jpg"
+                          />
+                        </div>
+                        <div
+                          class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
+                          title="Oppo Find X2 Pro"
+                        >
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="rounded-md border border-white"
+                            src="dist/images/preview-6.jpg"
+                          />
+                        </div>
+                        <div
+                          class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
+                          title="Sony Master Series A9G"
+                        >
+                          <img
+                            alt="Midone - HTML Admin Template"
+                            class="rounded-md border border-white"
+                            src="dist/images/preview-12.jpg"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="flex items-center mt-4">
-                    <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
-                    <span class="truncate">Laravel Rest API</span>
-                    <span class="font-medium xl:ml-auto">31th</span>
+                </div>
+                <div class="intro-x text-slate-500 text-xs text-center my-4">
+                  12 November
+                </div>
+                <div class="intro-x relative flex items-center mb-3">
+                  <div
+                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
+                  >
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-5.jpg"
+                      />
+                    </div>
+                  </div>
+                  <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
+                    <div class="flex items-center">
+                      <div class="font-medium">Arnold Schwarzenegger</div>
+                      <div class="text-xs text-slate-500 ml-auto">07:00 PM</div>
+                    </div>
+                    <div class="text-slate-500 mt-1">
+                      Has changed
+                      <a class="text-primary" href=""
+                        >Samsung Galaxy S20 Ultra</a
+                      >
+                      price and description
+                    </div>
+                  </div>
+                </div>
+                <div class="intro-x relative flex items-center mb-3">
+                  <div
+                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
+                  >
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-14.jpg"
+                      />
+                    </div>
+                  </div>
+                  <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
+                    <div class="flex items-center">
+                      <div class="font-medium">John Travolta</div>
+                      <div class="text-xs text-slate-500 ml-auto">07:00 PM</div>
+                    </div>
+                    <div class="text-slate-500 mt-1">
+                      Has changed
+                      <a class="text-primary" href="">Sony A7 III</a>
+                      description
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!-- END: Recent Activities -->
+            <!-- BEGIN: Transactions -->
+            <div
+              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3"
+            >
+              <div class="intro-x flex items-center h-10">
+                <h2 class="text-lg font-medium truncate mr-5">Transactions</h2>
+              </div>
+              <div class="mt-5">
+                <div class="intro-x">
+                  <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-11.jpg"
+                      />
+                    </div>
+                    <div class="ml-4 mr-auto">
+                      <div class="font-medium">Al Pacino</div>
+                      <div class="text-slate-500 text-xs mt-0.5">
+                        23 September 2020
+                      </div>
+                    </div>
+                    <div class="text-success">+$63</div>
+                  </div>
+                </div>
+                <div class="intro-x">
+                  <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-9.jpg"
+                      />
+                    </div>
+                    <div class="ml-4 mr-auto">
+                      <div class="font-medium">Kevin Spacey</div>
+                      <div class="text-slate-500 text-xs mt-0.5">
+                        17 March 2022
+                      </div>
+                    </div>
+                    <div class="text-success">+$26</div>
+                  </div>
+                </div>
+                <div class="intro-x">
+                  <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-7.jpg"
+                      />
+                    </div>
+                    <div class="ml-4 mr-auto">
+                      <div class="font-medium">Sylvester Stallone</div>
+                      <div class="text-slate-500 text-xs mt-0.5">
+                        28 August 2022
+                      </div>
+                    </div>
+                    <div class="text-success">+$73</div>
+                  </div>
+                </div>
+                <div class="intro-x">
+                  <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-3.jpg"
+                      />
+                    </div>
+                    <div class="ml-4 mr-auto">
+                      <div class="font-medium">Christian Bale</div>
+                      <div class="text-slate-500 text-xs mt-0.5">
+                        11 August 2020
+                      </div>
+                    </div>
+                    <div class="text-success">+$167</div>
+                  </div>
+                </div>
+                <div class="intro-x">
+                  <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
+                    <div
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone - HTML Admin Template"
+                        src="dist/images/profile-1.jpg"
+                      />
+                    </div>
+                    <div class="ml-4 mr-auto">
+                      <div class="font-medium">Leonardo DiCaprio</div>
+                      <div class="text-slate-500 text-xs mt-0.5">
+                        5 February 2021
+                      </div>
+                    </div>
+                    <div class="text-success">+$107</div>
+                  </div>
+                </div>
+                <a
+                  href=""
+                  class="intro-x w-full block text-center rounded-md py-3 border border-dotted border-slate-400 dark:border-darkmode-300 text-slate-500"
+                  >View More</a
+                >
+              </div>
+            </div>
+            <!-- END: Transactions -->
+            <!-- BEGIN: Schedules -->
+            <div
+              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 xl:col-start-1 xl:row-start-2 2xl:col-start-auto 2xl:row-start-auto mt-3"
+            >
+              <div class="intro-x flex items-center h-10">
+                <h2 class="text-lg font-medium truncate mr-5">Schedules</h2>
+                <a
+                  href=""
+                  class="ml-auto text-primary truncate flex items-center"
+                >
+                  <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Add New
+                  Schedules
+                </a>
+              </div>
+              <div class="mt-5">
+                <div class="intro-x box">
+                  <div class="p-5">
+                    <div class="flex">
+                      <i
+                        data-lucide="chevron-left"
+                        class="w-5 h-5 text-slate-500"
+                      ></i>
+                      <div class="font-medium text-base mx-auto">April</div>
+                      <i
+                        data-lucide="chevron-right"
+                        class="w-5 h-5 text-slate-500"
+                      ></i>
+                    </div>
+                    <div class="grid grid-cols-7 gap-4 mt-5 text-center">
+                      <div class="font-medium">Su</div>
+                      <div class="font-medium">Mo</div>
+                      <div class="font-medium">Tu</div>
+                      <div class="font-medium">We</div>
+                      <div class="font-medium">Th</div>
+                      <div class="font-medium">Fr</div>
+                      <div class="font-medium">Sa</div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        29
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        30
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        31
+                      </div>
+                      <div class="py-0.5 rounded relative">1</div>
+                      <div class="py-0.5 rounded relative">2</div>
+                      <div class="py-0.5 rounded relative">3</div>
+                      <div class="py-0.5 rounded relative">4</div>
+                      <div class="py-0.5 rounded relative">5</div>
+                      <div
+                        class="py-0.5 bg-success/20 dark:bg-success/30 rounded relative"
+                      >
+                        6
+                      </div>
+                      <div class="py-0.5 rounded relative">7</div>
+                      <div
+                        class="py-0.5 bg-primary text-white rounded relative"
+                      >
+                        8
+                      </div>
+                      <div class="py-0.5 rounded relative">9</div>
+                      <div class="py-0.5 rounded relative">10</div>
+                      <div class="py-0.5 rounded relative">11</div>
+                      <div class="py-0.5 rounded relative">12</div>
+                      <div class="py-0.5 rounded relative">13</div>
+                      <div class="py-0.5 rounded relative">14</div>
+                      <div class="py-0.5 rounded relative">15</div>
+                      <div class="py-0.5 rounded relative">16</div>
+                      <div class="py-0.5 rounded relative">17</div>
+                      <div class="py-0.5 rounded relative">18</div>
+                      <div class="py-0.5 rounded relative">19</div>
+                      <div class="py-0.5 rounded relative">20</div>
+                      <div class="py-0.5 rounded relative">21</div>
+                      <div class="py-0.5 rounded relative">22</div>
+                      <div
+                        class="py-0.5 bg-pending/20 dark:bg-pending/30 rounded relative"
+                      >
+                        23
+                      </div>
+                      <div class="py-0.5 rounded relative">24</div>
+                      <div class="py-0.5 rounded relative">25</div>
+                      <div class="py-0.5 rounded relative">26</div>
+                      <div
+                        class="py-0.5 bg-primary/10 dark:bg-primary/50 rounded relative"
+                      >
+                        27
+                      </div>
+                      <div class="py-0.5 rounded relative">28</div>
+                      <div class="py-0.5 rounded relative">29</div>
+                      <div class="py-0.5 rounded relative">30</div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        1
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        2
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        3
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        4
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        5
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        6
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        7
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        8
+                      </div>
+                      <div class="py-0.5 rounded relative text-slate-500">
+                        9
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border-t border-slate-200/60 p-5">
+                    <div class="flex items-center">
+                      <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
+                      <span class="truncate">UI/UX Workshop</span>
+                      <span class="font-medium xl:ml-auto">23th</span>
+                    </div>
+                    <div class="flex items-center mt-4">
+                      <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                      <span class="truncate">VueJs Frontend Development</span>
+                      <span class="font-medium xl:ml-auto">10th</span>
+                    </div>
+                    <div class="flex items-center mt-4">
+                      <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
+                      <span class="truncate">Laravel Rest API</span>
+                      <span class="font-medium xl:ml-auto">31th</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END: Schedules -->
           </div>
-          <!-- END: Schedules -->
         </div>
       </div>
     </div>
