@@ -405,11 +405,7 @@
                   }
                 </script>
               </div>
-              <table class="w-100%">
-                <tr>
-                  <th></th>
-                </tr>
-              </table>
+              
             </div>
           </div>
         </div>
@@ -417,27 +413,73 @@
         <!-- BEGIN: Official Store -->
         <div class="col-span-12 lg:col-span-8 mt-6">
           <div class="intro-y block sm:flex items-center h-10">
-            <h2 class="text-lg font-medium truncate mr-5">Official Store</h2>
-            <div class="sm:ml-auto mt-3 sm:mt-0 relative text-slate-500">
-              <i
-                data-lucide="map-pin"
-                class="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0"></i>
-              <input
-                type="text"
-                class="form-control sm:w-56 box pl-10"
-                placeholder="Filter by city" />
-            </div>
+            <h2 class="text-lg font-medium truncate mr-5">Contoh Perhitungan Zakat Mal</h2>
           </div>
           <div class="intro-y box p-5 mt-12 sm:mt-5">
-            <div>
-              250 Official stores in 21 countries, click the marker to see
-              location details.
+            <div class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6 flex flex-col items-center">
+              <h1 class="text-2xl font-bold mb-4 text-center text-gray-700">Tabel Perhitungan Zakat Mal Penghasilan</h1>
+              <div class="overflow-x-auto mb-4">
+                <table class="min-w-full border border-gray-300">
+                  <thead class="bg-gray-200">
+                    <tr>
+                      <th class="border px-4 py-2 text-left">No</th>
+                      <th class="border px-4 py-2 text-left">Bulan</th>
+                      <th class="border px-4 py-2 text-right">Pemasukan (Rp)</th>
+                      <th class="border px-4 py-2 text-right">Pengeluaran (Rp)</th>
+                      <th class="border px-4 py-2 text-right">Penghasilan Bersih (Rp)</th>
+                      <th class="border px-4 py-2 text-left">Keterangan Nishab</th>
+                      <th class="border px-4 py-2 text-right">Zakat 2.5% (Rp)</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white">
+                    <tr>
+                      <td class="border px-4 py-2">1</td>
+                      <td class="border px-4 py-2">Januari</td>
+                      <td class="border px-4 py-2 text-right">10.000.000</td>
+                      <td class="border px-4 py-2 text-right">3.000.000</td>
+                      <td class="border px-4 py-2 text-right">7.000.000</td>
+                      <td class="border px-4 py-2">Belum mencapai nishab</td>
+                      <td class="border px-4 py-2 text-right">0</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border px-4 py-2">2</td>
+                      <td class="border px-4 py-2">Februari</td>
+                      <td class="border px-4 py-2 text-right">12.000.000</td>
+                      <td class="border px-4 py-2 text-right">3.000.000</td>
+                      <td class="border px-4 py-2 text-right">9.000.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">Mencapai nishab</td>
+                      <td class="border px-4 py-2 text-right">225.000</td>
+                    </tr>
+                    <tr>
+                      <td class="border px-4 py-2">3</td>
+                      <td class="border px-4 py-2">Maret</td>
+                      <td class="border px-4 py-2 text-right">11.000.000</td>
+                      <td class="border px-4 py-2 text-right">2.500.000</td>
+                      <td class="border px-4 py-2 text-right">8.500.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">Sama dengan nishab</td>
+                      <td class="border px-4 py-2 text-right">212.500</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border px-4 py-2">4</td>
+                      <td class="border px-4 py-2">April</td>
+                      <td class="border px-4 py-2 text-right">15.000.000</td>
+                      <td class="border px-4 py-2 text-right">5.000.000</td>
+                      <td class="border px-4 py-2 text-right">10.000.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">Melebihi nishab</td>
+                      <td class="border px-4 py-2 text-right">250.000</td>
+                    </tr>
+                    <tr class="font-bold bg-gray-100">
+                      <td colspan="2" class="border px-4 py-2 text-right">Total</td>
+                      <td class="border px-4 py-2 text-right">48.000.000</td>
+                      <td class="border px-4 py-2 text-right">13.500.000</td>
+                      <td class="border px-4 py-2 text-right">34.500.000</td>
+                      <td class="border px-4 py-2"></td>
+                      <td class="border px-4 py-2 text-right">687.500</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div
-              class="report-maps mt-5 bg-slate-200 rounded-md"
-              data-center="-6.2425342, 106.8626478"
-              data-sources="/dist/json/location.json"></div>
-          </div>
         </div>
         <!-- END: Official Store -->
         <!-- BEGIN: Weekly Best Sellers -->
