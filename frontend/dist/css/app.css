@@ -19076,9 +19076,9 @@ html body{
     }
 }
 
-.hidden {
-  display: none;
-}
 .rotate-180 {
   transform: rotate(180deg);
+}
+.z-100 {
+  z-index: 100;
 }

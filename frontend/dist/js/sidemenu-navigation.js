@@ -93,8 +93,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   const mobileMenu = document.querySelector(".mobile-menu");
-  const openToggler = document.querySelector(".mobile-menu-bar .mobile-menu-toggler");
-  const closeToggler = document.querySelector(".scrollable .mobile-menu-toggler");
+  const openToggler = document.querySelector(
+    ".mobile-menu-bar .mobile-menu-toggler"
+  );
+  const closeToggler = document.querySelector(
+    ".scrollable .mobile-menu-toggler"
+  );
 
   if (openToggler && mobileMenu) {
     openToggler.addEventListener("click", function (e) {
@@ -130,11 +134,28 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       let parentId = "";
       let subId = "";
-      const subTitle = this.querySelector(".menu__title")?.textContent.trim().toLowerCase() || "";
-      if (["home", "dashboard", "waris", "dalil", "hitung", "riwayat", "zakat"].includes(subTitle)) {
+      const subTitle =
+        this.querySelector(".menu__title")?.textContent.trim().toLowerCase() ||
+        "";
+      if (
+        [
+          "home",
+          "dashboard",
+          "waris",
+          "dalil",
+          "hitung",
+          "riwayat",
+          "zakat",
+        ].includes(subTitle)
+      ) {
         subId = subTitle === "home" ? "dashboard" : subTitle;
       }
-      const parentTitle = this.closest("ul")?.closest("li")?.querySelector("a .menu__title")?.textContent.trim().toLowerCase() || "";
+      const parentTitle =
+        this.closest("ul")
+          ?.closest("li")
+          ?.querySelector("a .menu__title")
+          ?.textContent.trim()
+          .toLowerCase() || "";
       if (parentTitle.includes("dashboard")) parentId = "dashboard";
       else if (parentTitle.includes("waris")) parentId = "waris";
       else if (parentTitle.includes("zakat")) parentId = "zakat";
@@ -155,4 +176,56 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// Simulasi status login (ganti dengan cara validasi session sebenarnya)
 
+let isLoggedIn = false;
+
+const loginButton = document.getElementById("loginButton");
+const loginForm = document.getElementById("loginForm");
+const submitLogin = document.getElementById("submitLogin");
+const profileToggle = document.getElementById("profileToggle");
+const profileMenu = document.getElementById("profileMenu");
+const logoutButton = document.getElementById("logoutButton");
+
+// Tampilkan/hidden elemen berdasarkan status login
+function renderUI() {
+  if (isLoggedIn) {
+    loginButton.classList.add("hidden");
+    loginForm.classList.add("hidden");
+    profileToggle.classList.remove("hidden");
+    profileMenu.classList.remove("hidden");
+  } else {
+    loginButton.classList.remove("hidden");
+    loginForm.classList.add("hidden");
+    profileToggle.classList.add("hidden");
+    profileMenu.classList.add("hidden");
+  }
+}
+
+// Tampilkan login form saat klik tombol login
+loginButton.addEventListener("click", () => {
+  loginForm.classList.toggle("hidden");
+});
+
+// Login: ubah isLoggedIn menjadi true
+submitLogin.addEventListener("click", () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (email && password) {
+    isLoggedIn = true;
+    renderUI();
+  } else {
+    alert("Masukkan email dan password!");
+  }
+});
+
+// Logout: ubah isLoggedIn menjadi false
+logoutButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  isLoggedIn = false;
+  renderUI();
+});
+
+// Inisialisasi awal
+renderUI();
