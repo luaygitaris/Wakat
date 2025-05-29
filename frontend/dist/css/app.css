@@ -19075,3 +19075,10 @@ html body{
         color: rgb(var(--color-success) / var(--tw-text-opacity));
     }
 }
+
+.hidden {
+  display: none;
+}
+.rotate-180 {
+  transform: rotate(180deg);
+}
