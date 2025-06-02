@@ -316,7 +316,9 @@
     <!-- BEGIN: Account Menu -->
     <!-- Account Menu -->
     <!-- Account Menu -->
-    <div class="intro-x dropdown flex items-center" id="accountMenu">
+    <div
+      class="intro-x dropdown flex items-center"
+      id="accountMenu">
       <!-- LOGIN BUTTON -->
       <button
         id="loginButton"
@@ -325,28 +327,85 @@
       </button>
 
       <!-- LOGIN FORM -->
-      <div id="loginForm" class="absolute bg-primary form-login hidden z-50">
-        <div
-          class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white p-4 rounded-md shadow-lg">
+      <div
+        id="loginForm"
+        class="absolute form-login mt-2 bg-white text-black rounded-lg shadow-lg hidden z-50">
+        <div class="p-5 flex flex-col items-center">
+          <h3 class="text-lg font-semibold mb-3 text-primary">
+            Login to your account
+          </h3>
+          <div
+            id="message"
+            class="text-sm text-center mb-3 text-red-600 hidden"></div>
           <input
             type="email"
             id="email"
             placeholder="Email"
-            class="w-full px-3 py-2 mb-2 text-sm text-black rounded" />
+            class="w-full px-3 py-2 mb-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
           <input
             type="password"
             id="password"
             placeholder="Password"
-            class="w-full px-3 py-2 mb-3 text-sm text-black rounded" />
+            class="w-full px-3 py-2 mb-4 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
           <button
-            id="submitLogin"
-            class="w-full bg-white text-primary font-semibold py-2 rounded hover:bg-gray-100">
+            id="loginButton"
+            class="w-full bg-primary text-white font-semibold py-2 rounded hover:bg-primary/80 transition">
             Login
           </button>
+          <p class="text-xs text-gray-500 text-center mt-3">
+            Don't have an account?
+            <button
+              class="text-primary font-medium hover:underline"
+              id="showSignup">
+              Sign up
+            </button>
+          </p>
         </div>
       </div>
 
-      <!-- PROFILE MENU -->
+      <!-- SIGNUP FORM -->
+      <div
+        id="signupForm"
+        class="absolute right-0 top-full mt-2 bg-white text-black rounded-lg shadow-lg w-80 hidden z-50">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold mb-3 text-primary">
+            Create an account
+          </h3>
+          <div
+            id="signupMessage"
+            class="text-sm text-center mb-3 text-red-600 hidden"></div>
+          <input
+            type="text"
+            id="signupUsername"
+            placeholder="Username"
+            class="w-full px-3 py-2 mb-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
+          <input
+            type="email"
+            id="signupEmail"
+            placeholder="Email"
+            class="w-full px-3 py-2 mb-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
+          <input
+            type="password"
+            id="signupPassword"
+            placeholder="Password"
+            class="w-full px-3 py-2 mb-4 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
+          <button
+            id="signupButton"
+            class="w-full bg-primary text-white font-semibold py-2 rounded hover:bg-primary/80 transition">
+            Sign Up
+          </button>
+          <p class="text-xs text-gray-500 text-center mt-3">
+            Already have an account?
+            <button
+              class="text-primary font-medium hover:underline"
+              id="showLogin">
+              Login
+            </button>
+          </p>
+        </div>
+      </div>
+
+      <!-- PROFILE IMAGE (AFTER LOGIN) -->
       <div
         class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110 hidden"
         id="profileToggle"
@@ -356,12 +415,15 @@
         <img alt="User Profile" src="/dist/images/profile-9.jpg" />
       </div>
 
+      <!-- PROFILE MENU -->
       <div class="dropdown-menu w-56 hidden" id="profileMenu">
         <ul
           class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
           <li class="p-2">
             <div class="font-medium" id="username">Al Pacino</div>
-            <div class="text-xs text-white/60 mt-0.5">DevOps Engineer</div>
+            <div class="text-xs text-white/60 mt-0.5" id="userrole">
+              DevOps Engineer
+            </div>
           </li>
           <li><hr class="dropdown-divider border-white/[0.08]" /></li>
           <li>
@@ -393,6 +455,7 @@
         </ul>
       </div>
     </div>
+
     <!-- END: Account Menu -->
   </div>
 </div>

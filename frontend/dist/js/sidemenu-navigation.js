@@ -176,56 +176,84 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Simulasi status login (ganti dengan cara validasi session sebenarnya)
 
-let isLoggedIn = false;
-
+// Login Form Toggle
 const loginButton = document.getElementById("loginButton");
-const loginForm = document.getElementById("loginForm");
-const submitLogin = document.getElementById("submitLogin");
-const profileToggle = document.getElementById("profileToggle");
-const profileMenu = document.getElementById("profileMenu");
-const logoutButton = document.getElementById("logoutButton");
-
-// Tampilkan/hidden elemen berdasarkan status login
-function renderUI() {
-  if (isLoggedIn) {
-    loginButton.classList.add("hidden");
-    loginForm.classList.add("hidden");
-    profileToggle.classList.remove("hidden");
-    profileMenu.classList.remove("hidden");
-  } else {
-    loginButton.classList.remove("hidden");
-    loginForm.classList.add("hidden");
-    profileToggle.classList.add("hidden");
-    profileMenu.classList.add("hidden");
-  }
-}
-
-// Tampilkan login form saat klik tombol login
 loginButton.addEventListener("click", () => {
   loginForm.classList.toggle("hidden");
 });
 
-// Login: ubah isLoggedIn menjadi true
-submitLogin.addEventListener("click", () => {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
+// Login Form Handling
+document.addEventListener("DOMContentLoaded", () => {
+  const loginButton = document.querySelectorAll("#loginButton")[1]; // tombol dalam form
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const message = document.getElementById("message");
 
-  if (email && password) {
-    isLoggedIn = true;
-    renderUI();
-  } else {
-    alert("Masukkan email dan password!");
+  loginButton.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    if (!email || !password) {
+      message.textContent = "Email dan password wajib diisi.";
+      message.classList.remove("hidden");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:4000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        message.textContent = data.message || "Login gagal.";
+        message.classList.remove("hidden");
+        return;
+      }
+
+      // Login berhasil
+      localStorage.setItem("token", data.data.token);
+      localStorage.setItem("user", JSON.stringify(data.data.user));
+
+      // Update UI
+      document.getElementById("username").textContent = data.data.user.display_name;
+      document.querySelector("#profileMenu .text-xs").textContent = data.data.user.user_login;
+
+      document.getElementById("loginForm").classList.add("hidden");
+      document.querySelectorAll("#loginButton")[0].classList.add("hidden");
+      document.getElementById("profileToggle").classList.remove("hidden");
+      document.getElementById("profileMenu").classList.remove("hidden");
+
+    } catch (error) {
+      console.error("Login error:", error);
+      message.textContent = "Terjadi kesalahan saat login.";
+      message.classList.remove("hidden");
+    }
+  });
+
+  // Cek jika sudah login saat halaman dimuat
+  const existingUser = localStorage.getItem("user");
+  if (existingUser) {
+    const user = JSON.parse(existingUser);
+    document.getElementById("username").textContent = user.display_name;
+    document.querySelector("#profileMenu .text-xs").textContent = user.user_login;
+
+    document.querySelectorAll("#loginButton")[0].classList.add("hidden");
+    document.getElementById("profileToggle").classList.remove("hidden");
+    document.getElementById("profileMenu").classList.remove("hidden");
   }
+
+  // Logout
+  document.getElementById("logoutButton").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    location.reload(); // atau redirect ke halaman login
+  });
 });
 
-// Logout: ubah isLoggedIn menjadi false
-logoutButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  isLoggedIn = false;
-  renderUI();
-});
-
-// Inisialisasi awal
-renderUI();

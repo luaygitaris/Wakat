@@ -1,0 +1,498 @@
+<div id="zakat-dalil-aaa" class="content" style="display: none">
+  <div class="grid grid-cols-12 gap-6">
+    <div class="col-span-12 2xl:col-span-9">
+      <div class="flex flex-col gap-6">
+        <!-- BEGIN: Notification -->
+        <div class="col-span-12 mt-6 -mb-6 intro-y">
+          <div
+            class="alert alert-dismissible show box bg-primary text-white flex items-center mb-6"
+            role="alert"
+          >
+            <span
+              >waris
+              <a
+                href="https://themeforest.net/item/midone-jquery-tailwindcss-html-admin-template/26366820"
+                class="underline ml-1"
+                target="blank"
+                >themeforest.net</a
+              >.</span
+            >
+            <button
+              type="button"
+              class="btn-close text-white"
+              data-tw-dismiss="alert"
+              aria-label="Close"
+            >
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+        <!-- BEGIN: Notification -->
+        <!-- BEGIN: Dalil Waris -->
+        <div class="col-span-12 lg:col-span-8 xl:col-span-6 mt-2">
+          <div class="intro-y block sm:flex items-center h-10">
+            <h2 class="text-lg font-medium truncate mr-5">Dalil Zakat Mall</h2>
+            <h2 class="sm:ml-auto mt-3 sm:mt-0 sm:w-auto box p-3">
+              Al-Baqarah : 267
+            </h2>
+          </div>
+          <div class="report-box-2 intro-y mt-12 sm:mt-5">
+            <div class="box">
+              <div class="bg-white shadow rounded-lg p-5 mt-5">
+                <p
+                  class="text-right text-xl leading-relaxed text-gray-700 mb-4"
+                >
+                  يَا أَيُّهَا الَّذِينَ آمَنُوا أَنفِقُوا مِن طَيِّبَاتِ مَا
+                  كَسَبْتُمْ وَمِمَّا أَخْرَجْنَا لَكُم مِّنَ الْأَرْضِ وَلَا
+                  تَيَمَّمُوا الْخَبِيثَ مِنْهُ تُنفِقُونَ وَلَسْتُم بِآخِذِيهِ
+                  إِلَّا أَن تُغْمِضُوا فِيهِ وَاعْلَمُوا أَنَّ اللَّهَ غَنِيٌّ
+                  حَمِيدٌ
+                </p>
+                <p class="text-sm text-slate-600">
+                  "Wahai orang-orang yang beriman! Infakkanlah (di jalan Allah)
+                  sebagian dari hasil usahamu yang baik-baik dan sebagian dari
+                  apa yang Kami keluarkan dari bumi untuk kamu. Dan janganlah
+                  kamu memilih yang buruk-buruk lalu kamu infakkan, padahal kamu
+                  sendiri tidak mau mengambilnya melainkan dengan memicingkan
+                  mata terhadapnya. Dan ketahuilah bahwa Allah Mahakaya lagi
+                  Maha Terpuji."
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END: Dalil Waris -->
+        <!-- BEGIN: Hitung Waris -->
+        <div class="box p-5 flex flex-col items-center justify-center">
+          <div class="report-box-2 w-full">
+            <div class="box p-5">
+              <!-- Mobile Dropdown -->
+              <div class="block md:hidden mb-4">
+                <select
+                  class="w-full p-2 border rounded-md"
+                  onchange="showContent(this.value)"
+                >
+                  <option value="content1">Emas & Perak</option>
+                  <option value="content2">Harta Perniagaan</option>
+                  <option value="content3">Pertanian & Perkebunan</option>
+                  <option value="content4">Peternakan</option>
+                  <option value="content5">Barang Temuan</option>
+                </select>
+              </div>
+              <ul
+                class="nav nav-pills w-4/5 bg-slate-100 dark:bg-black/20 rounded-md mx-auto hidden md:flex"
+                role="tablist"
+              >
+                <li class="nav-item flex-1">
+                  <button
+                    class="nav-link w-full py-1.5 px-2 active"
+                    onclick="showContent('content1')"
+                  >
+                    Emas & Perak
+                  </button>
+                </li>
+                <li class="nav-item flex-1">
+                  <button
+                    class="nav-link w-full py-1.5 px-2"
+                    onclick="showContent('content2')"
+                  >
+                    Harta Perniagaan
+                  </button>
+                </li>
+                <li class="nav-item flex-1">
+                  <button
+                    class="nav-link w-full py-1.5 px-2"
+                    onclick="showContent('content3')"
+                  >
+                    Pertanian & Perkebunan
+                  </button>
+                </li>
+                <li class="nav-item flex-1">
+                  <button
+                    class="nav-link w-full py-1.5 px-2"
+                    onclick="showContent('content4')"
+                  >
+                    Peternakan
+                  </button>
+                </li>
+                <li class="nav-item flex-1">
+                  <button
+                    class="nav-link w-full py-1.5 px-2"
+                    onclick="showContent('content5')"
+                  >
+                    Barang Temuan
+                  </button>
+                </li>
+              </ul>
+
+              <!-- Tab Contents -->
+              <div class="tab-content mt-6 w-4/5 p-5 rounded-md mx-auto">
+                <div id="content1" class="flex flex-col gap-4">
+                  <p
+                    class="text-right text-xl leading-relaxed text-gray-700 mb-4"
+                  >
+                    يَا أَيُّهَا الَّذِينَ آمَنُوا إِنَّ كَثِيرًا مِّنَ
+                    الْأَحْبَارِ وَالرُّهْبَانِ لَيَأْكُلُونَ أَمْوَالَ النَّاسِ
+                    بِالْبَاطِلِ وَيَصُدُّونَ عَن سَبِيلِ اللَّهِ ۗ وَالَّذِينَ
+                    يَكْنِزُونَ الذَّهَبَ وَالْفِضَّةَ وَلَا يُنفِقُونَهَا فِي
+                    سَبِيلِ اللَّهِ فَبَشِّرْهُم بِعَذَابٍ أَلِيمٍ
+                  </p>
+                  <p class="text-base">
+                    Wahai orang-orang yang beriman, sesungguhnya banyak dari
+                    para rabi dan rahib benar-benar memakan harta manusia dengan
+                    batil serta memalingkan (manusia) dari jalan Allah.
+                    Orang-orang yang menyimpan emas dan perak, tetapi tidak
+                    menginfakkannya di jalan Allah, berikanlah kabar gembira
+                    kepada mereka (bahwa mereka akan mendapat) azab yang pedih.
+                  </p>
+                </div>
+
+                <div id="content2" class="flex flex-col gap-4 hidden">
+                  <p
+                    class="text-right text-xl leading-relaxed text-gray-700 mb-4"
+                  >
+                    عَنْ سَمُرَةَ بْنِ جُنْدَبٍ رَضِيَ اللهُ عَنْهُ قَالَ:
+                    "أَمَرَنَا رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ
+                    أَنْ نُخْرِجَ الصَّدَقَةَ مِمَّا نُعِدُّهُ لِلْبَيْعِ."
+                    (رَوَاهُ أَبُو دَاوُد)
+                  </p>
+                  <p class="text-base">
+                    Dari Samurah bin Jundub radhiyallahu 'anhu, ia berkata:
+                    “Rasulullah ﷺ memerintahkan kami untuk mengeluarkan sedekah
+                    (zakat) dari barang yang kami siapkan untuk dijual.” (HR.
+                    Abu Dawud)
+                  </p>
+                </div>
+
+                <div id="content3" class="flex flex-col gap-4 hidden">
+                  <p
+                    class="text-right text-xl leading-relaxed text-gray-700 mb-4"
+                  >
+                    وَهُوَ الَّذِيْٓ اَنْشَاَ جَنّٰتٍ مَّعْرُوْشٰتٍ وَّغَيْرَ
+                    مَعْرُوْشٰتٍ وَّالنَّخْلَ وَالزَّرْعَ مُخْتَلِفًا اُكُلُهٗ
+                    وَالزَّيْتُوْنَ وَالرُّمَّانَ مُتَشَابِهًا وَّغَيْرَ
+                    مُتَشَابِهٍۗ كُلُوْا مِنْ ثَمَرِهٖٓ اِذَآ اَثْمَرَ
+                    وَاٰتُوْا حَقَّهٗ يَوْمَ حَصَادِهٖۖ وَلَا تُسْرِفُوْا
+                    ۗاِنَّهٗ لَا يُحِبُّ الْمُسْرِفِيْنَۙ
+                  </p>
+                  <p class="text-base">
+                    Dialah yang menumbuhkan tanaman-tanaman yang merambat dan
+                    yang tidak merambat, pohon kurma, tanaman yang beraneka
+                    ragam rasanya, serta zaitun dan delima yang serupa (bentuk
+                    dan warnanya) dan tidak serupa (rasanya). Makanlah buahnya
+                    apabila ia berbuah dan berikanlah haknya (zakatnya) pada
+                    waktu memetik hasilnya. Akan tetapi, janganlah
+                    berlebih-lebihan. Sesungguhnya Allah tidak menyukai
+                    orang-orang yang berlebih-lebihan.
+                  </p>
+                </div>
+
+                <div id="content4" class="flex flex-col gap-4 hidden">
+                  <p
+                    class="text-right text-xl leading-relaxed text-gray-700 mb-4"
+                  >
+                    عَنْ أَبِي ذَرٍّ رَضِيَ اللَّهُ عَنْهُ، قَالَ: قَالَ رَسُولُ
+                    اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: "ما من صاحب إبل،
+                    ولا بقر، ولا غنم، لا يؤدي منها زكاتها، إلا جاءت يوم القيامة
+                    أعظم ما تكون، وأسمن، تنطحه بقرونها، وتطؤه بأخفافها، كلما
+                    نفدت أخراها، عادت عليه أولاها، حتى يقضى بين الناس."
+                  </p>
+                  <p class="text-base">
+                    “Tidaklah seorang pun memiliki unta, sapi, atau kambing lalu
+                    tidak menunaikan zakatnya, kecuali hewan-hewan itu akan
+                    datang pada hari kiamat dalam keadaan paling besar dan
+                    gemuk, lalu menanduk dan menginjak-injaknya. Setiap kali
+                    yang terakhir berlalu, maka yang pertama kembali lagi
+                    kepadanya, hingga Allah menyelesaikan keputusan di antara
+                    manusia.” (HR. Bukhari dan Muslim)
+                  </p>
+                </div>
+
+                <div id="content5" class="flex flex-col gap-4 hidden">
+                  <p
+                    class="text-right text-xl leading-relaxed text-gray-700 mb-4"
+                  >
+                    عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، قَالَ: قَالَ
+                    رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «فِي
+                    الرِّكَازِ الخُمُسُ»
+                  </p>
+                  <p class="text-base">
+                    Dari Abu Hurairah radhiyallahu ‘anhu, ia berkata: Rasulullah
+                    ﷺ bersabda, “Pada rikaz (harta terpendam/temuan), terdapat
+                    kewajiban (zakat) sebesar seperlima (20%).”
+                  </p>
+                </div>
+              </div>
+
+              <!-- Script to Switch Content -->
+            <script>
+              function showContent(contentId) {
+                const allContents = [
+                  "content1",
+                  "content2",
+                  "content3",
+                  "content4",
+                  "content5",
+                ];
+
+                // Sembunyikan semua konten
+                allContents.forEach((id) => {
+                  const el = document.getElementById(id);
+                  if (el) el.classList.add("hidden");
+                });
+
+                // Tampilkan konten yang dipilih
+                const target = document.getElementById(contentId);
+                if (target) target.classList.remove("hidden");
+
+                // Hapus style aktif dari semua tombol tab
+                document.querySelectorAll(".nav-link").forEach((btn) => {
+                  btn.classList.remove("bg-blue-600", "text-white");
+                  btn.classList.add("bg-slate-100", "text-black");
+                });
+
+                                  // Tambahkan style aktif ke tombol yang sesuai
+                document.querySelectorAll(".nav-link").forEach((btn) => {
+                  btn.classList.remove("active", "bg-blue-600", "text-white");
+                  btn.classList.add("bg-slate-100", "text-black");
+                });
+
+                const activeButton = Array.from(document.querySelectorAll(".nav-link")).find((btn) =>
+                  btn.getAttribute("onclick")?.includes(contentId)
+                );
+                if (activeButton) {
+                  activeButton.classList.add("active", "bg-blue-600", "text-white");
+                  activeButton.classList.remove("bg-slate-100", "text-black");
+                }
+
+                // Sinkronisasi juga dengan dropdown mobile (opsional tapi disarankan)
+                const dropdown = document.querySelector("select");
+                if (dropdown) dropdown.value = contentId;
+
+              }
+
+            </script>
+
+            </div>
+          </div>
+        </div>
+    
+        <!-- END: Weekly Top Products -->
+      </div>
+    </div>
+    <div class="col-span-12 2xl:col-span-3">
+      <div class="2xl:border-l -mb-10 pb-10">
+        <div class="2xl:pl-6 grid grid-cols-12 gap-x-6 2xl:gap-x-0 gap-y-6">
+          <!-- BEGIN: Important Notes -->
+          <div class="col-span-12 md:col-span-6 xl:col-span-12 mt-3 2xl:mt-8">
+            <div class="intro-x flex items-center h-10">
+              <h2 class="text-lg font-medium truncate mr-auto">
+                Important Notes
+              </h2>
+              <button
+                data-carousel="important-notes"
+                data-target="prev"
+                class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2"
+              >
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button
+                data-carousel="important-notes"
+                data-target="next"
+                class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2"
+              >
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <div class="mt-5 intro-x">
+              <div class="box zoom-in">
+                <div class="tiny-slider" id="important-notes">
+                  <div class="p-5">
+                    <div class="text-base font-medium truncate">
+                      Lorem Ipsum is simply dummy text
+                    </div>
+                    <div class="text-slate-400 mt-1">20 Hours ago</div>
+                    <div class="text-slate-500 text-justify mt-1">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s.
+                    </div>
+                    <div class="font-medium flex mt-5">
+                      <button type="button" class="btn btn-secondary py-1 px-2">
+                        View Notes
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary py-1 px-2 ml-auto ml-auto"
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-5">
+                    <div class="text-base font-medium truncate">
+                      Lorem Ipsum is simply dummy text
+                    </div>
+                    <div class="text-slate-400 mt-1">20 Hours ago</div>
+                    <div class="text-slate-500 text-justify mt-1">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s.
+                    </div>
+                    <div class="font-medium flex mt-5">
+                      <button type="button" class="btn btn-secondary py-1 px-2">
+                        View Notes
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary py-1 px-2 ml-auto ml-auto"
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  </div>
+                  <div class="p-5">
+                    <div class="text-base font-medium truncate">
+                      Lorem Ipsum is simply dummy text
+                    </div>
+                    <div class="text-slate-400 mt-1">20 Hours ago</div>
+                    <div class="text-slate-500 text-justify mt-1">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s.
+                    </div>
+                    <div class="font-medium flex mt-5">
+                      <button type="button" class="btn btn-secondary py-1 px-2">
+                        View Notes
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary py-1 px-2 ml-auto ml-auto"
+                      >
+                        Dismiss
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 xl:col-start-1 xl:row-start-2 2xl:col-start-auto 2xl:row-start-auto mt-3"
+          >
+            <div class="intro-x flex items-center h-10">
+              <h2 class="text-lg font-medium truncate mr-5">Schedules</h2>
+              <a
+                href=""
+                class="ml-auto text-primary truncate flex items-center"
+              >
+                <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Add New
+                Schedules
+              </a>
+            </div>
+            <div class="mt-5">
+              <div class="intro-x box">
+                <div class="p-5">
+                  <div class="flex">
+                    <i
+                      data-lucide="chevron-left"
+                      class="w-5 h-5 text-slate-500"
+                    ></i>
+                    <div class="font-medium text-base mx-auto">April</div>
+                    <i
+                      data-lucide="chevron-right"
+                      class="w-5 h-5 text-slate-500"
+                    ></i>
+                  </div>
+                  <div class="grid grid-cols-7 gap-4 mt-5 text-center">
+                    <div class="font-medium">Su</div>
+                    <div class="font-medium">Mo</div>
+                    <div class="font-medium">Tu</div>
+                    <div class="font-medium">We</div>
+                    <div class="font-medium">Th</div>
+                    <div class="font-medium">Fr</div>
+                    <div class="font-medium">Sa</div>
+                    <div class="py-0.5 rounded relative text-slate-500">29</div>
+                    <div class="py-0.5 rounded relative text-slate-500">30</div>
+                    <div class="py-0.5 rounded relative text-slate-500">31</div>
+                    <div class="py-0.5 rounded relative">1</div>
+                    <div class="py-0.5 rounded relative">2</div>
+                    <div class="py-0.5 rounded relative">3</div>
+                    <div class="py-0.5 rounded relative">4</div>
+                    <div class="py-0.5 rounded relative">5</div>
+                    <div
+                      class="py-0.5 bg-success/20 dark:bg-success/30 rounded relative"
+                    >
+                      6
+                    </div>
+                    <div class="py-0.5 rounded relative">7</div>
+                    <div class="py-0.5 bg-primary text-white rounded relative">
+                      8
+                    </div>
+                    <div class="py-0.5 rounded relative">9</div>
+                    <div class="py-0.5 rounded relative">10</div>
+                    <div class="py-0.5 rounded relative">11</div>
+                    <div class="py-0.5 rounded relative">12</div>
+                    <div class="py-0.5 rounded relative">13</div>
+                    <div class="py-0.5 rounded relative">14</div>
+                    <div class="py-0.5 rounded relative">15</div>
+                    <div class="py-0.5 rounded relative">16</div>
+                    <div class="py-0.5 rounded relative">17</div>
+                    <div class="py-0.5 rounded relative">18</div>
+                    <div class="py-0.5 rounded relative">19</div>
+                    <div class="py-0.5 rounded relative">20</div>
+                    <div class="py-0.5 rounded relative">21</div>
+                    <div class="py-0.5 rounded relative">22</div>
+                    <div
+                      class="py-0.5 bg-pending/20 dark:bg-pending/30 rounded relative"
+                    >
+                      23
+                    </div>
+                    <div class="py-0.5 rounded relative">24</div>
+                    <div class="py-0.5 rounded relative">25</div>
+                    <div class="py-0.5 rounded relative">26</div>
+                    <div
+                      class="py-0.5 bg-primary/10 dark:bg-primary/50 rounded relative"
+                    >
+                      27
+                    </div>
+                    <div class="py-0.5 rounded relative">28</div>
+                    <div class="py-0.5 rounded relative">29</div>
+                    <div class="py-0.5 rounded relative">30</div>
+                    <div class="py-0.5 rounded relative text-slate-500">1</div>
+                    <div class="py-0.5 rounded relative text-slate-500">2</div>
+                    <div class="py-0.5 rounded relative text-slate-500">3</div>
+                    <div class="py-0.5 rounded relative text-slate-500">4</div>
+                    <div class="py-0.5 rounded relative text-slate-500">5</div>
+                    <div class="py-0.5 rounded relative text-slate-500">6</div>
+                    <div class="py-0.5 rounded relative text-slate-500">7</div>
+                    <div class="py-0.5 rounded relative text-slate-500">8</div>
+                    <div class="py-0.5 rounded relative text-slate-500">9</div>
+                  </div>
+                </div>
+                <div class="border-t border-slate-200/60 p-5">
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
+                    <span class="truncate">UI/UX Workshop</span>
+                    <span class="font-medium xl:ml-auto">23th</span>
+                  </div>
+                  <div class="flex items-center mt-4">
+                    <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                    <span class="truncate">VueJs Frontend Development</span>
+                    <span class="font-medium xl:ml-auto">10th</span>
+                  </div>
+                  <div class="flex items-center mt-4">
+                    <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
+                    <span class="truncate">Laravel Rest API</span>
+                    <span class="font-medium xl:ml-auto">31th</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END: Schedules -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
