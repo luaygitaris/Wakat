@@ -203,6 +203,11 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.classList.add("hidden");
     document.getElementById("signupForm").classList.remove("hidden");
   });
+  const showLogin = document.getElementById("showLogin");
+  showLogin.addEventListener("click", () => {
+    document.getElementById("signupForm").classList.add("hidden");
+    loginForm.classList.remove("hidden");
+  });
 
   // Perbaiki event handler loginButton agar tidak error jika elemen tidak ada
   if (loginButton && emailInput && passwordInput && message) {
