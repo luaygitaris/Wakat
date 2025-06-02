@@ -190,9 +190,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const profileToggle = document.getElementById("profileToggle");
   const profileMenu = document.getElementById("profileMenu");
 
-  loginFormToggle.addEventListener("click", () => {
-    loginForm.classList.toggle("hidden");
-  });
+  // Perbaiki event toggle login form agar tidak error jika elemen tidak ada
+  if (loginFormToggle && loginForm) {
+    loginFormToggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      loginForm.classList.toggle("hidden");
+    });
+  }
 
   const showSignup = document.getElementById("showSignup");
   showSignup.addEventListener("click", () => {
@@ -200,52 +204,55 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("signupForm").classList.remove("hidden");
   });
 
-  loginButton.addEventListener("click", async (e) => {
-    e.preventDefault();
+  // Perbaiki event handler loginButton agar tidak error jika elemen tidak ada
+  if (loginButton && emailInput && passwordInput && message) {
+    loginButton.addEventListener("click", async function (e) {
+      e.preventDefault();
 
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
-    message.classList.add("hidden");
-    message.textContent = "";
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      message.classList.add("hidden");
+      message.textContent = "";
 
-    if (!email || !password) {
-      message.textContent = "Email dan password wajib diisi.";
-      message.classList.remove("hidden");
-      return;
-    }
-
-    try {
-      const res = await fetch("http://localhost:4000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-      console.log("Login response:", data); // Untuk debugging
-
-      if (
-        res.status !== 200 ||
-        data.status !== "success" ||
-        !data.data?.token
-      ) {
-        message.textContent = data.message || "Login gagal.";
+      if (!email || !password) {
+        message.textContent = "Email dan password wajib diisi.";
         message.classList.remove("hidden");
         return;
       }
 
-      // Login berhasil
-      const { token, user } = data.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+      try {
+        const res = await fetch("http://localhost:4000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
 
-      updateUIAfterLogin(user);
-    } catch (error) {
-      console.error("Login error:", error);
-      message.textContent = "Terjadi kesalahan saat login. Silakan coba lagi.";
-      message.classList.remove("hidden");
-    }
-  });
+        const data = await res.json();
+        console.log("Login response:", data); // Untuk debugging
+
+        if (
+          res.status !== 200 ||
+          data.status !== "success" ||
+          !data.data?.token
+        ) {
+          message.textContent = data.message || "Login gagal.";
+          message.classList.remove("hidden");
+          return;
+        }
+
+        // Login berhasil
+        const { token, user } = data.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        updateUIAfterLogin(user);
+      } catch (error) {
+        console.error("Login error:", error);
+        message.textContent = "Terjadi kesalahan saat login. Silakan coba lagi.";
+        message.classList.remove("hidden");
+      }
+    });
+  }
 
   function updateUIAfterLogin(user) {
     // Perbarui tampilan profil
