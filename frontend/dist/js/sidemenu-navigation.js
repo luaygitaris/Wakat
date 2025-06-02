@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   menuLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
-      e.preventDefault(); // Hindari href="javascript:;"
+      e.preventDefault();
       toggleMenu(this);
     });
   });
@@ -176,25 +176,37 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 // Login Form Toggle
-const loginButton = document.getElementById("loginButton");
-loginButton.addEventListener("click", () => {
-  loginForm.classList.toggle("hidden");
-});
 
 // Login Form Handling
 document.addEventListener("DOMContentLoaded", () => {
-  const loginButton = document.querySelectorAll("#loginButton")[1]; // tombol dalam form
+  const loginButton = document.getElementById("loginButton");
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
   const message = document.getElementById("message");
+
+  const loginFormToggle = document.getElementById("loginFormToggle");
+  const loginForm = document.getElementById("loginForm");
+  const profileToggle = document.getElementById("profileToggle");
+  const profileMenu = document.getElementById("profileMenu");
+
+  loginFormToggle.addEventListener("click", () => {
+    loginForm.classList.toggle("hidden");
+  });
+
+  const showSignup = document.getElementById("showSignup");
+  showSignup.addEventListener("click", () => {
+    loginForm.classList.add("hidden");
+    document.getElementById("signupForm").classList.remove("hidden");
+  });
 
   loginButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
+    message.classList.add("hidden");
+    message.textContent = "";
 
     if (!email || !password) {
       message.textContent = "Email dan password wajib diisi.";
@@ -210,50 +222,170 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await res.json();
+      console.log("Login response:", data); // Untuk debugging
 
-      if (!res.ok || data.error) {
+      if (
+        res.status !== 200 ||
+        data.status !== "success" ||
+        !data.data?.token
+      ) {
         message.textContent = data.message || "Login gagal.";
         message.classList.remove("hidden");
         return;
       }
 
       // Login berhasil
-      localStorage.setItem("token", data.data.token);
-      localStorage.setItem("user", JSON.stringify(data.data.user));
+      const { token, user } = data.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
-      // Update UI
-      document.getElementById("username").textContent = data.data.user.display_name;
-      document.querySelector("#profileMenu .text-xs").textContent = data.data.user.user_login;
-
-      document.getElementById("loginForm").classList.add("hidden");
-      document.querySelectorAll("#loginButton")[0].classList.add("hidden");
-      document.getElementById("profileToggle").classList.remove("hidden");
-      document.getElementById("profileMenu").classList.remove("hidden");
-
+      updateUIAfterLogin(user);
     } catch (error) {
       console.error("Login error:", error);
-      message.textContent = "Terjadi kesalahan saat login.";
+      message.textContent = "Terjadi kesalahan saat login. Silakan coba lagi.";
       message.classList.remove("hidden");
     }
   });
 
-  // Cek jika sudah login saat halaman dimuat
-  const existingUser = localStorage.getItem("user");
-  if (existingUser) {
-    const user = JSON.parse(existingUser);
-    document.getElementById("username").textContent = user.display_name;
-    document.querySelector("#profileMenu .text-xs").textContent = user.user_login;
+  function updateUIAfterLogin(user) {
+    // Perbarui tampilan profil
+    const usernameEl = document.getElementById("username");
+    if (usernameEl) usernameEl.textContent = user.display_name;
 
-    document.querySelectorAll("#loginButton")[0].classList.add("hidden");
-    document.getElementById("profileToggle").classList.remove("hidden");
-    document.getElementById("profileMenu").classList.remove("hidden");
+    const userLoginEl = document.querySelector("#profileMenu .text-xs");
+    if (userLoginEl) userLoginEl.textContent = user.user_login;
+
+    document.getElementById("loginForm")?.classList.add("hidden");
+    document.getElementById("loginFormToggle")?.classList.add("hidden");
+    document.getElementById("profileToggle")?.classList.remove("hidden");
+    document.getElementById("profileMenu")?.classList.add("hidden"); // pastikan tetap hidden setelah login
+
+    // Tampilkan menu tambahan jika sudah login
+    document.getElementById("side-menu-waris")?.classList.remove("hidden");
+    document.getElementById("side-menu-zakat")?.classList.remove("hidden");
+    document.getElementById("mobile-menu-waris")?.classList.remove("hidden");
+    document.getElementById("mobile-menu-zakat")?.classList.remove("hidden");
+  }
+
+  // Auto-login saat reload jika token masih ada
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    try {
+      const user = JSON.parse(storedUser);
+      updateUIAfterLogin(user);
+    } catch (err) {
+      console.error("Error parsing stored user:", err);
+    }
   }
 
   // Logout
-  document.getElementById("logoutButton").addEventListener("click", () => {
+  document.getElementById("logoutButton")?.addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    location.reload(); // atau redirect ke halaman login
+    location.reload();
   });
+
+  document
+    .getElementById("signupButton")
+    .addEventListener("click", async () => {
+      const username = document.getElementById("signupUsername").value.trim();
+      const email = document.getElementById("signupEmail").value.trim();
+      const password = document.getElementById("signupPassword").value.trim();
+      const messageBox = document.getElementById("signupMessage");
+
+      messageBox.classList.add("hidden");
+      messageBox.textContent = "";
+
+      if (!email || !password) {
+        messageBox.textContent = "Email and password are required.";
+        messageBox.classList.remove("hidden");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:4000/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            display_name: username,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || result.err) {
+          messageBox.textContent =
+            result?.flow?.slice(-1)[0] || "Registration failed.";
+          messageBox.classList.remove("hidden");
+          return;
+        }
+
+        // Sukses
+        alert("Registration successful!");
+        // Simpan token jika perlu
+        localStorage.setItem("token", result.data.token);
+        // Redirect atau tutup form
+        window.location.reload(); // atau arahkan ke dashboard
+      } catch (error) {
+        messageBox.textContent = "An error occurred during registration.";
+        messageBox.classList.remove("hidden");
+        console.error(error);
+      }
+    });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  // Toggle dashboard submenu when icon-dashboard is clicked
+  const dashboardIcon = document.querySelector('.icon-dashboard');
+  if (dashboardIcon) {
+    dashboardIcon.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Cari parent <li> dari icon-dashboard
+      const parentLi = dashboardIcon.closest('li') || dashboardIcon.closest('.side-menu').parentElement;
+      // Cari submenu dashboard
+      // Cari UL setelah .side-menu (bukan .side-menu__sub-open saja)
+      let submenu = null;
+      if (parentLi) {
+        submenu = parentLi.querySelector('ul');
+      } else {
+        // fallback: cari ul setelah .side-menu__title
+        const titleDiv = dashboardIcon.closest('.side-menu__title');
+        submenu = titleDiv?.parentElement?.querySelector('ul');
+      }
+      if (submenu) {
+        submenu.classList.toggle('side-menu__sub-open');
+        // Toggle icon rotate
+        dashboardIcon.classList.toggle('rotate-180');
+      }
+    });
+  }
+});
+
+// Cegah autofill pada input search
+// dan pastikan id & name unik
+// (tambahkan di paling atas agar DOM sudah siap)
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.querySelector('.search__input');
+  if (searchInput) {
+    searchInput.setAttribute('autocomplete', 'off');
+    searchInput.setAttribute('id', 'searchInput');
+    searchInput.removeAttribute('name');
+  }
+});
+
+// Toggle profile menu saat profileToggle diklik
+// (agar setelah login, klik profileToggle langsung munculkan menu)
+document.addEventListener("DOMContentLoaded", function () {
+  const profileToggle = document.getElementById("profileToggle");
+  const profileMenu = document.getElementById("profileMenu");
+  if (profileToggle && profileMenu) {
+    profileToggle.addEventListener("click", function (e) {
+      e.preventDefault();
+      profileMenu.classList.toggle("hidden");
+    });
+  }
+});

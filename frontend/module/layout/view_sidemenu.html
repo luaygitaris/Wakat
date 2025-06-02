@@ -2,28 +2,24 @@
 <nav class="side-nav">
   <ul>
     <li>
-      <a
-        id="dashboard-top-menu"
-        href="javascript:;"
-        class="side-menu side-menu--active">
-        <div class="side-menu__icon"><i data-lucide="home"></i></div>
+      <div class="side-menu side-menu--active">
+        <a
+          data-page="dashboard"
+          id="dashboard-top-menu"
+          href="/"
+          class="side-menu__icon">
+          <i data-lucide="home"></i>
+        </a>
         <div class="side-menu__title">
-          Dashboard
-          <div class="side-menu__sub-icon transform rotate-180">
+          <a data-page="dashboard" id="dashboard-top-menu" href="/"
+            >Dashboard</a
+          >
+          <div class="side-menu__sub-icon icon-dashboard transform rotate-180">
             <i data-lucide="chevron-down"></i>
           </div>
         </div>
-      </a>
+      </div>
       <ul class="side-menu__sub-open">
-        <li data-page="dashboard">
-          <a
-            id="dashboard-top-menu"
-            href="javascript:;"
-            class="side-menu side-menu--active">
-            <div class="side-menu__icon"><i data-lucide="activity"></i></div>
-            <div class="side-menu__title">Home</div>
-          </a>
-        </li>
         <li data-page="waris">
           <a id="dashboard-top-menu" href="javascript:;" class="side-menu">
             <div class="side-menu__icon"><i data-lucide="activity"></i></div>
@@ -38,20 +34,17 @@
         </li>
       </ul>
     </li>
-    <li>
-      <a
-        id="waris-top-menu"
-        href="javascript:;"
-        class="side-menu">
+    <li id="side-menu-waris" class="hidden">
+      <a id="waris-top-menu" href="javascript:;" class="side-menu">
         <div class="side-menu__icon"><i data-lucide="home"></i></div>
         <div class="side-menu__title">
           Waris
-          <div class="side-menu__sub-icon transform rotate-180">
+          <div class="side-menu__sub-icon">
             <i data-lucide="chevron-down"></i>
           </div>
         </div>
       </a>
-      <ul class="side-menu__sub-open">
+      <ul class="">
         <li data-page="dalil">
           <a id="waris-top-menu" href="javascript:;" class="side-menu">
             <div class="side-menu__icon"><i data-lucide="activity"></i></div>
@@ -74,7 +67,7 @@
         </li>
       </ul>
     </li>
-    <li>
+    <li id="side-menu-zakat" class="hidden">
       <a id="zakat-top-menu" href="javascript:;" class="side-menu">
         <div class="side-menu__icon"><i data-lucide="shopping-bag"></i></div>
         <div class="side-menu__title">
@@ -91,13 +84,13 @@
             <div class="side-menu__title">Dalil</div>
           </a>
         </li>
-        <li>
-          <a href="side-menu-light-add-product.html" class="side-menu">
+        <li data-page="hitung">
+          <a href="javascript:;" class="side-menu">
             <div class="side-menu__icon"><i data-lucide="activity"></i></div>
             <div class="side-menu__title">Hitung</div>
           </a>
         </li>
-        <li>
+        <li data-page="riwayat">
           <a href="javascript:;" class="side-menu">
             <div class="side-menu__icon"><i data-lucide="activity"></i></div>
             <div class="side-menu__title">Riwayat</div>

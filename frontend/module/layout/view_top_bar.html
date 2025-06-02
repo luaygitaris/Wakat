@@ -13,7 +13,7 @@
     <!-- BEGIN: Breadcrumb -->
     <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
       <ol class="breadcrumb breadcrumb-light">
-        <li class="breadcrumb-item"><a href="#">Application</a></li>
+        <!-- <li class="breadcrumb-item"><a href="#">Application</a></li> -->
         <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
       </ol>
     </nav>
@@ -321,7 +321,7 @@
       id="accountMenu">
       <!-- LOGIN BUTTON -->
       <button
-        id="loginButton"
+        id="loginFormToggle"
         class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/80 border border-white">
         Login
       </button>
@@ -366,8 +366,8 @@
       <!-- SIGNUP FORM -->
       <div
         id="signupForm"
-        class="absolute right-0 top-full mt-2 bg-white text-black rounded-lg shadow-lg w-80 hidden z-50">
-        <div class="p-5">
+        class="absolute form-login mt-2 bg-white text-black rounded-lg shadow-lg hidden z-50">
+        <div class="p-5 flex flex-col items-center">
           <h3 class="text-lg font-semibold mb-3 text-primary">
             Create an account
           </h3>
