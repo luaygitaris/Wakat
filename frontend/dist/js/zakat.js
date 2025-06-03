@@ -108,72 +108,76 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function hitungZakat() {
   const kas = parseFloat(document.getElementById("kas").value) || 0;
-  const persediaan =
-    parseFloat(document.getElementById("persediaan").value) || 0;
+  const persediaan = parseFloat(document.getElementById("persediaan").value) || 0;
   const piutang = parseFloat(document.getElementById("piutang").value) || 0;
   const utang = parseFloat(document.getElementById("utang").value) || 0;
 
   const total = kas + persediaan + piutang - utang;
+
+  const hasilTabel = document.getElementById("hasilTabel");
+
+  if (total <= 0) {
+    hasilTabel.innerHTML = `
+      <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-600 p-4 rounded">
+        <h3 class="text-lg font-semibold mb-2">Tidak Ada Kewajiban Zakat</h3>
+        <p class="text-sm text-gray-700">
+          Total harta bersih Anda adalah Rp ${total.toLocaleString("id-ID")}.<br>
+          Karena hasilnya tidak melebihi 0, maka tidak ada kewajiban zakat.
+        </p>
+      </div>
+    `;
+    return;
+  }
+
   const zakat = total * 0.025;
 
-  document.getElementById("hasilTabel").innerHTML = `
-        <table class="w-full mt-6 table-auto border border-gray-300 text-left">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="border px-4 py-2">Komponen</th>
-              <th class="border px-4 py-2">Nilai (Rp)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="border px-4 py-2">Kas / Uang Tunai</td>
-              <td class="border px-4 py-2">Rp ${kas.toLocaleString(
-                "id-ID"
-              )}</td>
-            </tr>
-            <tr>
-              <td class="border px-4 py-2">Persediaan Barang Dagangan</td>
-              <td class="border px-4 py-2">Rp ${persediaan.toLocaleString(
-                "id-ID"
-              )}</td>
-            </tr>
-            <tr>
-              <td class="border px-4 py-2">Piutang (yang bisa ditagih)</td>
-              <td class="border px-4 py-2">Rp ${piutang.toLocaleString(
-                "id-ID"
-              )}</td>
-            </tr>
-            <tr>
-              <td class="border px-4 py-2">Dikurangi: Utang Jatuh Tempo</td>
-              <td class="border px-4 py-2">Rp ${utang.toLocaleString(
-                "id-ID"
-              )}</td>
-            </tr>
-            <tr class="font-semibold bg-yellow-100">
-              <td class="border px-4 py-2">Total Harta Bersih</td>
-              <td class="border px-4 py-2 text-blue-600">Rp ${total.toLocaleString(
-                "id-ID"
-              )}</td>
-            </tr>
-            <tr class="font-bold bg-green-100">
-              <td class="border px-4 py-2">Zakat 2.5%</td>
-              <td class="border px-4 py-2 text-red-600">Rp ${zakat.toLocaleString(
-                "id-ID"
-              )}</td>
-            </tr>
-          </tbody>
-        </table>
+  hasilTabel.innerHTML = `
+    <table class="w-full mt-6 table-auto border border-gray-300 text-left">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border px-4 py-2">Komponen</th>
+          <th class="border px-4 py-2">Nilai (Rp)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border px-4 py-2">Kas / Uang Tunai</td>
+          <td class="border px-4 py-2">Rp ${kas.toLocaleString("id-ID")}</td>
+        </tr>
+        <tr>
+          <td class="border px-4 py-2">Persediaan Barang Dagangan</td>
+          <td class="border px-4 py-2">Rp ${persediaan.toLocaleString("id-ID")}</td>
+        </tr>
+        <tr>
+          <td class="border px-4 py-2">Piutang (yang bisa ditagih)</td>
+          <td class="border px-4 py-2">Rp ${piutang.toLocaleString("id-ID")}</td>
+        </tr>
+        <tr>
+          <td class="border px-4 py-2">Dikurangi: Utang Jatuh Tempo</td>
+          <td class="border px-4 py-2">Rp ${utang.toLocaleString("id-ID")}</td>
+        </tr>
+        <tr class="font-semibold bg-yellow-100">
+          <td class="border px-4 py-2">Total Harta Bersih</td>
+          <td class="border px-4 py-2 text-blue-600">Rp ${total.toLocaleString("id-ID")}</td>
+        </tr>
+        <tr class="font-bold bg-green-100">
+          <td class="border px-4 py-2">Zakat 2.5%</td>
+          <td class="border px-4 py-2 text-red-600">Rp ${zakat.toLocaleString("id-ID")}</td>
+        </tr>
+      </tbody>
+    </table>
 
-        <div class="mt-6 bg-gray-50 border-l-4 border-green-600 p-4 rounded">
-          <h3 class="text-lg font-semibold mb-2">Dalil Zakat Perniagaan</h3>
-          <p class="text-sm text-gray-700">
-            Allah SWT berfirman:<br>
-            <span class="italic text-gray-900">"Ambillah zakat dari sebagian harta mereka, dengan zakat itu kamu membersihkan dan mensucikan mereka..."</span><br>
-            <strong>(QS. At-Taubah: 103)</strong>
-          </p>
-        </div>
-      `;
+    <div class="mt-6 bg-gray-50 border-l-4 border-green-600 p-4 rounded">
+      <h3 class="text-lg font-semibold mb-2">Dalil Zakat Perniagaan</h3>
+      <p class="text-sm text-gray-700">
+        Allah SWT berfirman:<br>
+        <span class="italic text-gray-900">"Ambillah zakat dari sebagian harta mereka, dengan zakat itu kamu membersihkan dan mensucikan mereka..."</span><br>
+        <strong>(QS. At-Taubah: 103)</strong>
+      </p>
+    </div>
+  `;
 }
+
 function hitungZakatEmas() {
   const berat = parseFloat(document.getElementById("berat").value) || 0;
   const harga = parseFloat(document.getElementById("harga").value) || 0;
