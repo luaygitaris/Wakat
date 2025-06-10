@@ -24,7 +24,7 @@ function updatePenghasilanZakat() {
     zakatInput.value = formatRupiah(0);
   }
 }
-if (pemasukanInput) { 
+if (pemasukanInput) {
   pemasukanInput.addEventListener("input", updatePenghasilanZakat);
 }
 if (pengeluaranInput) {
@@ -75,40 +75,42 @@ if (pengeluaranInput) {
 //   });
 
 function contentHitungZakat(contentId) {
-  const allContent = document.querySelectorAll('.hitung');
-
+  const allContent = document.querySelectorAll(".hitung");
   allContent.forEach((el) => {
-    if (el.id === contentId) {
-      el.classList.remove("hidden");
-      el.classList.add("block");
-    } else {
-      el.classList.remove("block");
-      el.classList.add("hidden");
-    }
+    el.classList.toggle("hidden", el.id !== contentId);
+    el.classList.toggle("block", el.id === contentId);
   });
-  // Opsional: Update dropdown agar sinkron
+
+  // Sinkronisasi dropdown
   const dropdown = document.querySelector("select");
   if (dropdown) {
     dropdown.value = contentId;
   }
+
+  // Tambahkan atau hapus class 'active' pada tombol tab
+  const navLinks = document.querySelectorAll(".nav-link");
+  navLinks.forEach((btn) => {
+    btn.classList.remove("active");
+  });
+
+  const activeBtn = Array.from(navLinks).find((btn) =>
+    btn.getAttribute("onclick")?.includes(contentId)
+  );
+  if (activeBtn) {
+    activeBtn.classList.add("active");
+  }
 }
 
-// Panggil fungsi saat halaman dimuat untuk menampilkan konten default
+// Jalankan saat halaman pertama kali dimuat
 document.addEventListener("DOMContentLoaded", function () {
-  // Set default value untuk dropdown
-  const dropdown = document.querySelector("select");
-  if (dropdown) {
-    showContent(dropdown.value);
-  }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  showContent("content1"); // Set default tab saat pertama kali dimuat
+  // Tampilkan form default (Froam1)
+  contentHitungZakat("Froam1");
 });
 
 function hitungZakat() {
   const kas = parseFloat(document.getElementById("kas").value) || 0;
-  const persediaan = parseFloat(document.getElementById("persediaan").value) || 0;
+  const persediaan =
+    parseFloat(document.getElementById("persediaan").value) || 0;
   const piutang = parseFloat(document.getElementById("piutang").value) || 0;
   const utang = parseFloat(document.getElementById("utang").value) || 0;
 
@@ -121,7 +123,9 @@ function hitungZakat() {
       <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-600 p-4 rounded">
         <h3 class="text-lg font-semibold mb-2">Tidak Ada Kewajiban Zakat</h3>
         <p class="text-sm text-gray-700">
-          Total harta bersih Anda adalah Rp ${total.toLocaleString("id-ID")}.<br>
+          Total harta bersih Anda adalah Rp ${total.toLocaleString(
+            "id-ID"
+          )}.<br>
           Karena hasilnya tidak melebihi 0, maka tidak ada kewajiban zakat.
         </p>
       </div>
@@ -146,11 +150,15 @@ function hitungZakat() {
         </tr>
         <tr>
           <td class="border px-4 py-2">Persediaan Barang Dagangan</td>
-          <td class="border px-4 py-2">Rp ${persediaan.toLocaleString("id-ID")}</td>
+          <td class="border px-4 py-2">Rp ${persediaan.toLocaleString(
+            "id-ID"
+          )}</td>
         </tr>
         <tr>
           <td class="border px-4 py-2">Piutang (yang bisa ditagih)</td>
-          <td class="border px-4 py-2">Rp ${piutang.toLocaleString("id-ID")}</td>
+          <td class="border px-4 py-2">Rp ${piutang.toLocaleString(
+            "id-ID"
+          )}</td>
         </tr>
         <tr>
           <td class="border px-4 py-2">Dikurangi: Utang Jatuh Tempo</td>
@@ -158,11 +166,15 @@ function hitungZakat() {
         </tr>
         <tr class="font-semibold bg-yellow-100">
           <td class="border px-4 py-2">Total Harta Bersih</td>
-          <td class="border px-4 py-2 text-blue-600">Rp ${total.toLocaleString("id-ID")}</td>
+          <td class="border px-4 py-2 text-blue-600">Rp ${total.toLocaleString(
+            "id-ID"
+          )}</td>
         </tr>
         <tr class="font-bold bg-green-100">
           <td class="border px-4 py-2">Zakat 2.5%</td>
-          <td class="border px-4 py-2 text-red-600">Rp ${zakat.toLocaleString("id-ID")}</td>
+          <td class="border px-4 py-2 text-red-600">Rp ${zakat.toLocaleString(
+            "id-ID"
+          )}</td>
         </tr>
       </tbody>
     </table>
@@ -413,6 +425,160 @@ function hitungZakatRikaz() {
           </p>
         </div>
       `;
-
   document.getElementById("hasilRikaz").innerHTML = hasilHTML;
 }
+document.addEventListener("DOMContentLoaded", function () {
+  lucide.createIcons(); // Render icon lucide
+
+  const monthNames = [
+    "Muharram",
+    "Safar",
+    "Rabiul Awal",
+    "Rabiul Akhir",
+    "Jumadil Awal",
+    "Jumadil Akhir",
+    "Rajab",
+    "Sya'ban",
+    "Ramadhan",
+    "Syawal",
+    "Zulkaidah",
+    "Dzulhijjah",
+  ];
+
+  let currentDate = new Date(); // Tanggal saat ini
+
+  function renderCalendar(date) {
+    const hijriFormatter = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    });
+
+    const parts = hijriFormatter.formatToParts(date);
+    const hijriMonth = parseInt(parts.find((p) => p.type === "month").value);
+    const hijriYear = parseInt(parts.find((p) => p.type === "year").value);
+
+    document.getElementById("monthTitle").innerText = `${
+      monthNames[hijriMonth - 1]
+    } ${hijriYear} H`;
+
+    const daysContainer = document.getElementById("contentTanggal");
+    daysContainer.innerHTML = "";
+    console.log(daysContainer);
+
+    // Header hari
+    const weekdays = [
+      "Minggu",
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jum'at",
+      "Sabtu",
+    ];
+    weekdays.forEach((day) => {
+      const div = document.createElement("div");
+      div.className = "font-medium";
+      div.innerText = day;
+      daysContainer.appendChild(div);
+    });
+
+    // Hitung jumlah hari dalam bulan Hijriah ini
+    const tempDate = new Date(date);
+    let daysInMonth = 30; // asumsi default
+
+    for (let i = 31; i <= 30; i++) {
+      const testDate = new Date(tempDate);
+      testDate.setDate(1);
+      testDate.setDate(testDate.getDate() + i - 1);
+
+      const partsTest = hijriFormatter.formatToParts(testDate);
+      const testMonth = parseInt(
+        partsTest.find((p) => p.type === "month").value
+      );
+
+      if (testMonth !== hijriMonth) {
+        daysInMonth = i - 1;
+        break;
+      }
+    }
+
+    // Cari hari apa tanggal 1 Hijriah jatuh (0 = Minggu)
+    const firstHijriDate = new Date(date);
+    firstHijriDate.setDate(1); // Set tanggal ke 1
+    const hijriToGregorian = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    });
+    const firstHijriParts = hijriToGregorian.formatToParts(firstHijriDate);
+    const firstHijriMonth = parseInt(
+      firstHijriParts.find((p) => p.type === "month").value
+    );
+
+    // Cari tanggal Gregorian yang cocok dengan 1 Hijriah
+    let gregorianDateForFirstHijri;
+    for (let offset = -15; offset <= 15; offset++) {
+      const temp = new Date(firstHijriDate);
+      temp.setDate(temp.getDate() + offset);
+      const parts = hijriToGregorian.formatToParts(temp);
+      const day = parseInt(parts.find((p) => p.type === "day").value);
+      const month = parseInt(parts.find((p) => p.type === "month").value);
+      if (day === 1 && month === firstHijriMonth) {
+        gregorianDateForFirstHijri = temp;
+        break;
+      }
+    }
+
+    const startDay = gregorianDateForFirstHijri.getDay(); // Hari (0-6)
+
+    // Tambahkan padding kosong di awal
+    for (let i = 0; i < startDay; i++) {
+      const empty = document.createElement("div");
+      daysContainer.appendChild(empty);
+    }
+
+    // Render hari-hari bulan ini
+    for (let i = 1; i <= daysInMonth; i++) {
+      const div = document.createElement("div");
+      div.className = "py-0.5 rounded relative";
+      div.setAttribute("data-hijri", i);
+      div.innerText = i;
+      daysContainer.appendChild(div);
+    }
+
+    // Tandai hari ini
+    const today = new Date();
+    const todayHijriParts = hijriFormatter.formatToParts(today);
+    const todayHijriMonth = parseInt(
+      todayHijriParts.find((p) => p.type === "month").value
+    );
+    const todayHijriYear = parseInt(
+      todayHijriParts.find((p) => p.type === "year").value
+    );
+    const todayHijriDay = parseInt(
+      todayHijriParts.find((p) => p.type === "day").value
+    );
+
+    if (hijriMonth === todayHijriMonth && hijriYear === todayHijriYear) {
+      const elToday = document.querySelector(`[data-hijri="${todayHijriDay}"]`);
+      if (elToday) {
+        elToday.classList.add("bg-success", "text-white");
+      }
+    }
+  }
+
+  // Navigasi bulan
+  document.getElementById("prevMonth").addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar(currentDate);
+  });
+
+  document.getElementById("nextMonth").addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar(currentDate);
+  });
+
+  // Render pertama kali
+  renderCalendar(currentDate);
+});
