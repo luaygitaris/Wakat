@@ -15,7 +15,7 @@ function create(data) {
 
   const f3Card = f3Chart
     .setCard(f3.CardHtml)
-    .setCardDisplay([["first name"], ["status"]])
+    .setCardDisplay([["nama lengkap"], ["status"], ["agama"],])
     .setCardDim({})
     .setMiniTree(true)
     .setStyle("imageRect")
@@ -24,7 +24,7 @@ function create(data) {
   const f3EditTree = f3Chart
     .editTree()
     .fixed(true)
-    .setFields(["first name", "status", "gender", "agama", "harta"])
+    .setFields(["nama lengkap", "status", "agama", "harta"])
     .setEditFirst(true);
 
   f3EditTree.setEdit();
@@ -57,13 +57,13 @@ function data() {
       },
       data: {
         "first name": "",
+        "nama lengkap": "Budi Santoso",
         birthday: 1970,
         avatar:
           "https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg",
         gender: "M",
-        status: "",
-        agama: "",
-        harta: "",
+        status: "hidup/meninggal",
+        agama: "Islam",
       },
     },
   ];
@@ -265,7 +265,7 @@ function showWarisCalculation(f3Chart) {
         if (person.data && person.data.status === "meninggal") {
           const option = document.createElement("option");
           option.value = person.id;
-          option.textContent = `${person.data["first name"]} `;
+          option.textContent = `${person.data["nama lengkap"]} `;
           selectAlmarhum.appendChild(option);
         }
       });
@@ -465,7 +465,7 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
       const bagian = adaAnak ? totalHarta / 4 : totalHarta / 2; // 1/4 jika ada anak, 1/2 jika tidak
       hasil.push({
         ahli: "Suami",
-        nama: `${suami.data["first name"]} `,
+        nama: `${suami.data["nama lengkap"]} `,
         bagian: bagian,
         persentase: adaAnak ? "1/4" : "1/2",
       });
@@ -480,7 +480,7 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
       const bagian = adaAnak ? totalHarta / 8 : totalHarta / 4; // 1/8 jika ada anak, 1/4 jika tidak
       hasil.push({
         ahli: "Istri",
-        nama: `${istri.data["first name"]} `,
+        nama: `${istri.data["nama lengkap"]} `,
         bagian: bagian,
         persentase: adaAnak ? "1/8" : "1/4",
       });
@@ -500,7 +500,7 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
 
     hasil.push({
       ahli: "Ayah",
-      nama: `${ahliWaris.ayah.data["first name"]}`,
+      nama: `${ahliWaris.ayah.data["nama lengkap"]}`,
       bagian: bagianAyah,
       persentase: adaAnak ? "1/6" : "Sisa",
     });
@@ -521,7 +521,7 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
 
     hasil.push({
       ahli: "Ibu",
-      nama: `${ahliWaris.ibu.data["first name"]} `,
+      nama: `${ahliWaris.ibu.data["nama lengkap"]} `,
       bagian: bagianIbu,
       persentase:
         adaAnak ||
@@ -562,7 +562,7 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
       if (anak.data.agama?.toLowerCase() === "islam") {
         hasil.push({
           ahli: "Anak Laki-laki",
-          nama: `${anak.data["first name"]} `,
+          nama: `${anak.data["nama lengkap"]} `,
           bagian: nilaiPerPorsi * 2,
           persentase: "2 bagian (Ashabah)",
         });
@@ -574,7 +574,7 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
       if (anak.data.agama?.toLowerCase() === "islam") {
         hasil.push({
           ahli: "Anak Perempuan",
-          nama: `${anak.data["first name"]} `,
+          nama: `${anak.data["nama lengkap"]} `,
           bagian: nilaiPerPorsi,
           persentase: "1 bagian (Ashabah)",
         });
@@ -613,7 +613,7 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
         if (saudara.data.agama?.toLowerCase() === "islam") {
           hasil.push({
             ahli: "Saudara Laki-laki",
-            nama: `${saudara.data["first name"]} `,
+            nama: `${saudara.data["nama lengkap"]} `,
             bagian: nilaiPerPorsiSaudara * 2,
             persentase: "2 bagian (Ashabah)",
           });
@@ -625,7 +625,7 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
         if (saudara.data.agama?.toLowerCase() === "islam") {
           hasil.push({
             ahli: "Saudara Perempuan",
-            nama: `${saudara.data["first name"]} `,
+            nama: `${saudara.data["nama lengkap"]} `,
             bagian: nilaiPerPorsiSaudara,
             persentase: "1 bagian (Ashabah)",
           });
@@ -645,7 +645,7 @@ function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum) {
   let html = `
     <div style="margin-bottom: 20px;">
       <h3 style="color: #333; margin-bottom: 10px;">Pembagian Waris</h3>
-      <p><strong>Almarhum:</strong> ${almarhum.data["first name"]}</p>
+      <p><strong>Almarhum:</strong> ${almarhum.data["nama lengkap"]}</p>
       <p><strong>Total Harta:</strong> ${formatRupiah(totalHarta)}</p>
     </div>
   `;
