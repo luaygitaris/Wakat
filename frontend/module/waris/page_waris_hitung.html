@@ -44,7 +44,7 @@
             class="f3"
             style="
               width: 100%;
-              height: 900px;
+              height: 700px;
               margin: auto;
               background-color: rgb(33, 33, 33);
               color: #fff;
@@ -68,127 +68,7 @@
               Tabel Pembagian Waris
             </h1>
 
-            <div class="mb-6">
-              <p class="text-gray-700">
-                <strong>Total Harta:</strong> Rp120.000.000
-              </p>
-              <p class="text-gray-700">
-                <strong>Kondisi:</strong> Ayah meninggal, Ibu hidup, 2 anak
-                laki-laki, 1 anak perempuan
-              </p>
-            </div>
-
-            <div class="p-4 max-w-xl mx-auto space-y-4 bg-white shadow rounded">
-              <h2 class="text-xl font-bold">Input Kasus Waris</h2>
-
-              <label class="block text-sm font-medium"
-                >Total Harta Warisan (Rp)</label
-              >
-              <input
-                id="harta"
-                type="number"
-                class="w-full border p-2 rounded intro-y"
-                placeholder="Contoh: 120000000"
-              />
-
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <label class="block font-medium intro-y">Istri</label>
-                  <input
-                    id="istri"
-                    type="number"
-                    class="w-full border p-2 rounded mb-1 intro-y"
-                    placeholder="Jumlah"
-                  />
-                  <select
-                    id="agama_istri"
-                    class="w-full border p-2 rounded intro-y"
-                  >
-                    <option value="Islam">Islam</option>
-                    <option value="Non-Islam">Non-Islam</option>
-                  </select>
-                </div>
-
-                <!-- <div>
-                  <label class="block font-medium">Ibu</label>
-                  <input
-                    id="ibu"
-                    type="number"
-                    class="w-full border p-2 rounded mb-1"
-                    placeholder="0 atau 1"
-                  />
-                  <select id="agama_ibu" class="w-full border p-2 rounded">
-                    <option value="Islam">Islam</option>
-                    <option value="Non-Islam">Non-Islam</option>
-                  </select>
-                </div> -->
-
-                <div>
-                  <label class="block font-medium intro-y">Ayah</label>
-                  <input
-                    id="ayah"
-                    type="number"
-                    class="w-full border p-2 rounded mb-1 intro-y"
-                    placeholder="0 atau 1"
-                  />
-                  <select
-                    id="agama_ayah"
-                    class="w-full border p-2 rounded intro-y"
-                  >
-                    <option value="Islam">Islam</option>
-                    <option value="Non-Islam">Non-Islam</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block font-medium intro-y"
-                    >Anak Laki-laki</label
-                  >
-                  <input
-                    id="anak_l"
-                    type="number"
-                    class="w-full border p-2 rounded mb-1 intro-y"
-                    placeholder="Jumlah"
-                  />
-                  <select
-                    id="agama_anak_l"
-                    class="w-full border p-2 rounded intro-y"
-                  >
-                    <option value="Islam">Islam</option>
-                    <option value="Non-Islam">Non-Islam</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block font-medium intro-y"
-                    >Anak Perempuan</label
-                  >
-                  <input
-                    id="anak_p"
-                    type="number"
-                    class="w-full border p-2 rounded mb-1 intro-y"
-                    placeholder="Jumlah"
-                  />
-                  <select
-                    id="agama_anak_p"
-                    class="w-full border p-2 rounded intro-y"
-                  >
-                    <option value="Islam">Islam</option>
-                    <option value="Non-Islam">Non-Islam</option>
-                  </select>
-                </div>
-              </div>
-
-              <button
-                onclick="hitungWaris()"
-                style="background: #1e40af; color: white"
-                class="px-4 py-2 rounded mt-3 mb-3 intro-y"
-              >
-                Hitung Warisan
-              </button>
-
-              <div id="hasil" class="mt-4"></div>
-            </div>
+            <div id="hasil" class="mt-4"></div>
             <div class="mt-4 text-center border border-t">
               <p
                 class="text-2xl text-gray-500 mt-4 italic"

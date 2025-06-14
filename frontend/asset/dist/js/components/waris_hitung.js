@@ -17,8 +17,6 @@ function hitungWaris() {
   const total = parseFloat(document.getElementById("harta").value) || 0;
   const istri = parseInt(document.getElementById("istri").value) || 0;
   const agamaIstri = document.getElementById("agama_istri").value;
-  // const ibu = parseInt(document.getElementById("ibu").value) || 0;
-  // const agamaIbu = document.getElementById("agama_ibu").value;
   const ayah = parseInt(document.getElementById("ayah").value) || 0;
   const agamaAyah = document.getElementById("agama_ayah").value;
   const anakL = parseInt(document.getElementById("anak_l").value) || 0;
@@ -29,7 +27,6 @@ function hitungWaris() {
   let sisa = total;
   const hasil = [];
 
-  // Istri
   if (istri > 0 && agamaIstri.toLowerCase() === "islam") {
     const bagianIstri = total * (anakL + anakP > 0 ? 1 / 8 : 1 / 4);
     hasil.push({
@@ -47,25 +44,6 @@ function hitungWaris() {
     });
   }
 
-  // Ibu
-  // if (ibu > 0 && agamaIbu.toLowerCase() === "islam") {
-  //   const bagianIbu = total * (anakL + anakP > 0 ? 1 / 6 : 1 / 3);
-  //   hasil.push({
-  //     ahli: "Ibu",
-  //     jumlah: 1,
-  //     perOrang: bagianIbu,
-  //   });
-  //   sisa -= bagianIbu;
-  // } else if (ibu > 0) {
-  //   hasil.push({
-  //     ahli: "Ibu",
-  //     jumlah: 1,
-  //     perOrang: 0,
-  //     keterangan: "Tidak berhak menerima warisan karena perbedaan agama.",
-  //   });
-  // }
-
-  // Ayah
   if (ayah > 0 && agamaAyah.toLowerCase() === "islam") {
     if (anakL + anakP > 0) {
       const bagianAyah = (total * 1) / 6;
@@ -92,7 +70,6 @@ function hitungWaris() {
     });
   }
 
-  // Anak-anak
   const totalPorsi =
     (agamaAnakL.toLowerCase() === "islam" ? anakL * 2 : 0) +
     (agamaAnakP.toLowerCase() === "islam" ? anakP : 0);
@@ -125,7 +102,6 @@ function hitungWaris() {
     sisa = 0;
   }
 
-  // Tampilkan hasil
   const el = document.getElementById("hasil");
   el.innerHTML = `
       <h3 class="font-bold text-lg mb-2">Hasil Pembagian:</h3>
@@ -140,35 +116,33 @@ function hitungWaris() {
               <th class="px-4 py-2 border">Keterangan</th>
             </tr>
           </thead>
-         <tbody>
-          ${hasil
-            .map(
-              (h) => `
-            <tr class="bg-white border-b">
-              <td class="px-4 py-2 border">${h.ahli}</td>
-              <td class="px-4 py-2 border">${h.jumlah}</td>
-              <td class="px-4 py-2 border">${desimalKePecahan(
-                h.perOrang / total
-              )}</td>
-              <td class="px-4 py-2 border">${formatRupiah(
-                h.perOrang * h.jumlah
-              )}</td>
-            </tr>`
-            )
-            .join("")}
-        </tbody>
-
+          <tbody>
+            ${hasil
+              .map(
+                (h) => `
+                  <tr class="bg-white border-b">
+                    <td class="px-4 py-2 border">${h.ahli}</td>
+                    <td class="px-4 py-2 border">${h.jumlah}</td>
+                    <td class="px-4 py-2 border">${desimalKePecahan(
+                      h.perOrang / total
+                    )}</td>
+                    <td class="px-4 py-2 border">${formatRupiah(
+                      h.perOrang * h.jumlah
+                    )}</td>
+                    <td class="px-4 py-2 border">${h.keterangan || "-"}</td>
+                  </tr>
+                `
+              )
+              .join("")}
+          </tbody>
         </table>
       </div>
-    `;
+  `;
 
-  // Reset input
   [
     "harta",
     "istri",
     "agama_istri",
-    // "ibu",
-    // "agama_ibu",
     "ayah",
     "agama_ayah",
     "anak_l",

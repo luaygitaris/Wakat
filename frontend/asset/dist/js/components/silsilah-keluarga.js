@@ -1,7 +1,6 @@
 create(data());
 
 function create(data) {
-  // Simpan data ke global scope untuk akses mudah
   window.familyTreeData = data;
 
   const f3Chart = f3
@@ -15,7 +14,7 @@ function create(data) {
 
   const f3Card = f3Chart
     .setCard(f3.CardHtml)
-    .setCardDisplay([["nama lengkap"], ["status"], ["agama"],])
+    .setCardDisplay([["nama lengkap"], ["status"], ["agama"]])
     .setCardDim({})
     .setMiniTree(true)
     .setStyle("imageRect")
@@ -39,11 +38,9 @@ function create(data) {
   f3EditTree.open(f3Chart.getMainDatum());
   f3Chart.updateTree({ initial: true });
 
-  // Simpan referensi global untuk akses dari HTML
   window.f3ChartInstance = f3Chart;
   window.showWarisCalculation = showWarisCalculation;
 
-  // Tambahkan tombol Waris dan Zakat
   addButtons(f3Chart);
 }
 
@@ -57,7 +54,7 @@ function data() {
       },
       data: {
         "first name": "",
-        "nama lengkap": "Budi Santoso",
+        "nama lengkap": "",
         birthday: 1970,
         avatar:
           "https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg",
@@ -70,13 +67,10 @@ function data() {
 }
 
 function addButtons(f3Chart) {
-  // Tunggu sampai DOM siap
   setTimeout(() => {
-    // Cari container yang sudah ada atau buat baru
     let container = document.getElementById("buttonContainer");
 
     if (!container) {
-      // Buat container baru
       container = document.createElement("div");
       container.id = "buttonContainer";
       container.style.cssText = `
@@ -85,7 +79,6 @@ function addButtons(f3Chart) {
         padding: 20px;
       `;
 
-      // Cari tempat yang tepat untuk menempatkan container
       const chartContainer = document.getElementById("FamilyChart");
       if (chartContainer && chartContainer.parentNode) {
         chartContainer.parentNode.insertBefore(
@@ -97,12 +90,9 @@ function addButtons(f3Chart) {
       }
     }
 
-    // Pastikan container adalah elemen DOM yang valid
     if (container && typeof container.appendChild === "function") {
-      // Hapus tombol lama jika ada
       container.innerHTML = "";
 
-      // Buat tombol Waris
       const btnWaris = document.createElement("button");
       btnWaris.id = "calculateInheritance";
       btnWaris.textContent = "Hitung Warisan";
@@ -133,7 +123,6 @@ function addButtons(f3Chart) {
         showWarisCalculation(f3Chart);
       };
 
-      // Buat tombol Zakat
       const btnZakat = document.createElement("button");
       btnZakat.id = "calculateZakat";
       btnZakat.textContent = "Hitung Zakat";
@@ -164,15 +153,12 @@ function addButtons(f3Chart) {
         alert("Fungsi Zakat akan segera tersedia");
       };
 
-      // Tambahkan tombol ke container
       try {
         container.appendChild(btnWaris);
         container.appendChild(btnZakat);
         console.log("Tombol berhasil ditambahkan");
       } catch (error) {
         console.error("Error menambahkan tombol:", error);
-
-        // Fallback: gunakan innerHTML
         container.innerHTML = `
           <button id="calculateInheritance" onclick="showWarisCalculation(window.f3ChartInstance)" 
                   style="margin-right: 10px; padding: 12px 24px; background-color: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -187,11 +173,10 @@ function addButtons(f3Chart) {
     } else {
       console.error("Container tidak valid:", container);
     }
-  }, 1000); // Tunggu 1 detik untuk memastikan DOM siap
+  }, 1000);
 }
 
 function showWarisCalculation(f3Chart) {
-  // Buat modal untuk input perhitungan waris
   const modal = document.createElement("div");
   modal.id = "warisModal";
   modal.style.cssText = `
@@ -228,6 +213,7 @@ function showWarisCalculation(f3Chart) {
     </div>
     <div id="hasilWaris"></div>
     <div style="text-align: center; margin-top: 20px;">
+      <button id="saveWaris" style="padding: 10px 20px; background: #16a34a; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">Simpan</button>
       <button id="closeModal" style="padding: 10px 20px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;">Tutup</button>
     </div>
   `;
@@ -235,26 +221,17 @@ function showWarisCalculation(f3Chart) {
   modal.appendChild(modalContent);
   document.body.appendChild(modal);
 
-  // Populate dropdown dengan data dari silsilah
   const selectAlmarhum = document.getElementById("selectAlmarhum");
   let allData = [];
 
-  // Coba berbagai cara untuk mendapatkan data
   try {
-    // Method 1: Coba f3Chart.data()
     if (typeof f3Chart.data === "function") {
       allData = f3Chart.data();
-    }
-    // Method 2: Coba f3Chart.getData()
-    else if (typeof f3Chart.getData === "function") {
+    } else if (typeof f3Chart.getData === "function") {
       allData = f3Chart.getData();
-    }
-    // Method 3: Coba mengakses data dari create function
-    else if (window.familyTreeData) {
+    } else if (window.familyTreeData) {
       allData = window.familyTreeData;
-    }
-    // Method 4: Fallback ke data() function
-    else {
+    } else {
       allData = data();
     }
 
@@ -265,7 +242,7 @@ function showWarisCalculation(f3Chart) {
         if (person.data && person.data.status === "meninggal") {
           const option = document.createElement("option");
           option.value = person.id;
-          option.textContent = `${person.data["nama lengkap"]} `;
+          option.textContent = `${person.data["nama lengkap"]}`;
           selectAlmarhum.appendChild(option);
         }
       });
@@ -280,16 +257,29 @@ function showWarisCalculation(f3Chart) {
       '<option value="">Error mengakses data</option>';
   }
 
-  // Event listener untuk perhitungan
   selectAlmarhum.addEventListener("change", (e) => {
     if (e.target.value) {
       hitungWarisFromSilsilah(f3Chart, e.target.value);
     }
   });
 
-  // Close modal
   document.getElementById("closeModal").onclick = () => {
     document.body.removeChild(modal);
+  };
+
+  document.getElementById("saveWaris").onclick = () => {
+    if (window.lastWarisResult) {
+      localStorage.setItem(
+        "warisResult",
+        JSON.stringify(window.lastWarisResult)
+      );
+      displaySavedWarisResult(window.lastWarisResult);
+      document.body.removeChild(modal);
+    } else {
+      alert(
+        "Tidak ada hasil warisan untuk disimpan. Silakan pilih almarhum terlebih dahulu."
+      );
+    }
   };
 
   modal.onclick = (e) => {
@@ -302,7 +292,6 @@ function showWarisCalculation(f3Chart) {
 function hitungWarisFromSilsilah(f3Chart, almarhumId) {
   let allData = [];
 
-  // Coba berbagai cara untuk mendapatkan data
   try {
     if (typeof f3Chart.data === "function") {
       allData = f3Chart.data();
@@ -315,7 +304,7 @@ function hitungWarisFromSilsilah(f3Chart, almarhumId) {
     }
   } catch (error) {
     console.error("Error mengakses data:", error);
-    allData = data(); // fallback ke data default
+    allData = data();
   }
 
   if (!Array.isArray(allData)) {
@@ -351,13 +340,9 @@ function hitungWarisFromSilsilah(f3Chart, almarhumId) {
     return;
   }
 
-  // Identifikasi ahli waris dari silsilah
   const ahliWaris = identifikasiAhliWaris(allData, almarhum);
-
-  // Hitung pembagian waris
   const hasilPembagian = hitungPembagianWaris(totalHarta, ahliWaris, almarhum);
-
-  // Tampilkan hasil
+  window.lastWarisResult = { hasilPembagian, totalHarta, almarhum };
   tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum);
 }
 
@@ -375,7 +360,6 @@ function identifikasiAhliWaris(allData, almarhum) {
     nenekIbu: null,
   };
 
-  // Cari pasangan (suami/istri)
   if (almarhum.rels.spouses) {
     almarhum.rels.spouses.forEach((spouseId) => {
       const spouse = allData.find((p) => p.id === spouseId);
@@ -389,7 +373,6 @@ function identifikasiAhliWaris(allData, almarhum) {
     });
   }
 
-  // Cari anak-anak
   if (almarhum.rels.children) {
     almarhum.rels.children.forEach((childId) => {
       const child = allData.find((p) => p.id === childId);
@@ -403,7 +386,6 @@ function identifikasiAhliWaris(allData, almarhum) {
     });
   }
 
-  // Cari orang tua
   allData.forEach((person) => {
     if (person.rels.children && person.rels.children.includes(almarhum.id)) {
       if (person.data.status === "hidup") {
@@ -416,7 +398,6 @@ function identifikasiAhliWaris(allData, almarhum) {
     }
   });
 
-  // Cari saudara kandung
   if (ahliWaris.ayah || ahliWaris.ibu) {
     const orangTua = ahliWaris.ayah || ahliWaris.ibu;
     if (orangTua.rels.children) {
@@ -442,7 +423,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
   let sisaHarta = totalHarta;
   const hasil = [];
 
-  // Cek apakah almarhum muslim
   const almarhumMuslim = almarhum.data.agama?.toLowerCase() === "islam";
 
   if (!almarhumMuslim) {
@@ -462,129 +442,212 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
   if (ahliWaris.suami.length > 0) {
     const suami = ahliWaris.suami[0];
     if (suami.data.agama?.toLowerCase() === "islam") {
-      const bagian = adaAnak ? totalHarta / 4 : totalHarta / 2; // 1/4 jika ada anak, 1/2 jika tidak
+      const bagian = adaAnak ? totalHarta / 4 : totalHarta / 2;
       hasil.push({
         ahli: "Suami",
-        nama: `${suami.data["nama lengkap"]} `,
+        nama: `${suami.data["nama lengkap"]}`,
         bagian: bagian,
         persentase: adaAnak ? "1/4" : "1/2",
       });
       sisaHarta -= bagian;
+    } else {
+      hasil.push({
+        ahli: "Suami",
+        nama: `${suami.data["nama lengkap"]}`,
+        bagian: 0,
+        persentase: "-",
+        keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+      });
     }
   }
 
   // 2. ISTRI
   if (ahliWaris.istri.length > 0) {
-    const istri = ahliWaris.istri[0];
-    if (istri.data.agama?.toLowerCase() === "islam") {
-      const bagian = adaAnak ? totalHarta / 8 : totalHarta / 4; // 1/8 jika ada anak, 1/4 jika tidak
-      hasil.push({
-        ahli: "Istri",
-        nama: `${istri.data["nama lengkap"]} `,
-        bagian: bagian,
-        persentase: adaAnak ? "1/8" : "1/4",
+    const istriMuslim = ahliWaris.istri.filter(
+      (istri) => istri.data.agama?.toLowerCase() === "islam"
+    );
+    if (istriMuslim.length > 0) {
+      const bagianTotal = adaAnak ? totalHarta / 8 : totalHarta / 4;
+      const bagianPerIstri = bagianTotal / istriMuslim.length;
+      istriMuslim.forEach((istri) => {
+        hasil.push({
+          ahli: "Istri",
+          nama: `${istri.data["nama lengkap"]}`,
+          bagian: bagianPerIstri,
+          persentase: adaAnak
+            ? `1/${8 * istriMuslim.length}`
+            : `1/${4 * istriMuslim.length}`,
+        });
       });
-      sisaHarta -= bagian;
+      sisaHarta -= bagianTotal;
     }
+    // Tambahkan keterangan untuk istri non-Muslim
+    ahliWaris.istri
+      .filter((istri) => istri.data.agama?.toLowerCase() !== "islam")
+      .forEach((istri) => {
+        hasil.push({
+          ahli: "Istri",
+          nama: `${istri.data["nama lengkap"]}`,
+          bagian: 0,
+          persentase: "-",
+          keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+        });
+      });
   }
 
   // 3. AYAH
-  if (ahliWaris.ayah && ahliWaris.ayah.data.agama?.toLowerCase() === "islam") {
-    let bagianAyah;
-    if (adaAnak) {
-      bagianAyah = totalHarta / 6; // 1/6 jika ada anak
+  if (ahliWaris.ayah) {
+    if (ahliWaris.ayah.data.agama?.toLowerCase() === "islam") {
+      let bagianAyah;
+      if (adaAnak) {
+        bagianAyah = totalHarta / 6;
+      } else {
+        bagianAyah = ahliWaris.ibu ? sisaHarta * (2 / 3) : sisaHarta;
+      }
+      hasil.push({
+        ahli: "Ayah",
+        nama: `${ahliWaris.ayah.data["nama lengkap"]}`,
+        bagian: bagianAyah,
+        persentase: adaAnak ? "1/6" : "Sisa",
+      });
+      sisaHarta -= bagianAyah;
     } else {
-      // Jika tidak ada anak, ayah mendapat sisa + 1/6 dari ibu (jika ada)
-      bagianAyah = ahliWaris.ibu ? sisaHarta * (2 / 3) : sisaHarta;
+      hasil.push({
+        ahli: "Ayah",
+        nama: `${ahliWaris.ayah.data["nama lengkap"]}`,
+        bagian: 0,
+        persentase: "-",
+        keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+      });
     }
-
-    hasil.push({
-      ahli: "Ayah",
-      nama: `${ahliWaris.ayah.data["nama lengkap"]}`,
-      bagian: bagianAyah,
-      persentase: adaAnak ? "1/6" : "Sisa",
-    });
-    sisaHarta -= bagianAyah;
   }
 
   // 4. IBU
-  if (ahliWaris.ibu && ahliWaris.ibu.data.agama?.toLowerCase() === "islam") {
-    let bagianIbu;
-    if (
-      adaAnak ||
-      ahliWaris.saudaraLakiLaki.length + ahliWaris.saudaraPerempuan.length >= 2
-    ) {
-      bagianIbu = totalHarta / 6; // 1/6 jika ada anak atau saudara 2+
-    } else {
-      bagianIbu = totalHarta / 3; // 1/3 jika tidak ada anak dan saudara < 2
-    }
-
-    hasil.push({
-      ahli: "Ibu",
-      nama: `${ahliWaris.ibu.data["nama lengkap"]} `,
-      bagian: bagianIbu,
-      persentase:
+  if (ahliWaris.ibu) {
+    if (ahliWaris.ibu.data.agama?.toLowerCase() === "islam") {
+      let bagianIbu;
+      if (
         adaAnak ||
         ahliWaris.saudaraLakiLaki.length + ahliWaris.saudaraPerempuan.length >=
           2
-          ? "1/6"
-          : "1/3",
-    });
-    sisaHarta -= bagianIbu;
+      ) {
+        bagianIbu = totalHarta / 6;
+      } else {
+        bagianIbu = totalHarta / 3;
+      }
+      hasil.push({
+        ahli: "Ibu",
+        nama: `${ahliWaris.ibu.data["nama lengkap"]}`,
+        bagian: bagianIbu,
+        persentase:
+          adaAnak ||
+          ahliWaris.saudaraLakiLaki.length +
+            ahliWaris.saudaraPerempuan.length >=
+            2
+            ? "1/6"
+            : "1/3",
+      });
+      sisaHarta -= bagianIbu;
+    } else {
+      hasil.push({
+        ahli: "Ibu",
+        nama: `${ahliWaris.ibu.data["nama lengkap"]}`,
+        bagian: 0,
+        persentase: "-",
+        keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+      });
+    }
   }
 
-  // 5. ANAK-ANAK (Ashabah - mendapat sisa)
-  const anakMuslim = [
-    ...ahliWaris.anakLakiLaki.filter(
-      (a) => a.data.agama?.toLowerCase() === "islam"
-    ),
-    ...ahliWaris.anakPerempuan.filter(
-      (a) => a.data.agama?.toLowerCase() === "islam"
-    ),
-  ];
-
-  if (anakMuslim.length > 0 && sisaHarta > 0) {
-    // Hitung total porsi (laki-laki = 2, perempuan = 1)
-    const totalPorsi =
-      ahliWaris.anakLakiLaki.filter(
+  // 5. ANAK-ANAK
+  if (ahliWaris.anakLakiLaki.length > 0 || ahliWaris.anakPerempuan.length > 0) {
+    const anakMuslim = [
+      ...ahliWaris.anakLakiLaki.filter(
         (a) => a.data.agama?.toLowerCase() === "islam"
-      ).length *
-        2 +
-      ahliWaris.anakPerempuan.filter(
+      ),
+      ...ahliWaris.anakPerempuan.filter(
         (a) => a.data.agama?.toLowerCase() === "islam"
-      ).length *
-        1;
+      ),
+    ];
+    if (anakMuslim.length > 0 && sisaHarta > 0) {
+      const totalPorsi =
+        ahliWaris.anakLakiLaki.filter(
+          (a) => a.data.agama?.toLowerCase() === "islam"
+        ).length *
+          2 +
+        ahliWaris.anakPerempuan.filter(
+          (a) => a.data.agama?.toLowerCase() === "islam"
+        ).length *
+          1;
+      const nilaiPerPorsi = sisaHarta / totalPorsi;
 
-    const nilaiPerPorsi = sisaHarta / totalPorsi;
+      ahliWaris.anakLakiLaki.forEach((anak) => {
+        if (anak.data.agama?.toLowerCase() === "islam") {
+          hasil.push({
+            ahli: "Anak Laki-laki",
+            nama: `${anak.data["nama lengkap"]}`,
+            bagian: nilaiPerPorsi * 2,
+            persentase: "2 bagian (Ashabah)",
+          });
+        } else {
+          hasil.push({
+            ahli: "Anak Laki-laki",
+            nama: `${anak.data["nama lengkap"]}`,
+            bagian: 0,
+            persentase: "-",
+            keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+          });
+        }
+      });
 
-    // Anak laki-laki
-    ahliWaris.anakLakiLaki.forEach((anak) => {
-      if (anak.data.agama?.toLowerCase() === "islam") {
-        hasil.push({
-          ahli: "Anak Laki-laki",
-          nama: `${anak.data["nama lengkap"]} `,
-          bagian: nilaiPerPorsi * 2,
-          persentase: "2 bagian (Ashabah)",
+      ahliWaris.anakPerempuan.forEach((anak) => {
+        if (anak.data.agama?.toLowerCase() === "islam") {
+          hasil.push({
+            ahli: "Anak Perempuan",
+            nama: `${anak.data["nama lengkap"]}`,
+            bagian: nilaiPerPorsi,
+            persentase: "1 bagian (Ashabah)",
+          });
+        } else {
+          hasil.push({
+            ahli: "Anak Perempuan",
+            nama: `${anak.data["nama lengkap"]}`,
+            bagian: 0,
+            persentase: "-",
+            keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+          });
+        }
+      });
+
+      sisaHarta = 0;
+    } else {
+      // Tambahkan keterangan untuk anak non-Muslim jika tidak ada anak Muslim
+      ahliWaris.anakLakiLaki
+        .filter((a) => a.data.agama?.toLowerCase() !== "islam")
+        .forEach((anak) => {
+          hasil.push({
+            ahli: "Anak Laki-laki",
+            nama: `${anak.data["nama lengkap"]}`,
+            bagian: 0,
+            persentase: "-",
+            keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+          });
         });
-      }
-    });
-
-    // Anak perempuan
-    ahliWaris.anakPerempuan.forEach((anak) => {
-      if (anak.data.agama?.toLowerCase() === "islam") {
-        hasil.push({
-          ahli: "Anak Perempuan",
-          nama: `${anak.data["nama lengkap"]} `,
-          bagian: nilaiPerPorsi,
-          persentase: "1 bagian (Ashabah)",
+      ahliWaris.anakPerempuan
+        .filter((a) => a.data.agama?.toLowerCase() !== "islam")
+        .forEach((anak) => {
+          hasil.push({
+            ahli: "Anak Perempuan",
+            nama: `${anak.data["nama lengkap"]}`,
+            bagian: 0,
+            persentase: "-",
+            keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+          });
         });
-      }
-    });
-
-    sisaHarta = 0;
+    }
   }
 
-  // 6. SAUDARA (jika tidak ada anak dan ayah)
+  // 6. SAUDARA
   if (!adaAnak && !ahliWaris.ayah && sisaHarta > 0) {
     const saudaraMuslim = [
       ...ahliWaris.saudaraLakiLaki.filter(
@@ -594,7 +657,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
         (s) => s.data.agama?.toLowerCase() === "islam"
       ),
     ];
-
     if (saudaraMuslim.length > 0) {
       const totalPorsiSaudara =
         ahliWaris.saudaraLakiLaki.filter(
@@ -605,34 +667,71 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
           (s) => s.data.agama?.toLowerCase() === "islam"
         ).length *
           1;
-
       const nilaiPerPorsiSaudara = sisaHarta / totalPorsiSaudara;
 
-      // Saudara laki-laki
       ahliWaris.saudaraLakiLaki.forEach((saudara) => {
         if (saudara.data.agama?.toLowerCase() === "islam") {
           hasil.push({
             ahli: "Saudara Laki-laki",
-            nama: `${saudara.data["nama lengkap"]} `,
+            nama: `${saudara.data["nama lengkap"]}`,
             bagian: nilaiPerPorsiSaudara * 2,
             persentase: "2 bagian (Ashabah)",
+          });
+        } else {
+          hasil.push({
+            ahli: "Saudara Laki-laki",
+            nama: `${saudara.data["nama lengkap"]}`,
+            bagian: 0,
+            persentase: "-",
+            keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
           });
         }
       });
 
-      // Saudara perempuan
       ahliWaris.saudaraPerempuan.forEach((saudara) => {
         if (saudara.data.agama?.toLowerCase() === "islam") {
           hasil.push({
             ahli: "Saudara Perempuan",
-            nama: `${saudara.data["nama lengkap"]} `,
+            nama: `${saudara.data["nama lengkap"]}`,
             bagian: nilaiPerPorsiSaudara,
             persentase: "1 bagian (Ashabah)",
+          });
+        } else {
+          hasil.push({
+            ahli: "Saudara Perempuan",
+            nama: `${saudara.data["nama lengkap"]}`,
+            bagian: 0,
+            persentase: "-",
+            keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
           });
         }
       });
 
       sisaHarta = 0;
+    } else {
+      // Tambahkan keterangan untuk saudara non-Muslim jika tidak ada saudara Muslim
+      ahliWaris.saudaraLakiLaki
+        .filter((s) => s.data.agama?.toLowerCase() !== "islam")
+        .forEach((saudara) => {
+          hasil.push({
+            ahli: "Saudara Laki-laki",
+            nama: `${saudara.data["nama lengkap"]}`,
+            bagian: 0,
+            persentase: "-",
+            keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+          });
+        });
+      ahliWaris.saudaraPerempuan
+        .filter((s) => s.data.agama?.toLowerCase() !== "islam")
+        .forEach((saudara) => {
+          hasil.push({
+            ahli: "Saudara Perempuan",
+            nama: `${saudara.data["nama lengkap"]}`,
+            bagian: 0,
+            persentase: "-",
+            keterangan: "Tidak mendapatkan warisan karena bukan beragama Islam",
+          });
+        });
     }
   }
 
@@ -724,28 +823,89 @@ function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum) {
   hasilDiv.innerHTML = html;
 }
 
+function displaySavedWarisResult({ hasilPembagian, totalHarta, almarhum }) {
+  const el = document.getElementById("hasil");
+  if (!el) {
+    console.error("Element with id 'hasil' not found.");
+    return;
+  }
+
+  let html = `
+      <h3 class="font-bold text-lg mb-2">Hasil Pembagian Waris:</h3>
+      <p><strong>Almarhum:</strong> ${almarhum.data["nama lengkap"]}</p>
+      <p><strong>Total Harta:</strong> ${formatRupiah(totalHarta)}</p>
+      <div class="overflow-x-auto mt-4">
+        <table class="w-full text-sm text-left text-gray-700 border text-center">
+          <thead class="bg-gray-200 text-gray-800">
+            <tr>
+              <th class="px-4 py-2 border">Ahli Waris</th>
+              <th class="px-4 py-2 border">Nama</th>
+              <th class="px-4 py-2 border">Bagian Per Orang</th>
+              <th class="px-4 py-2 border">Total Perolehan</th>
+              <th class="px-4 py-2 border">Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+  `;
+
+  let totalTerbagi = 0;
+  hasilPembagian.forEach((item) => {
+    if (item.bagian) {
+      totalTerbagi += item.bagian;
+      html += `
+        <tr class="bg-white border-b">
+          <td class="px-4 py-2 border">${item.ahli}</td>
+          <td class="px-4 py-2 border">${item.nama || "-"}</td>
+          <td class="px-4 py-2 border">${item.persentase}</td>
+          <td class="px-4 py-2 border">${formatRupiah(item.bagian)}</td>
+          <td class="px-4 py-2 border">-</td>
+        </tr>
+      `;
+    } else {
+      html += `
+        <tr class="bg-white border-b">
+          <td class="px-4 py-2 border">${item.ahli}</td>
+          <td class="px-4 py-2 border">${item.nama || "-"}</td>
+          <td class="px-4 py-2 border">-</td>
+          <td class="px-4 py-2 border">-</td>
+          <td class="px-4 py-2 border">${item.keterangan}</td>
+        </tr>
+      `;
+    }
+  });
+
+  html += `
+          </tbody>
+          <tfoot>
+            <tr class="bg-gray-100 font-bold">
+              <td colspan="3" class="px-4 py-2 border text-right">Total Terbagi:</td>
+              <td class="px-4 py-2 border">${formatRupiah(totalTerbagi)}</td>
+              <td class="px-4 py-2 border">-</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+  `;
+
+  const sisaHarta = totalHarta - totalTerbagi;
+  if (sisaHarta > 0) {
+    html += `
+      <div class="mt-4 p-4 bg-yellow-100 border border-yellow-300 rounded">
+        <strong>Sisa Harta:</strong> ${formatRupiah(sisaHarta)}
+        <br><small>Sisa harta dapat diberikan kepada ahli waris terdekat atau untuk kepentingan umum.</small>
+      </div>
+    `;
+  }
+
+  el.innerHTML = html;
+}
+
 function formatRupiah(num) {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
     minimumFractionDigits: 0,
   }).format(num);
-}
-
-// Function untuk memperbarui data global
-function updateGlobalData() {
-  if (window.f3ChartInstance) {
-    try {
-      // Coba berbagai method untuk mendapatkan data terbaru
-      if (typeof window.f3ChartInstance.data === "function") {
-        window.familyTreeData = window.f3ChartInstance.data();
-      } else if (typeof window.f3ChartInstance.getData === "function") {
-        window.familyTreeData = window.f3ChartInstance.getData();
-      }
-    } catch (error) {
-      console.log("Tidak dapat memperbarui data global:", error);
-    }
-  }
 }
 
 function desimalKePecahan(decimal, precision = 1e-6) {
@@ -762,3 +922,29 @@ function desimalKePecahan(decimal, precision = 1e-6) {
   }
   return `${numerator}/${denominator}`;
 }
+
+function updateGlobalData() {
+  if (window.f3ChartInstance) {
+    try {
+      if (typeof window.f3ChartInstance.data === "function") {
+        window.familyTreeData = window.f3ChartInstance.data();
+      } else if (typeof window.f3ChartInstance.getData === "function") {
+        window.familyTreeData = window.f3ChartInstance.getData();
+      }
+    } catch (error) {
+      console.log("Tidak dapat memperbarui data global:", error);
+    }
+  }
+}
+
+window.addEventListener("load", () => {
+  const savedResult = localStorage.getItem("warisResult");
+  if (savedResult) {
+    try {
+      const result = JSON.parse(savedResult);
+      displaySavedWarisResult(result);
+    } catch (error) {
+      console.error("Error parsing saved waris result:", error);
+    }
+  }
+});

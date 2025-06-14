@@ -20,54 +20,45 @@
               <option value="custom-date">Custom Date</option>
             </select>
           </div>
+
           <div class="report-box-2 intro-y mt-12 sm:mt-5">
             <div class="box p-5 flex flex-col text-center gap-4">
               <h3 class="text-2xl font-medium">Macam-macam Zakat</h3>
-              <div class="box sm:flex">
+              <div class="box flex flex-col sm:flex-row">
+                <!-- Zakat Fitrah -->
                 <div class="px-4 py-4 flex flex-col gap-4 flex-1">
                   <h3 class="text-xl font-medium text-primary">Zakat Fitrah</h3>
                   <div class="flex flex-col gap-4">
                     <p class="text-sm text-slate-600 mt-4">
                       Sesungguhnya terdapat syarat-syarat yang mewajibkan
-                      seseorang itu mengeluarkan zakat fitrah dan di antaranya
-                      seseorang itu mestilah beragama Islam, mampu untuk
-                      mengeluarkan zakat fitrah dan masuknya waktu untuk
-                      mengeluarkan zakat. Rasulullah SAW telah bersabda melalui
-                      hadis yang diriwayatkan oleh Abdullah bin Umar
-                      RodiaAllahuanhu:
+                      seseorang itu mengeluarkan zakat fitrah...
                     </p>
                     <div
-                      class="text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y mt-4"
+                      class="text-xl sm:text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y mt-4"
                       style="font-family: 'Amiri', serif"
                     >
-                      أَنَّ رَسُولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فَرَضَ
-                      زَكَاةَ الْفِطْرِ مِنْ رَمَضَانَ عَلَى النَّاسِ، صَاعًا
-                      مِنْ تَمْرٍ، أَوْ صَاعًا مِنْ شَعِيرٍ، عَلَى كُلِّ حُرٍّ
-                      أَوْ عَبْدٍ، ذَكَرٍ أَوْ أُنْثَى، مِنَ الْمُسْلِمِينَ
+                      أَنَّ رَسُولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ
+                      فَرَضَ...
                     </div>
                   </div>
                 </div>
+
+                <!-- Zakat Mal -->
                 <div
                   class="px-4 py-4 flex flex-col justify-center flex-1 border-t sm:border-t-0 sm:border-l border-slate-200 dark:border-darkmode-300 border-dashed"
                 >
-                  <div class="flex flex-col gap-4 flex-1 px-8">
+                  <div class="flex flex-col gap-4 flex-1 px-2 sm:px-8">
                     <h3 class="text-xl font-medium text-primary">Zakat Mall</h3>
                     <div class="flex flex-col gap-4">
                       <p class="text-sm text-slate-600 mt-4">
-                        zakat mal adalah zakat yang dikeluarkan dari harta
-                        seseorang jika telah mencapai batas tertentu (nisab)
-                        sesuai aturan Islam.Zakat mal hukumnya wajib,
-                        sebagaimana kewajiban salat, puasa, dan haji. Hal ini
-                        ditegaskan dalam Al-Qur'an, salah satunya dalam firman
-                        Allah SWT surah At-Taubah ayat 103.
+                        Zakat mal adalah zakat yang dikeluarkan dari harta
+                        seseorang jika telah mencapai nisab...
                       </p>
                       <div
-                        class="text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y mt-4"
+                        class="text-xl sm:text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y mt-4"
                         style="font-family: 'Amiri', serif"
                       >
-                        خُذْ مِنْ اَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ
-                        وَتُزَكِّيْهِمْ بِهَا وَصَلِّ عَلَيْهِمْۗ اِنَّ
-                        صَلٰوتَكَ سَكَنٌ لَّهُمْۗ وَاللّٰهُ سَمِيْعٌ عَلِيْمٌ
+                        خُذْ مِنْ اَمْوَالِهِمْ صَدَقَةً تُطَهِّرُهُمْ...
                       </div>
                     </div>
                   </div>
@@ -76,6 +67,7 @@
             </div>
           </div>
         </div>
+
         <!-- END: General Report -->
         <!-- BEGIN: Visitors -->
         <div class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2">
@@ -439,89 +431,89 @@
               </h1>
               <!-- Wrapper responsif -->
               <div class="w-full overflow-x-auto mb-4">
-                  <table
-                    class="min-w-full border border-gray-300 text-sm md:text-base"
-                  >
-                    <thead class="bg-gray-200">
-                      <tr>
-                        <th class="border px-4 py-2 text-left whitespace-nowrap">
-                          No
-                        </th>
-                        <th class="border px-4 py-2 text-left whitespace-nowrap">
-                          Bulan
-                        </th>
-                        <th class="border px-4 py-2 text-right whitespace-nowrap">
-                          Pemasukan (Rp)
-                        </th>
-                        <th class="border px-4 py-2 text-right whitespace-nowrap">
-                          Pengeluaran (Rp)
-                        </th>
-                        <th class="border px-4 py-2 text-right whitespace-nowrap">
-                          Penghasilan Bersih (Rp)
-                        </th>
-                        <th class="border px-4 py-2 text-left whitespace-nowrap">
-                          Keterangan Nishab
-                        </th>
-                        <th class="border px-4 py-2 text-right whitespace-nowrap">
-                          Zakat 2.5% (Rp)
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="bg-white">
-                      <tr>
-                        <td class="border px-4 py-2">1</td>
-                        <td class="border px-4 py-2">Januari</td>
-                        <td class="border px-4 py-2 text-right">10.000.000</td>
-                        <td class="border px-4 py-2 text-right">3.000.000</td>
-                        <td class="border px-4 py-2 text-right">7.000.000</td>
-                        <td class="border px-4 py-2">Belum mencapai nishab</td>
-                        <td class="border px-4 py-2 text-right">0</td>
-                      </tr>
-                      <tr class="bg-gray-50">
-                        <td class="border px-4 py-2">2</td>
-                        <td class="border px-4 py-2">Februari</td>
-                        <td class="border px-4 py-2 text-right">12.000.000</td>
-                        <td class="border px-4 py-2 text-right">3.000.000</td>
-                        <td class="border px-4 py-2 text-right">9.000.000</td>
-                        <td class="border px-4 py-2 text-green-600 font-semibold">
-                          Mencapai nishab
-                        </td>
-                        <td class="border px-4 py-2 text-right">225.000</td>
-                      </tr>
-                      <tr>
-                        <td class="border px-4 py-2">3</td>
-                        <td class="border px-4 py-2">Maret</td>
-                        <td class="border px-4 py-2 text-right">11.000.000</td>
-                        <td class="border px-4 py-2 text-right">2.500.000</td>
-                        <td class="border px-4 py-2 text-right">8.500.000</td>
-                        <td class="border px-4 py-2 text-green-600 font-semibold">
-                          Sama dengan nishab
-                        </td>
-                        <td class="border px-4 py-2 text-right">212.500</td>
-                      </tr>
-                      <tr class="bg-gray-50">
-                        <td class="border px-4 py-2">4</td>
-                        <td class="border px-4 py-2">April</td>
-                        <td class="border px-4 py-2 text-right">15.000.000</td>
-                        <td class="border px-4 py-2 text-right">5.000.000</td>
-                        <td class="border px-4 py-2 text-right">10.000.000</td>
-                        <td class="border px-4 py-2 text-green-600 font-semibold">
-                          Melebihi nishab
-                        </td>
-                        <td class="border px-4 py-2 text-right">250.000</td>
-                      </tr>
-                      <tr class="font-bold bg-gray-100">
-                        <td colspan="2" class="border px-4 py-2 text-right">
-                          Total
-                        </td>
-                        <td class="border px-4 py-2 text-right">48.000.000</td>
-                        <td class="border px-4 py-2 text-right">13.500.000</td>
-                        <td class="border px-4 py-2 text-right">34.500.000</td>
-                        <td class="border px-4 py-2"></td>
-                        <td class="border px-4 py-2 text-right">687.500</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <table
+                  class="min-w-full border border-gray-300 text-sm md:text-base"
+                >
+                  <thead class="bg-gray-200">
+                    <tr>
+                      <th class="border px-4 py-2 text-left whitespace-nowrap">
+                        No
+                      </th>
+                      <th class="border px-4 py-2 text-left whitespace-nowrap">
+                        Bulan
+                      </th>
+                      <th class="border px-4 py-2 text-right whitespace-nowrap">
+                        Pemasukan (Rp)
+                      </th>
+                      <th class="border px-4 py-2 text-right whitespace-nowrap">
+                        Pengeluaran (Rp)
+                      </th>
+                      <th class="border px-4 py-2 text-right whitespace-nowrap">
+                        Penghasilan Bersih (Rp)
+                      </th>
+                      <th class="border px-4 py-2 text-left whitespace-nowrap">
+                        Keterangan Nishab
+                      </th>
+                      <th class="border px-4 py-2 text-right whitespace-nowrap">
+                        Zakat 2.5% (Rp)
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white">
+                    <tr>
+                      <td class="border px-4 py-2">1</td>
+                      <td class="border px-4 py-2">Januari</td>
+                      <td class="border px-4 py-2 text-right">10.000.000</td>
+                      <td class="border px-4 py-2 text-right">3.000.000</td>
+                      <td class="border px-4 py-2 text-right">7.000.000</td>
+                      <td class="border px-4 py-2">Belum mencapai nishab</td>
+                      <td class="border px-4 py-2 text-right">0</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border px-4 py-2">2</td>
+                      <td class="border px-4 py-2">Februari</td>
+                      <td class="border px-4 py-2 text-right">12.000.000</td>
+                      <td class="border px-4 py-2 text-right">3.000.000</td>
+                      <td class="border px-4 py-2 text-right">9.000.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">
+                        Mencapai nishab
+                      </td>
+                      <td class="border px-4 py-2 text-right">225.000</td>
+                    </tr>
+                    <tr>
+                      <td class="border px-4 py-2">3</td>
+                      <td class="border px-4 py-2">Maret</td>
+                      <td class="border px-4 py-2 text-right">11.000.000</td>
+                      <td class="border px-4 py-2 text-right">2.500.000</td>
+                      <td class="border px-4 py-2 text-right">8.500.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">
+                        Sama dengan nishab
+                      </td>
+                      <td class="border px-4 py-2 text-right">212.500</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border px-4 py-2">4</td>
+                      <td class="border px-4 py-2">April</td>
+                      <td class="border px-4 py-2 text-right">15.000.000</td>
+                      <td class="border px-4 py-2 text-right">5.000.000</td>
+                      <td class="border px-4 py-2 text-right">10.000.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">
+                        Melebihi nishab
+                      </td>
+                      <td class="border px-4 py-2 text-right">250.000</td>
+                    </tr>
+                    <tr class="font-bold bg-gray-100">
+                      <td colspan="2" class="border px-4 py-2 text-right">
+                        Total
+                      </td>
+                      <td class="border px-4 py-2 text-right">48.000.000</td>
+                      <td class="border px-4 py-2 text-right">13.500.000</td>
+                      <td class="border px-4 py-2 text-right">34.500.000</td>
+                      <td class="border px-4 py-2"></td>
+                      <td class="border px-4 py-2 text-right">687.500</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
