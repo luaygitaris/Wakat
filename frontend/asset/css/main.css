@@ -1,3 +1,40 @@
 .hide{
     display: none;
 }
+
+
+@media screen and (min-width: 1024px) {
+    .lg-flex{
+        display: flex !important;
+    }
+    .lg-hidden{
+        display: none !important;
+    };
+}
+  @media (max-width: 640px) {
+    table.responsive-table thead {
+      display: none;
+      
+    }
+    table.responsive-table tbody tr {
+      display: block;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0.5rem;
+    }
+    table.responsive-table tbody td {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem;
+      border: none;
+      border-bottom: 1px solid #eee;
+    }
+    table.responsive-table tbody td:last-child {
+      border-bottom: none;
+    }
+    table.responsive-table tbody td::before {
+      content: attr(data-label);
+      font-weight: bold;
+    }
+  }
