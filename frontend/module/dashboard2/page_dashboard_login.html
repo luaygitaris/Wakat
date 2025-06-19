@@ -1,0 +1,148 @@
+<div
+  id="dashboard-login-content"
+  class="content hidden"
+  style="display: none; font-family: poppins, sans-serif">
+  <div class="grid grid-cols-12 gap-6">
+    <div class="col-span-12 2xl:col-span-9">
+      <div class="flex flex-col gap-1">
+        <!-- HEADER: Kalender Hijriah -->
+        <div class="bg-white shadow rounded-lg p-5 mt-5">
+          <div
+            class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div class="flex items-center gap-2">
+              <button
+                id="prevHijriMonth"
+                class="text-sm bg-gray-200 px-2 py-1 rounded">
+                <i
+                  data-lucide="chevron-left"
+                  class="w-5 h-5 text-slate-500"></i>
+              </button>
+              <div id="hijriMonthTitle" class="text-lg font-bold">
+                Kalender Hijriah
+              </div>
+              <button
+                id="nextHijriMonth"
+                class="text-sm bg-gray-200 px-2 py-1 rounded">
+                <i
+                  data-lucide="chevron-right"
+                  class="w-5 h-5 text-slate-500"></i>
+              </button>
+            </div>
+          </div>
+          <div
+            id="hijriCalendar"
+            class="grid grid-cols-7 gap-2 mt-4 text-center"></div>
+        </div>
+        <!-- Hari-hari penting -->
+        <div class="bg-white shadow rounded-lg p-5 mt-5">
+          <h3 class="text-h5 mb-3 text-primary">Hari-hari Penting Hijriah</h3>
+          <ul id="importantHijriDays" class="ml-2 text-p text-gray-700">
+            <!-- Akan diisi oleh JS -->
+          </ul>
+        </div>
+        <!-- Daftar agenda -->
+        <div class="bg-white shadow rounded-lg p-5 mt-5">
+          <h3 class="text-h5 mb-3 text-primary">Agenda Anda</h3>
+          <ul id="agendaList" class="ml-2 text-p text-gray-700">
+            <!-- Akan diisi oleh JS -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Popup tambah agenda -->
+  <div
+    id="agendaPopup"
+    class="inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <h2 class="text-lg font-bold mb-4">Tambah Agenda</h2>
+      <form id="agendaForm">
+        <input type="hidden" id="agendaHijriDay" />
+        <input type="hidden" id="agendaHijriMonth" />
+        <div class="mb-3">
+          <label class="block mb-1">Tanggal Hijriah</label>
+          <div id="agendaHijriDateText" class="font-semibold"></div>
+        </div>
+        <div class="mb-3">
+          <label class="block mb-1">Nama Agenda</label>
+          <input
+            type="text"
+            id="agendaTitle"
+            class="w-full border rounded p-2"
+            required />
+        </div>
+        <div class="flex gap-2 justify-end">
+          <button
+            type="button"
+            id="closeAgendaPopup"
+            class="px-4 py-2 bg-gray-300 rounded">
+            Batal
+          </button>
+          <button type="submit" class="px-4 py-2 bg-primary text-white rounded">
+            Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-span-12 md:col-span-6 xl:col-span-12 mt-6 2xl:mt-8">
+    <div class="intro-x flex items-center h-10">
+      <h2 class="text-h5 truncate mr-auto">Manfaat Hukum Waris</h2>
+    </div>
+    <div class="mt-5 intro-x">
+      <div class="box zoom-in">
+        <div class="tiny-slider" id="important-notes">
+          <div
+            class="md:flex-row items-center justify-between rounded-lg overflow-hidden">
+            <!-- Kiri: Teks -->
+            <div class="p-5">
+              <h1 class="text-h6 truncate text-green">
+                Mencegah Sengketa <br />Keluarga
+              </h1>
+              <div class="text-p text-gray-500 text-justify mt-3">
+                Salah satu manfaat utama dari pemahaman yang baik tentang
+                warisan adalah mencegah sengketa di antara anggota keluarga.
+                Sering kali, konflik muncul karena ketidakjelasan atau
+                ketidaksepahaman mengenai bagaimana harta warisan akan
+                didistribusikan. Dengan pengetahuan yang baik tentang hak waris
+                dan peraturan yang berlaku, Anda dapat membantu menghindari
+                sengketa ini.
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5">
+            <div class="text-h6 truncate text-green">
+              Memperkuat Keuangan <br />Keluarga
+            </div>
+            <div class="text-p text-gray-500 text-justify mt-3">
+              Warisan merupakan aset berharga yang ditinggalkan oleh seseorang.
+              Dengan pemahaman yang baik tentang cara mengelola warisan, Anda
+              dapat memastikan bahwa harta warisan tersebut digunakan dengan
+              bijak. Hal ini bisa melibatkan investasi yang cerdas, manajemen
+              utang, atau penyusunan rencana keuangan yang kokoh. Dengan
+              demikian, warisan dapat menjadi sumber keuangan yang kuat bagi
+              keluarga Anda.
+            </div>
+          </div>
+
+          <div class="p-5">
+            <div
+              style="list-style: disc"
+              class="text-h6 truncate text-green">
+              Meningkatkan Kesejahteraan <br />Keluarga
+            </div>
+            <div class="text-p text-gray-500 text-justify mt-3">
+              Penggunaan yang bijak dari warisan juga dapat meningkatkan
+              kesejahteraan keluarga. Anda dapat menggunakannya untuk membiayai
+              pendidikan anak-anak, perawatan kesehatan, atau investasi yang
+              akan memberikan manfaat jangka panjang. Warisan dapat memberikan
+              peluang yang lebih baik bagi anggota keluarga untuk mencapai
+              kualitas hidup yang lebih baik.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

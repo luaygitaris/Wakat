@@ -3,11 +3,31 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".content").forEach((content) => {
       content.style.display = "none";
     });
-
+    // Khusus dashboard: cek login
+    if (parentId === "dashboard" && subId === "dashboard") {
+      const isLoggedIn =
+        !!localStorage.getItem("token") && !!localStorage.getItem("user");
+      const dashLogin = document.getElementById("dashboard-login-content");
+      const dashDefault = document.getElementById("dashboard-dashboard-aaa");
+      if (isLoggedIn && dashLogin) {
+        dashLogin.style.display = "block";
+      } else if (dashDefault) {
+        dashDefault.style.display = "block";
+      }
+      updateBreadcrumb(parentId, subId);
+      return;
+    }
+    // Jika bukan dashboard utama, pastikan dashboard-login-content & dashboard-dashboard-aaa disembunyikan
+    const dashLogin = document.getElementById("dashboard-login-content");
+    const dashDefault = document.getElementById("dashboard-dashboard-aaa");
+    if (dashLogin) dashLogin.style.display = "none";
+    if (dashDefault) dashDefault.style.display = "none";
+    // Default: tampilkan page sesuai ID
     const pageToShow = document.getElementById(`${parentId}-${subId}-aaa`);
     if (pageToShow) {
       pageToShow.style.display = "block";
     }
+    updateBreadcrumb(parentId, subId);
   }
 
   function handleMenuClick(menuItem, parentId, subId) {
@@ -184,6 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
   const message = document.getElementById("message");
+  const loginBtn = document.getElementById("dashboard-login-btn");
 
   const loginFormToggle = document.getElementById("loginFormToggle");
   const loginForm = document.getElementById("loginForm");
@@ -195,6 +216,17 @@ document.addEventListener("DOMContentLoaded", () => {
     loginFormToggle.addEventListener("click", function (e) {
       e.preventDefault();
       loginForm.classList.toggle("hidden");
+    });
+  }
+
+  if (loginBtn && loginForm) {
+    loginBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (loginForm) {
+        loginForm.classList.toggle("hidden");
+      } else {
+        console.error("Login form element not found.");
+      }
     });
   }
 
@@ -249,11 +281,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const { token, user } = data.data;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
-
         updateUIAfterLogin(user);
+        window.location.reload();
       } catch (error) {
         console.error("Login error:", error);
-        message.textContent = "Terjadi kesalahan saat login. Silakan coba lagi.";
+        message.textContent =
+          "Terjadi kesalahan saat login. Silakan coba lagi.";
         message.classList.remove("hidden");
       }
     });
@@ -270,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("loginForm")?.classList.add("hidden");
     document.getElementById("loginFormToggle")?.classList.add("hidden");
     document.getElementById("profileToggle")?.classList.remove("hidden");
-    document.getElementById("profileMenu")?.classList.add("hidden"); // pastikan tetap hidden setelah login
+    document.getElementById("profileMenu")?.classList.add("hidden");
 
     // Tampilkan menu tambahan jika sudah login
     document.getElementById("side-menu-waris")?.classList.remove("hidden");
@@ -352,26 +385,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   // Toggle dashboard submenu when icon-dashboard is clicked
-  const dashboardIcon = document.querySelector('.icon-dashboard');
+  const dashboardIcon = document.querySelector(".icon-dashboard");
   if (dashboardIcon) {
-    dashboardIcon.addEventListener('click', function(e) {
+    dashboardIcon.addEventListener("click", function (e) {
       e.preventDefault();
       // Cari parent <li> dari icon-dashboard
-      const parentLi = dashboardIcon.closest('li') || dashboardIcon.closest('.side-menu').parentElement;
+      const parentLi =
+        dashboardIcon.closest("li") ||
+        dashboardIcon.closest(".side-menu").parentElement;
       // Cari submenu dashboard
       // Cari UL setelah .side-menu (bukan .side-menu__sub-open saja)
       let submenu = null;
       if (parentLi) {
-        submenu = parentLi.querySelector('ul');
+        submenu = parentLi.querySelector("ul");
       } else {
         // fallback: cari ul setelah .side-menu__title
-        const titleDiv = dashboardIcon.closest('.side-menu__title');
-        submenu = titleDiv?.parentElement?.querySelector('ul');
+        const titleDiv = dashboardIcon.closest(".side-menu__title");
+        submenu = titleDiv?.parentElement?.querySelector("ul");
       }
       if (submenu) {
-        submenu.classList.toggle('side-menu__sub-open');
+        submenu.classList.toggle("side-menu__sub-open");
         // Toggle icon rotate
-        dashboardIcon.classList.toggle('rotate-180');
+        dashboardIcon.classList.toggle("rotate-180");
       }
     });
   }
@@ -381,11 +416,11 @@ document.addEventListener("DOMContentLoaded", function () {
 // dan pastikan id & name unik
 // (tambahkan di paling atas agar DOM sudah siap)
 document.addEventListener("DOMContentLoaded", function () {
-  const searchInput = document.querySelector('.search__input');
+  const searchInput = document.querySelector(".search__input");
   if (searchInput) {
-    searchInput.setAttribute('autocomplete', 'off');
-    searchInput.setAttribute('id', 'searchInput');
-    searchInput.removeAttribute('name');
+    searchInput.setAttribute("autocomplete", "off");
+    searchInput.setAttribute("id", "searchInput");
+    searchInput.removeAttribute("name");
   }
 });
 
@@ -401,3 +436,72 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const breadcrumb = document.getElementById("breadcrumb");
+  const pathParts = window.location.pathname.split("/").filter((part) => part);
+
+  // Kalau path kosong, artinya root: http://wakat.local/
+  if (pathParts.length === 0) {
+    breadcrumb.innerHTML = `<li class="breadcrumb-item active" aria-current="page">Dashboard</li>`;
+  } else {
+    let pathSoFar = "";
+    breadcrumb.innerHTML = ""; // Kosongkan dulu
+
+    // Tambahkan item pertama: Dashboard
+    breadcrumb.innerHTML += `
+  
+      `;
+
+    // Tambahkan sisa path
+    pathParts.forEach((part, index) => {
+      pathSoFar += `/${part}`;
+      const name = part.charAt(0).toUpperCase() + part.slice(1); // Kapitalisasi
+
+      if (index === pathParts.length - 1) {
+        // Aktif item terakhir
+        breadcrumb.innerHTML += `
+            <li class="breadcrumb-item active" aria-current="page">${name}</li>
+          `;
+      } else {
+        // Link ke bagian sebelumnya
+        breadcrumb.innerHTML += `
+            <li class="breadcrumb-item">
+              <a href="${pathSoFar}">${name}</a>
+            </li>
+          `;
+      }
+    });
+  }
+});
+
+// Tambahkan fungsi updateBreadcrumb
+function updateBreadcrumb(parentId, subId) {
+  const breadcrumb = document.getElementById("breadcrumb");
+  if (!breadcrumb) return;
+  let html = "";
+  if (parentId === "dashboard" && (!subId || subId === "dashboard")) {
+    html = `<li class="breadcrumb-item active" aria-current="page">Dashboard</li>`;
+  } else if (parentId === "dashboard" && subId) {
+    html = `<li class="breadcrumb-item"><a href="/">Dashboard</a></li>`;
+    html += `<li class="breadcrumb-item active" aria-current="page">${capitalize(
+      subId
+    )}</li>`;
+  } else if (parentId && subId && parentId !== subId) {
+    html += `<li class="breadcrumb-item"><a href="/${parentId}">${capitalize(
+      parentId
+    )}</a></li>`;
+    html += `<li class="breadcrumb-item active" aria-current="page">${capitalize(
+      subId
+    )}</li>`;
+  } else if (parentId) {
+    html += `<li class="breadcrumb-item active" aria-current="page">${capitalize(
+      parentId
+    )}</li>`;
+  }
+  breadcrumb.innerHTML = html;
+}
+function capitalize(str) {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

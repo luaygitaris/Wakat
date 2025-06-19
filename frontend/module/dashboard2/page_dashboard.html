@@ -1,60 +1,22 @@
 <div
   id="dashboard-dashboard-aaa"
   class="content"
-  style="font-family: poppins, sans-serif"
->
+  style="font-family: poppins, sans-serif">
   <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12 2xl:col-span-9">
       <div class="flex flex-col gap-6">
-        <!-- BEGIN: Notification -->
-        <div class="col-span-12 mt-6 -mb-6 intro-y">
-          <!-- <div
-            class="alert alert-dismissible show box bg-primary text-white flex items-center mb-6"
-            role="alert"
-          >
-            <span
-              >Introducing new dashboard! Download now at
-              <a
-                href="https://themeforest.net/item/midone-jquery-tailwindcss-html-admin-template/26366820"
-                class="underline ml-1"
-                target="blank"
-                >themeforest.net</a
-              >.</span
-            >
-            <button
-              type="button"
-              class="btn-close text-white"
-              data-tw-dismiss="alert"
-              aria-label="Close"
-            >
-              <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
-          </div> -->
-        </div>
+        <div class="col-span-12 mt-6 -mb-6 intro-y"></div>
         <!-- BEGIN: Notification -->
         <!-- BEGIN: General Report -->
         <div class="col-span-12 lg:col-span-8 xl:col-span-6 mt-2">
-          <!-- <div class="intro-y block sm:flex items-center h-10">
-            <h2 class="text-lg font-medium truncate mr-5">General Report</h2>
-            <select class="sm:ml-auto mt-3 sm:mt-0 sm:w-auto form-select box">
-              <option value="daily">Daily</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
-              <option value="yearly">Yearly</option>
-              <option value="custom-date">Custom Date</option>
-            </select>
-          </div> -->
-
           <div class="report-box-2 intro-y mt-12 sm:mt-5">
             <div class="box flex">
               <section class="px-6 py-12">
                 <div
-                  class="container mx-auto flex flex-col lg:flex-row items-center gap-10"
-                >
+                  class="container mx-auto flex flex-col lg:flex-row items-center gap-10">
                   <!-- Konten Teks -->
                   <div
-                    class="flex flex-col gap-6 w-full lg:w-1/2 text-center lg:text-left"
-                  >
+                    class="flex flex-col gap-6 w-full lg:w-1/2 text-center lg:text-left">
                     <h1 class="text-4xl font-bold intro-y">Waris dan Zakat</h1>
                     <h3 class="text-2xl font-medium mt-2 intro-y">
                       Jangan biarkan harta menjadi sumber sengketa. Tundukkan ia
@@ -64,8 +26,8 @@
                     <div class="flex justify-center lg:justify-start">
                       <a
                         href="#"
-                        class="flex items-center justify-center border bg-primary w-40 py-2 px-5 rounded-lg text-white cursor-pointer intro-y"
-                      >
+                        id="dashboard-login-btn"
+                        class="flex items-center justify-center border bg-primary w-40 py-2 px-5 rounded-lg text-white cursor-pointer intro-y">
                         Login
                       </a>
                     </div>
@@ -75,15 +37,13 @@
                   <div class="w-full lg:w-1/2 relative mt-4 hidden lg:block">
                     <!-- Overlay Gradient -->
                     <div
-                      class="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white to-transparent z-10 hidden lg:block"
-                    ></div>
+                      class="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-white to-transparent z-10 hidden lg:block"></div>
 
                     <div class="intro-y">
                       <img
                         src="/dist/images/Zakat-2.jpg"
                         alt="Zakat"
-                        class="w-full h-auto object-cover rounded-md shadow-lg"
-                      />
+                        class="w-full h-auto object-cover rounded-md shadow-lg" />
                     </div>
                   </div>
                 </div>
@@ -109,26 +69,22 @@
                     class="dropdown-toggle w-5 h-5 block -mr-2"
                     href="javascript:;"
                     aria-expanded="false"
-                    data-tw-toggle="dropdown"
-                  >
+                    data-tw-toggle="dropdown">
                     <i
                       data-lucide="more-vertical"
-                      class="w-5 h-5 text-slate-500"
-                    ></i>
+                      class="w-5 h-5 text-slate-500"></i>
                   </a>
 
                   <div class="dropdown-menu w-48">
                     <ul class="dropdown-content">
                       <li>
                         <div
-                          class="dropdown-item flex items-center space-x-2 w-full gap-2"
-                        >
+                          class="dropdown-item flex items-center space-x-2 w-full gap-2">
                           <i data-lucide="file-text" class="w-5 h-5"></i>
                           Export
                           <select
                             onchange="handleExport(this)"
-                            class="bg-white text-sm p-2 border rounded w-full"
-                          >
+                            class="bg-white text-sm p-2 border rounded w-full">
                             <option value="image">as Image</option>
                             <option value="pdf">as PDF</option>
                           </select>
@@ -156,12 +112,8 @@
                 <div class="mt-2 border-b broder-slate-200 leading-9">
                   <ul id="export-target">
                     <li
-                      class="text-center items-center mb-3 justify-center flex-col"
-                    >
-                      <div
-                        style="font-family: 'Amiri', serif"
-                        class="flex items-center justify-center text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-2"
-                      >
+                      class="text-center items-center mb-3 justify-center flex-col">
+                      <div class="arabic-font">
                         عَنِ ابْنِ عَبَّاسٍ رَضِيَ اللهُ عَنْهُمَا قَالَ: قَالَ
                         رَسُوْلُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ:
                         أَلْحِقُوا الفَرائِضَ بأَهْلِها فَمَا أَبْقَتِ
@@ -169,7 +121,7 @@
                         البُخَارِيُّ وَمُسْلِمٌ
                       </div>
 
-                      <h3 class="pt-3 italic text-base">
+                      <h3 class="translation">
                         Dari Ibnu ‘Abbas radhiyallahu ‘anhuma, ia berkata bahwa
                         Rasulullah shallallahu ‘alaihi wa sallam bersabda,
                         “Berikan bagian warisan kepada ahli warisnya, selebihnya
@@ -184,7 +136,7 @@
                       <h1 class="text-xl font-medium mt-3 mb-2">
                         Penjelasan Hadits :
                       </h1>
-                      <h3 class="text-lg">
+                      <h3 class="translation">
                         Ibnu Rajab rahimahullah berkata, “Hadits ini mencakup
                         segala hukum waris dan sudah terhimpun di dalamnya.”
                         (Jaami’ Al-‘Ulum wa Al-Hikam, 2:419) Para ulama berbeda
@@ -209,7 +161,7 @@
                   <h1 class="text-xl font-medium intro-y">
                     Berdasarkan Al Qur'an
                   </h1>
-                  <h3 class="mb-2 text-lg">
+                  <h3 class="mb-2 text-md">
                     Al-Qur'an mengatur secara rinci mengenai pembagian harta
                     warisan. Beberapa ayatnya berada dalam surat QS. An-Nisa
                     Ayat 11
@@ -218,32 +170,22 @@
               </div>
 
               <div class="mt-6 border-b border-slate-300 pb-6">
-                <div class="text-center">
+                <div>
                   <div
-                    class="text-2xl sm:text-base font-medium leading-relaxed text-gray-800 tracking-wide"
-                  >
-                    <div
-                      class="text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y"
-                      style="font-family: 'Amiri', serif"
-                    >
+                    class="text-2xl sm:text-base font-medium leading-relaxed text-gray-800 tracking-wide">
+                    <div class="arabic-font">
                       يُوۡصِيۡكُمُ اللّٰهُ فِىۡۤ اَوۡلَادِكُمۡ‌ ۖ لِلذَّكَرِ
                       مِثۡلُ حَظِّ الۡاُنۡثَيَيۡنِ‌ ۚ فَاِنۡ كُنَّ نِسَآءً
                       فَوۡقَ اثۡنَتَيۡنِ فَلَهُنَّ ثُلُثَا مَا تَرَكَ‌ ۚ وَاِنۡ
                       كَانَتۡ وَاحِدَةً فَلَهَا النِّصۡفُ‌ ؕ
                     </div>
-                    <div
-                      class="text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y mt-4"
-                      style="font-family: 'Amiri', serif"
-                    >
+                    <div class="arabic-font">
                       وَلِاَ بَوَيۡهِ لِكُلِّ وَاحِدٍ مِّنۡهُمَا السُّدُسُ
                       مِمَّا تَرَكَ اِنۡ كَانَ لَهٗ وَلَدٌ ۚ فَاِنۡ لَّمۡ يَكُنۡ
                       لَّهٗ وَلَدٌ وَّوَرِثَهٗۤ اَبَوٰهُ فَلِاُمِّهِ الثُّلُثُ‌
                       ؕ فَاِنۡ كَانَ لَهٗۤ اِخۡوَةٌ فَلِاُمِّهِ
                     </div>
-                    <div
-                      class="text-2xl leading-relaxed text-center text-gray-800 tracking-wide intro-y mt-4"
-                      style="font-family: 'Amiri', serif"
-                    >
+                    <div class="arabic-font">
                       السُّدُسُ مِنۡۢ بَعۡدِ وَصِيَّةٍ يُّوۡصِىۡ بِهَاۤ اَوۡ
                       دَيۡنٍ‌ ؕ اٰبَآؤُكُمۡ وَاَبۡنَآؤُكُمۡ ۚ لَا تَدۡرُوۡنَ
                       اَيُّهُمۡ اَقۡرَبُ لَـكُمۡ نَفۡعًا‌ ؕ فَرِيۡضَةً مِّنَ
@@ -251,9 +193,7 @@
                     </div>
                   </div>
                   <div class="mt-6">
-                    <div
-                      class="leading-relaxed text-justify text-gray-700 sm:text-lg md:text-xl intro-y"
-                    >
+                    <div class="translation">
                       Allah mensyariatkan (mewajibkan) kepadamu tentang
                       (pembagian warisan untuk) anak-anakmu, (yaitu) bagian
                       seorang anak laki-laki sama dengan bagian dua orang anak
@@ -280,8 +220,7 @@
 
               <a
                 class="btn btn-outline-secondary border-dashed w-full py-1 px-2 mt-4"
-                href="https://rumaysho.com/25126-inilah-dalil-penting-untuk-perhitungan-waris-hadits-jamiul-ulum-wal-hikam-43.html"
-              >
+                href="https://rumaysho.com/25126-inilah-dalil-penting-untuk-perhitungan-waris-hadits-jamiul-ulum-wal-hikam-43.html">
                 sumber : https://rumaysho.com/
               </a>
             </div>
@@ -302,12 +241,10 @@
                     class="dropdown-toggle w-5 h-5 block -mr-2"
                     href="javascript:;"
                     aria-expanded="false"
-                    data-tw-toggle="dropdown"
-                  >
+                    data-tw-toggle="dropdown">
                     <i
                       data-lucide="more-vertical"
-                      class="w-5 h-5 text-slate-500"
-                    ></i>
+                      class="w-5 h-5 text-slate-500"></i>
                   </a>
 
                   <div class="dropdown-menu w-40">
@@ -337,18 +274,15 @@
                 <div class="mt-2 border-b broder-slate-200 leading-9">
                   <ul>
                     <li
-                      class="text-center items-center mb-3 justify-center flex-col"
-                    >
-                      <div
-                        class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-"
-                      >
-                        <p class="pt-6">
+                      class="text-center items-center mb-3 justify-center flex-col">
+                      <div class="">
+                        <p class="arabic-font">
                           وَأَقِيمُوا۟ ٱلصَّلَوٰةَ وَءَاتُوا۟ ٱلزَّكَوٰةَ
                           وَٱرْكَعُوا۟ مَعَ ٱلرَّٰكِعِينَ
                         </p>
                       </div>
 
-                      <h3 class="pt-3 italic text-base">
+                      <h3 class="translation">
                         "Dan dirikanlah sholat, tunaikanlah zakat, dan rukuklah
                         beserta orang-orang yang rukuk." (QS Al-Baqarah: 43).
                       </h3>
@@ -386,12 +320,10 @@
               <div class="mt-2 border-b broder-slate-200 leading-9 intro-y">
                 <ul>
                   <li
-                    class="text-center items-center mb-3 justify-center flex-col"
-                  >
+                    class="text-center items-center mb-3 justify-center flex-col">
                     <div
-                      class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-"
-                    >
-                      <p class="pt-6">
+                      class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-">
+                      <p class="arabic-font">
                         وَمَآ أُمِرُوٓا۟ إِلَّا لِيَعْبُدُوا۟ ٱللَّهَ
                         مُخْلِصِينَ لَهُ ٱلدِّينَ حُنَفَآءَ وَيُقِيمُوا۟
                         ٱلصَّلَوٰةَ وَيُؤْتُوا۟ ٱلزَّكَوٰةَ ۚ وَذَٰلِكَ دِينُ
@@ -399,7 +331,7 @@
                       </p>
                     </div>
 
-                    <h3 class="pt-3 italic text-base">
+                    <h3 class="translation">
                       "Padahal mereka tidak disuruh kecuali supaya menyembah
                       Allah dengan memurnikan ketaatan kepada-Nya dalam
                       (menjalankan) agama yang lurus, dan supaya mereka
@@ -437,19 +369,17 @@
                 <div class="mt-2 border-t broder-slate-200 leading-9">
                   <ul>
                     <li
-                      class="text-center items-center mb-3 justify-center flex-col"
-                    >
+                      class="text-center items-center mb-3 justify-center flex-col">
                       <div
-                        class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-2"
-                      >
-                        <p class="pt-6">
+                        class="text-2xl font-sm pt-2 sm:text-xs leading-relaxed text-center space-y-2">
+                        <p class="arabic-font">
                           خُذْ مِنْ أَمْوَٰلِهِمْ صَدَقَةً تُطَهِّرُهُمْ
                           وَتُزَكِّيهِم بِهَا وَصَلِّ عَلَيْهِمْ ۖ إِنَّ
                           صَلَوٰتَكَ سَكَنٌ لَّهُمْ ۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ
                         </p>
                       </div>
 
-                      <h3 class="pt-3 italic text-base">
+                      <h3 class="translation">
                         "(14) Sesungguhnya beruntunglah orang yang membersihkan
                         diri (dengan membayar zakat fitrah), (15) dan dia ingat
                         nama Tuhannya (dengan mengumandangkan takbir), lalu dia
@@ -489,255 +419,23 @@
 
                 <a
                   class="btn btn-outline-secondary border-dashed w-full py-1 px-2 mt-4"
-                  href="https://rumaysho.com/25126-inilah-dalil-penting-untuk-perhitungan-waris-hadits-jamiul-ulum-wal-hikam-43.html"
-                >
+                  href="https://rumaysho.com/25126-inilah-dalil-penting-untuk-perhitungan-waris-hadits-jamiul-ulum-wal-hikam-43.html">
                   sumber : https://rumaysho.com/
                 </a>
               </div>
             </div>
           </div>
           <!-- END: Visitors -->
-          <!-- BEGIN: Users By Age -->
-          <!-- <div
-            class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2 lg:mt-6 xl:mt-2"
-          >
-            <div class="intro-y flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-5">
-                Pembagian Warisan
-              </h2>
-              <a href="" class="ml-auto text-primary truncate">Show More</a>
-            </div>
-            <div class="report-box-2 intro-y mt-5">
-              <div class="box p-5">
-                <ul
-                  class="nav nav-pills w-4/5 bg-slate-100 dark:bg-black/20 rounded-md mx-auto"
-                  role="tablist"
-                >
-                  <li
-                    id="active-users-tab"
-                    class="nav-item flex-1"
-                    role="presentation"
-                  >
-                    <button
-                      class="nav-link w-full py-1.5 px-2 active"
-                      data-tw-toggle="pill"
-                      data-tw-target="#active-users"
-                      type="button"
-                      role="tab"
-                      aria-controls="active-users"
-                      aria-selected="true"
-                    >
-                      Active
-                    </button>
-                  </li>
-                  <li
-                    id="inactive-users-tab"
-                    class="nav-item flex-1"
-                    role="presentation"
-                  >
-                    <button
-                      class="nav-link w-full py-1.5 px-2"
-                      data-tw-toggle="pill"
-                      data-tw-target="#inactive-users"
-                      type="button"
-                      role="tab"
-                      aria-selected="false"
-                    >
-                      Inactive
-                    </button>
-                  </li>
-                </ul>
-                <div class="tab-content mt-6">
-                  <div
-                    class="tab-pane active"
-                    id="active-users"
-                    role="tabpanel"
-                    aria-labelledby="active-users-tab"
-                  >
-                    <div class="relative">
-                      <div class="h-[208px]">
-                        <canvas class="mt-3" id="report-donut-chart"></canvas>
-                      </div>
-                      <div
-                        class="flex flex-col justify-center items-center absolute w-full h-full top-0 left-0"
-                      >
-                        <div class="text-2xl font-medium">2.501</div>
-                        <div class="text-slate-500 mt-0.5">Active Users</div>
-                      </div>
-                    </div>
-                    <div class="w-52 sm:w-auto mx-auto mt-5">
-                      <div class="flex items-center">
-                        <div class="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                        <span class="truncate">17 - 30 Years old</span>
-                        <span class="font-medium ml-auto">62%</span>
-                      </div>
-                      <div class="flex items-center mt-4">
-                        <div class="w-2 h-2 bg-pending rounded-full mr-3"></div>
-                        <span class="truncate">31 - 50 Years old</span>
-                        <span class="font-medium ml-auto">33%</span>
-                      </div>
-                      <div class="flex items-center mt-4">
-                        <div class="w-2 h-2 bg-warning rounded-full mr-3"></div>
-                        <span class="truncate">>= 50 Years old</span>
-                        <span class="font-medium ml-auto">10%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <!-- END: Users By Age -->
 
-          <!-- BEGIN: Official Store -->
-          <!-- <div class="col-span-12 lg:col-span-8 mt-6">
-          <div class="intro-y block sm:flex items-center h-10">
-            <h2 class="text-lg font-medium truncate mr-5">Official Store</h2>
-            <div class="sm:ml-auto mt-3 sm:mt-0 relative text-slate-500">
-              <i
-                data-lucide="map-pin"
-                class="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0"
-              ></i>
-              <input
-                type="text"
-                class="form-control sm:w-56 box pl-10"
-                placeholder="Filter by city"
-              />
-            </div>
-          </div>
-          <div class="intro-y box p-5 mt-12 sm:mt-5">
-            <div>
-              250 Official stores in 21 countries, click the marker to see
-              location details.
-            </div>
-            <div
-              class="report-maps mt-5 bg-slate-200 rounded-md"
-              data-center="-6.2425342, 106.8626478"
-              data-sources="/dist/json/location.json"
-            ></div>
-          </div>
-        </div> -->
-          <!-- END: Official Store -->
-
-          <!-- BEGIN: Weekly Best Sellers -->
-          <!-- <div class="col-span-12 xl:col-span-4 mt-6">
-            <div class="intro-y flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-5">
-                Weekly Best Sellers
-              </h2>
-            </div>
-            <div class="mt-5">
-              <div class="intro-y">
-                <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-11.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Al Pacino</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      23 September 2020
-                    </div>
-                  </div>
-                  <div
-                    class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
-                  >
-                    137 Sales
-                  </div>
-                </div>
-              </div>
-              <div class="intro-y">
-                <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-9.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Kevin Spacey</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      17 March 2022
-                    </div>
-                  </div>
-                  <div
-                    class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
-                  >
-                    137 Sales
-                  </div>
-                </div>
-              </div>
-              <div class="intro-y">
-                <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-7.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Sylvester Stallone</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      28 August 2022
-                    </div>
-                  </div>
-                  <div
-                    class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
-                  >
-                    137 Sales
-                  </div>
-                </div>
-              </div>
-              <div class="intro-y">
-                <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-                  <div
-                    class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-                  >
-                    <img
-                      alt="Midone - HTML Admin Template"
-                      src="dist/images/profile-3.jpg"
-                    />
-                  </div>
-                  <div class="ml-4 mr-auto">
-                    <div class="font-medium">Christian Bale</div>
-                    <div class="text-slate-500 text-xs mt-0.5">
-                      11 August 2020
-                    </div>
-                  </div>
-                  <div
-                    class="py-1 px-2 rounded-full text-xs bg-success text-white cursor-pointer font-medium"
-                  >
-                    137 Sales
-                  </div>
-                </div>
-              </div>
-              <a
-                href=""
-                class="intro-y w-full block text-center rounded-md py-4 border border-dotted border-slate-400 dark:border-darkmode-300 text-slate-500"
-                >View More</a
-              >
-            </div>
-          </div> -->
-          <!-- END: Weekly Best Sellers -->
           <!-- BEGIN: Ads 1 -->
           <div
-            class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2"
-          >
+            class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2">
             <div class="intro-y flex items-center h-10">
               <h1></h1>
             </div>
 
             <div
-              class="text-white intro-y mt-5 flex flex-row flex-1 bg-primary rounded-lg"
-            >
+              class="text-white intro-y mt-5 flex flex-row flex-1 bg-primary rounded-lg">
               <div class="p-5">
                 <!-- <div class="text-xl font-medium flex items-center">
                 Hadits Rasulullah SAW
@@ -874,15 +572,13 @@
                 Zakat Online
               </h1>
               <div
-                class="w-full sm:w-72 leading-relaxed text-base dark:text-slate-500 mt-3"
-              >
+                class="w-full sm:w-72 leading-relaxed text-base dark:text-slate-500 mt-3">
                 Kini, Zakat bisa Dilakukan dengan Praktis.Lebih Praktis,
                 Berkahnya pun Sama Persis
               </div>
               <a
                 href=""
-                class="btn w-50 bg-white dark:bg-darkmode-800 dark:text-white mt-6 sm:mt-10"
-              >
+                class="btn w-50 bg-white dark:bg-darkmode-800 dark:text-white mt-6 sm:mt-10">
                 Segera Berzakat
               </a>
               <!-- <div
@@ -902,8 +598,7 @@
               <img
                 class="hidden sm:block absolute top-0 right-0 w-1/2 mt-1 -mr-12"
                 alt="Midone - HTML Admin Template"
-                src="dist/images/phone-illustration.svg"
-              />
+                src="dist/images/phone-illustration.svg" />
             </div>
           </div>
           <!-- END: Ads 2 -->
@@ -1250,7 +945,7 @@
                 <option>50</option>
               </select>
             </div>
-          </div> -->
+          </div>
 
           <!-- END: Weekly Top Products -->
         </div>
@@ -1267,15 +962,13 @@
                 <button
                   data-carousel="important-notes"
                   data-target="prev"
-                  class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2"
-                >
+                  class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2">
                   <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 </button>
                 <button
                   data-carousel="important-notes"
                   data-target="next"
-                  class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2"
-                >
+                  class="tiny-slider-navigator btn px-2 border-slate-300 text-slate-600 dark:text-slate-300 mr-2">
                   <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -1283,13 +976,11 @@
                 <div class="box zoom-in">
                   <div class="tiny-slider" id="important-notes">
                     <div
-                      class="md:flex-row items-center justify-between rounded-lg overflow-hidden"
-                    >
+                      class="md:flex-row items-center justify-between rounded-lg overflow-hidden">
                       <!-- Kiri: Teks -->
                       <div class="p-5">
                         <h1
-                          class="text-base font-semibold text-xl truncate text-green"
-                        >
+                          class="text-base font-semibold text-xl truncate text-green">
                           Mencegah Sengketa <br />Keluarga
                         </h1>
                         <!-- <div class="font-medium text-lg mt-1">
@@ -1324,8 +1015,7 @@
 
                     <div class="p-5">
                       <div
-                        class="text-base font-semibold text-xl truncate text-green"
-                      >
+                        class="text-base font-semibold text-xl truncate text-green">
                         Memperkuat Keuangan <br />Keluarga
                       </div>
                       <!-- <div class="font-medium text-lg mt-1">
@@ -1346,8 +1036,7 @@
                     <div class="p-5">
                       <div
                         style="list-style: disc"
-                        class="text-base font-semibold text-xl truncate text-green"
-                      >
+                        class="text-base font-semibold text-xl truncate text-green">
                         Meningkatkan Kesejahteraan <br />Keluarga
                       </div>
                       <!-- <div class="font-medium text-lg mt-1">
@@ -1381,8 +1070,7 @@
             <!-- END: Important Notes -->
             <!-- BEGIN: Recent Activities -->
             <div
-              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3"
-            >
+              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3">
               <div class="intro-x flex items-center h-10">
                 <h2 class="text-lg font-medium truncate mr-5">
                   Recent Activities
@@ -1390,19 +1078,15 @@
                 <a href="" class="ml-auto text-primary truncate">Show More</a>
               </div>
               <div
-                class="mt-5 relative before:block before:absolute before:w-px before:h-[85%] before:bg-slate-200 before:dark:bg-darkmode-400 before:ml-5 before:mt-5"
-              >
+                class="mt-5 relative before:block before:absolute before:w-px before:h-[85%] before:bg-slate-200 before:dark:bg-darkmode-400 before:ml-5 before:mt-5">
                 <div class="intro-x relative flex items-center mb-3">
                   <div
-                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
-                  >
+                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-10.jpg"
-                      />
+                        src="dist/images/profile-10.jpg" />
                     </div>
                   </div>
                   <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
@@ -1415,15 +1099,12 @@
                 </div>
                 <div class="intro-x relative flex items-center mb-3">
                   <div
-                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
-                  >
+                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-5.jpg"
-                      />
+                        src="dist/images/profile-5.jpg" />
                     </div>
                   </div>
                   <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
@@ -1436,33 +1117,27 @@
                       <div class="flex mt-2">
                         <div
                           class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
-                          title="Sony Master Series A9G"
-                        >
+                          title="Sony Master Series A9G">
                           <img
                             alt="Midone - HTML Admin Template"
                             class="rounded-md border border-white"
-                            src="dist/images/preview-15.jpg"
-                          />
+                            src="dist/images/preview-15.jpg" />
                         </div>
                         <div
                           class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
-                          title="Oppo Find X2 Pro"
-                        >
+                          title="Oppo Find X2 Pro">
                           <img
                             alt="Midone - HTML Admin Template"
                             class="rounded-md border border-white"
-                            src="dist/images/preview-6.jpg"
-                          />
+                            src="dist/images/preview-6.jpg" />
                         </div>
                         <div
                           class="tooltip w-8 h-8 image-fit mr-1 zoom-in"
-                          title="Sony Master Series A9G"
-                        >
+                          title="Sony Master Series A9G">
                           <img
                             alt="Midone - HTML Admin Template"
                             class="rounded-md border border-white"
-                            src="dist/images/preview-12.jpg"
-                          />
+                            src="dist/images/preview-12.jpg" />
                         </div>
                       </div>
                     </div>
@@ -1473,15 +1148,12 @@
                 </div>
                 <div class="intro-x relative flex items-center mb-3">
                   <div
-                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
-                  >
+                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-5.jpg"
-                      />
+                        src="dist/images/profile-5.jpg" />
                     </div>
                   </div>
                   <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
@@ -1500,15 +1172,12 @@
                 </div>
                 <div class="intro-x relative flex items-center mb-3">
                   <div
-                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5"
-                  >
+                    class="before:block before:absolute before:w-20 before:h-px before:bg-slate-200 before:dark:bg-darkmode-400 before:mt-5 before:ml-5">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-14.jpg"
-                      />
+                        src="dist/images/profile-14.jpg" />
                     </div>
                   </div>
                   <div class="box px-5 py-3 ml-4 flex-1 zoom-in">
@@ -1528,8 +1197,7 @@
             <!-- END: Recent Activities -->
             <!-- BEGIN: Transactions -->
             <div
-              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3"
-            >
+              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 mt-3">
               <div class="intro-x flex items-center h-10">
                 <h2 class="text-lg font-medium truncate mr-5">Transactions</h2>
               </div>
@@ -1537,12 +1205,10 @@
                 <div class="intro-x">
                   <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-11.jpg"
-                      />
+                        src="dist/images/profile-11.jpg" />
                     </div>
                     <div class="ml-4 mr-auto">
                       <div class="font-medium">Al Pacino</div>
@@ -1556,12 +1222,10 @@
                 <div class="intro-x">
                   <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-9.jpg"
-                      />
+                        src="dist/images/profile-9.jpg" />
                     </div>
                     <div class="ml-4 mr-auto">
                       <div class="font-medium">Kevin Spacey</div>
@@ -1575,12 +1239,10 @@
                 <div class="intro-x">
                   <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-7.jpg"
-                      />
+                        src="dist/images/profile-7.jpg" />
                     </div>
                     <div class="ml-4 mr-auto">
                       <div class="font-medium">Sylvester Stallone</div>
@@ -1594,12 +1256,10 @@
                 <div class="intro-x">
                   <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-3.jpg"
-                      />
+                        src="dist/images/profile-3.jpg" />
                     </div>
                     <div class="ml-4 mr-auto">
                       <div class="font-medium">Christian Bale</div>
@@ -1613,12 +1273,10 @@
                 <div class="intro-x">
                   <div class="box px-5 py-3 mb-3 flex items-center zoom-in">
                     <div
-                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-                    >
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
                       <img
                         alt="Midone - HTML Admin Template"
-                        src="dist/images/profile-1.jpg"
-                      />
+                        src="dist/images/profile-1.jpg" />
                     </div>
                     <div class="ml-4 mr-auto">
                       <div class="font-medium">Leonardo DiCaprio</div>
@@ -1639,14 +1297,12 @@
             <!-- END: Transactions -->
             <!-- BEGIN: Schedules -->
             <div
-              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 xl:col-start-1 xl:row-start-2 2xl:col-start-auto 2xl:row-start-auto mt-3"
-            >
+              class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 xl:col-start-1 xl:row-start-2 2xl:col-start-auto 2xl:row-start-auto mt-3">
               <div class="intro-x flex items-center h-10">
                 <h2 class="text-lg font-medium truncate mr-5">Schedules</h2>
                 <a
                   href=""
-                  class="ml-auto text-primary truncate flex items-center"
-                >
+                  class="ml-auto text-primary truncate flex items-center">
                   <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Add New
                   Schedules
                 </a>
@@ -1657,13 +1313,11 @@
                     <div class="flex">
                       <i
                         data-lucide="chevron-left"
-                        class="w-5 h-5 text-slate-500"
-                      ></i>
+                        class="w-5 h-5 text-slate-500"></i>
                       <div class="font-medium text-base mx-auto">April</div>
                       <i
                         data-lucide="chevron-right"
-                        class="w-5 h-5 text-slate-500"
-                      ></i>
+                        class="w-5 h-5 text-slate-500"></i>
                     </div>
                     <div class="grid grid-cols-7 gap-4 mt-5 text-center">
                       <div class="font-medium">Su</div>
@@ -1688,14 +1342,12 @@
                       <div class="py-0.5 rounded relative">4</div>
                       <div class="py-0.5 rounded relative">5</div>
                       <div
-                        class="py-0.5 bg-success/20 dark:bg-success/30 rounded relative"
-                      >
+                        class="py-0.5 bg-success/20 dark:bg-success/30 rounded relative">
                         6
                       </div>
                       <div class="py-0.5 rounded relative">7</div>
                       <div
-                        class="py-0.5 bg-primary text-white rounded relative"
-                      >
+                        class="py-0.5 bg-primary text-white rounded relative">
                         8
                       </div>
                       <div class="py-0.5 rounded relative">9</div>
@@ -1713,16 +1365,14 @@
                       <div class="py-0.5 rounded relative">21</div>
                       <div class="py-0.5 rounded relative">22</div>
                       <div
-                        class="py-0.5 bg-pending/20 dark:bg-pending/30 rounded relative"
-                      >
+                        class="py-0.5 bg-pending/20 dark:bg-pending/30 rounded relative">
                         23
                       </div>
                       <div class="py-0.5 rounded relative">24</div>
                       <div class="py-0.5 rounded relative">25</div>
                       <div class="py-0.5 rounded relative">26</div>
                       <div
-                        class="py-0.5 bg-primary/10 dark:bg-primary/50 rounded relative"
-                      >
+                        class="py-0.5 bg-primary/10 dark:bg-primary/50 rounded relative">
                         27
                       </div>
                       <div class="py-0.5 rounded relative">28</div>
