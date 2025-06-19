@@ -1,7 +1,64 @@
-create(data());
+function validateFamilyTreeData(data) {
+  if (!Array.isArray(data) || data.length === 0) {
+    console.error("Data is not a valid array or is empty");
+    return false;
+  }
+
+  return data.every((person) => {
+    if (!person || typeof person !== "object") {
+      console.error("Invalid person object:", person);
+      return false;
+    }
+    if (!person.id || typeof person.id !== "string") {
+      console.error("Person missing valid id:", person);
+      return false;
+    }
+    if (!person.rels || typeof person.rels !== "object") {
+      console.error("Person missing rels:", person);
+      return false;
+    }
+    if (!Array.isArray(person.rels.spouses)) {
+      console.error("Person rels.spouses is not an array:", person);
+      return false;
+    }
+    if (!Array.isArray(person.rels.children)) {
+      console.error("Person rels.children is not an array:", person);
+      return false;
+    }
+    if (!person.data || typeof person.data !== "object") {
+      console.error("Person missing data:", person);
+      return false;
+    }
+    return true;
+  });
+}
+
+let familyTreeData = localStorage.getItem("familyTreeData");
+if (familyTreeData) {
+  try {
+    familyTreeData = JSON.parse(familyTreeData);
+    if (!validateFamilyTreeData(familyTreeData)) {
+      console.error(
+        "Invalid family tree data in localStorage, using default data"
+      );
+      familyTreeData = data();
+    }
+  } catch (error) {
+    console.error("Error parsing family tree data from localStorage:", error);
+    familyTreeData = data();
+  }
+} else {
+  familyTreeData = data();
+}
+create(familyTreeData);
 
 function create(data) {
-  window.familyTreeData = data;
+  if (!validateFamilyTreeData(data)) {
+    console.error("Invalid data passed to create, using default data");
+    data = data();
+  }
+
+  window.saveFamilyTreeData = data;
 
   const f3Chart = f3
     .createChart("#FamilyChart", data)
@@ -32,6 +89,7 @@ function create(data) {
     f3EditTree.open(d);
     if (f3EditTree.isAddingRelative()) return;
     f3Card.onCardClickDefault(e, d);
+    saveFamilyTreeData(); // Simpan setelah interaksi kartu
   });
 
   f3Chart.updateTree({ initial: true });
@@ -66,8 +124,63 @@ function data() {
   ];
 }
 
+function saveFamilyTreeData() {
+  let dataToSave = null;
+  if (window.f3ChartInstance) {
+    try {
+      // Coba berbagai metode untuk mengambil data
+      if (typeof window.f3ChartInstance.getChartData === "function") {
+        dataToSave = window.f3ChartInstance.getChartData();
+      } else if (typeof window.f3ChartInstance.data === "function") {
+        dataToSave = window.f3ChartInstance.data();
+      } else if (typeof window.f3ChartInstance.getData === "function") {
+        dataToSave = window.f3ChartInstance.getData();
+      } else if (window.f3ChartInstance._data) {
+        dataToSave = window.f3ChartInstance._data;
+      } else {
+        console.warn(
+          "Tidak ada metode pengambilan data yang ditemukan, menggunakan window.saveFamilyTreeData"
+        );
+        dataToSave = window.saveFamilyTreeData || data();
+      }
+    } catch (error) {
+      console.error("Error mengambil data dari f3ChartInstance:", error);
+      dataToSave = window.saveFamilyTreeData || data();
+    }
+  } else {
+    console.error("f3ChartInstance belum diinisialisasi");
+    dataToSave = window.saveFamilyTreeData || data();
+  }
+
+  if (!validateFamilyTreeData(dataToSave)) {
+    console.error("Data tidak valid, tidak disimpan:", dataToSave);
+    alert("Gagal menyimpan: Data tidak valid. Silakan periksa input Anda.");
+    return;
+  }
+
+  try {
+    localStorage.setItem("familyTreeData", JSON.stringify(dataToSave));
+    console.log("Data berhasil disimpan ke localStorage:", dataToSave);
+  } catch (error) {
+    console.error("Error menyimpan ke localStorage:", error);
+    alert(
+      "Gagal menyimpan data ke localStorage. Pastikan penyimpanan browser tidak penuh."
+    );
+  }
+}
+
+function saveCurrentFamilyTree() {
+  updateGlobalData();
+  saveFamilyTreeData();
+  if (localStorage.getItem("familyTreeData")) {
+    alert("Silsilah keluarga berhasil disimpan.");
+  } else {
+    alert("Gagal menyimpan silsilah keluarga. Silakan coba lagi.");
+  }
+}
+
 function addButtons(f3Chart) {
-  setTimeout(() => {
+  document.addEventListener("DOMContentLoaded", function () {
     let container = document.getElementById("buttonContainer");
 
     if (!container) {
@@ -86,94 +199,138 @@ function addButtons(f3Chart) {
           chartContainer.nextSibling
         );
       } else {
+        console.warn(
+          "FamilyChart tidak ditemukan, menambahkan container ke body"
+        );
         document.body.appendChild(container);
       }
     }
 
-    if (container && typeof container.appendChild === "function") {
-      container.innerHTML = "";
+    container.innerHTML = "";
 
-      const btnWaris = document.createElement("button");
-      btnWaris.id = "calculateInheritance";
-      btnWaris.textContent = "Hitung Warisan";
-      btnWaris.style.cssText = `
-        margin-right: 10px;
-        padding: 12px 24px;
-        background-color: #2563eb;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 500;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        transition: all 0.2s ease;
-      `;
+    const reminder = document.createElement("p");
+    reminder.textContent =
+      "Pastikan untuk menyimpan silsilah keluarga setelah melakukan perubahan.";
+    reminder.style.cssText = `
+      margin-bottom: 10px;
+      color: #555;
+      font-size: 14px;
+    `;
+    container.appendChild(reminder);
 
-      btnWaris.onmouseover = () => {
-        btnWaris.style.backgroundColor = "#1d4ed8";
-        btnWaris.style.transform = "translateY(-1px)";
-      };
+    const btnWaris = document.createElement("button");
+    btnWaris.id = "calculateInheritance";
+    btnWaris.textContent = "Hitung Warisan";
+    btnWaris.style.cssText = `
+      margin-right: 10px;
+      padding: 12px 24px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    `;
+    btnWaris.onmouseover = () => {
+      btnWaris.style.backgroundColor = "#1d4ed8";
+      btnWaris.style.transform = "translateY(-1px)";
+    };
+    btnWaris.onmouseout = () => {
+      btnWaris.style.backgroundColor = "#2563eb";
+      btnWaris.style.transform = "translateY(0)";
+    };
+    btnWaris.onclick = () => {
+      showWarisCalculation(f3Chart);
+    };
 
-      btnWaris.onmouseout = () => {
-        btnWaris.style.backgroundColor = "#2563eb";
-        btnWaris.style.transform = "translateY(0)";
-      };
-
-      btnWaris.onclick = () => {
-        showWarisCalculation(f3Chart);
-      };
-
-      const btnZakat = document.createElement("button");
-      btnZakat.id = "calculateZakat";
-      btnZakat.textContent = "Hitung Zakat";
-      btnZakat.style.cssText = `
-        margin-left: 10px;
-        padding: 12px 24px;
-        background-color: #16a34a;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 500;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        transition: all 0.2s ease;
-      `;
-
-      btnZakat.onmouseover = () => {
-        btnZakat.style.backgroundColor = "#15803d";
-        btnZakat.style.transform = "translateY(-1px)";
-      };
-
-      btnZakat.onmouseout = () => {
-        btnZakat.style.backgroundColor = "#16a34a";
-        btnZakat.style.transform = "translateY(0)";
-      };
-
-      btnZakat.onclick = () => {
-        alert("Fungsi Zakat akan segera tersedia");
-      };
-
-      try {
-        container.appendChild(btnWaris);
-        container.appendChild(btnZakat);
-        console.log("Tombol berhasil ditambahkan");
-      } catch (error) {
-        console.error("Error menambahkan tombol:", error);
-        container.innerHTML = `
-          <button id="calculateInheritance" onclick="showWarisCalculation(window.f3ChartInstance)" 
-                  style="margin-right: 10px; padding: 12px 24px; background-color: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-            Hitung Warisan
-          </button>
-          <button id="calculateZakat" onclick="alert('Fungsi Zakat akan segera tersedia')" 
-                  style="margin-left: 10px; padding: 12px 24px; background-color: #16a34a; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-            Hitung Zakat
-          </button>
-        `;
+    const btnReset = document.createElement("button");
+    btnReset.id = "resetFamilyTree";
+    btnReset.textContent = "Reset Data";
+    btnReset.style.cssText = `
+      margin-left: 10px;
+      padding: 12px 24px;
+      background-color: #16a34a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    `;
+    btnReset.onmouseover = () => {
+      btnReset.style.backgroundColor = "#15803d";
+      btnReset.style.transform = "translateY(-1px)";
+    };
+    btnReset.onmouseout = () => {
+      btnReset.style.backgroundColor = "#16a34a";
+      btnReset.style.transform = "translateY(0)";
+    };
+    btnReset.onclick = () => {
+      if (confirm("Apakah Anda yakin ingin mereset data silsilah keluarga?")) {
+        localStorage.removeItem("familyTreeData");
+        window.saveFamilyTreeData = data();
+        create(window.saveFamilyTreeData);
+        alert("Data silsilah keluarga telah direset.");
       }
-    } else {
-      console.error("Container tidak valid:", container);
+    };
+
+    const btnSaveTree = document.createElement("button");
+    btnSaveTree.id = "saveFamilyTree";
+    btnSaveTree.textContent = "Simpan Silsilah Keluarga";
+    btnSaveTree.style.cssText = `
+      margin-left: 10px;
+      padding: 12px 24px;
+      background-color: #f59e0b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    `;
+    btnSaveTree.onmouseover = () => {
+      btnSaveTree.style.backgroundColor = "#d97706";
+      btnSaveTree.style.transform = "translateY(-1px)";
+    };
+    btnSaveTree.onmouseout = () => {
+      btnSaveTree.style.backgroundColor = "#f59e0b";
+      btnSaveTree.style.transform = "translateY(0)";
+    };
+    btnSaveTree.onclick = () => {
+      saveCurrentFamilyTree();
+    };
+
+    try {
+      container.appendChild(reminder);
+      container.appendChild(btnWaris);
+      container.appendChild(btnReset);
+      container.appendChild(btnSaveTree);
+      console.log("Tombol berhasil ditambahkan ke container");
+    } catch (error) {
+      console.error("Error menambahkan tombol:", error);
+      container.innerHTML = `
+        <p style="margin-bottom: 10px; color: #555; font-size: 14px;">
+          Pastikan untuk menyimpan silsilah keluarga setelah melakukan perubahan.
+        </p>
+        <button id="calculateInheritance" onclick="showWarisCalculation(window.f3ChartInstance)" 
+                style="margin-right: 10px; padding: 12px 24px; background-color: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+          Hitung Warisan
+        </button>
+        <button id="calculateZakat" onclick="alert('Fungsi Zakat akan segera tersedia')" 
+                style="margin-left: 10px; padding: 12px 24px; background-color: #16a34a; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+          Hitung Zakat
+        </button>
+        <button id="saveFamilyTree" onclick="saveCurrentFamilyTree()" 
+                style="margin-left: 10px; padding: 12px 24px; background-color: #f59e0b; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+          Simpan Silsilah Keluarga
+        </button>
+      `;
     }
-  }, 1000);
+  });
 }
 
 function showWarisCalculation(f3Chart) {
@@ -225,17 +382,23 @@ function showWarisCalculation(f3Chart) {
   let allData = [];
 
   try {
-    if (typeof f3Chart.data === "function") {
+    // Gunakan metode yang sama untuk mengambil data
+    if (typeof f3Chart.getChartData === "function") {
+      allData = f3Chart.getChartData();
+    } else if (typeof f3Chart.data === "function") {
       allData = f3Chart.data();
     } else if (typeof f3Chart.getData === "function") {
       allData = f3Chart.getData();
-    } else if (window.familyTreeData) {
-      allData = window.familyTreeData;
+    } else if (f3Chart._data) {
+      allData = f3Chart._data;
     } else {
-      allData = data();
+      console.warn(
+        "Tidak ada metode pengambilan data untuk waris, menggunakan window.saveFamilyTreeData"
+      );
+      allData = window.saveFamilyTreeData || data();
     }
 
-    console.log("Data yang ditemukan:", allData);
+    console.log("Data yang ditemukan untuk waris:", allData);
 
     if (Array.isArray(allData)) {
       allData.forEach((person) => {
@@ -252,7 +415,7 @@ function showWarisCalculation(f3Chart) {
         '<option value="">Tidak ada data yang tersedia</option>';
     }
   } catch (error) {
-    console.error("Error mengakses data:", error);
+    console.error("Error mengakses data untuk waris:", error);
     selectAlmarhum.innerHTML +=
       '<option value="">Error mengakses data</option>';
   }
@@ -293,18 +456,23 @@ function hitungWarisFromSilsilah(f3Chart, almarhumId) {
   let allData = [];
 
   try {
-    if (typeof f3Chart.data === "function") {
+    if (typeof f3Chart.getChartData === "function") {
+      allData = f3Chart.getChartData();
+    } else if (typeof f3Chart.data === "function") {
       allData = f3Chart.data();
     } else if (typeof f3Chart.getData === "function") {
       allData = f3Chart.getData();
-    } else if (window.familyTreeData) {
-      allData = window.familyTreeData;
+    } else if (f3Chart._data) {
+      allData = f3Chart._data;
     } else {
-      allData = data();
+      console.warn(
+        "Tidak ada metode pengambilan data untuk waris, menggunakan window.saveFamilyTreeData"
+      );
+      allData = window.saveFamilyTreeData || data();
     }
   } catch (error) {
-    console.error("Error mengakses data:", error);
-    allData = data();
+    console.error("Error mengakses data untuk waris:", error);
+    allData = window.saveFamilyTreeData || data();
   }
 
   if (!Array.isArray(allData)) {
@@ -438,7 +606,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
   const adaAnak =
     ahliWaris.anakLakiLaki.length + ahliWaris.anakPerempuan.length > 0;
 
-  // 1. SUAMI
   if (ahliWaris.suami.length > 0) {
     const suami = ahliWaris.suami[0];
     if (suami.data.agama?.toLowerCase() === "islam") {
@@ -461,7 +628,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
     }
   }
 
-  // 2. ISTRI
   if (ahliWaris.istri.length > 0) {
     const istriMuslim = ahliWaris.istri.filter(
       (istri) => istri.data.agama?.toLowerCase() === "islam"
@@ -481,7 +647,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
       });
       sisaHarta -= bagianTotal;
     }
-    // Tambahkan keterangan untuk istri non-Muslim
     ahliWaris.istri
       .filter((istri) => istri.data.agama?.toLowerCase() !== "islam")
       .forEach((istri) => {
@@ -495,7 +660,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
       });
   }
 
-  // 3. AYAH
   if (ahliWaris.ayah) {
     if (ahliWaris.ayah.data.agama?.toLowerCase() === "islam") {
       let bagianAyah;
@@ -522,7 +686,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
     }
   }
 
-  // 4. IBU
   if (ahliWaris.ibu) {
     if (ahliWaris.ibu.data.agama?.toLowerCase() === "islam") {
       let bagianIbu;
@@ -559,7 +722,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
     }
   }
 
-  // 5. ANAK-ANAK
   if (ahliWaris.anakLakiLaki.length > 0 || ahliWaris.anakPerempuan.length > 0) {
     const anakMuslim = [
       ...ahliWaris.anakLakiLaki.filter(
@@ -621,7 +783,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
 
       sisaHarta = 0;
     } else {
-      // Tambahkan keterangan untuk anak non-Muslim jika tidak ada anak Muslim
       ahliWaris.anakLakiLaki
         .filter((a) => a.data.agama?.toLowerCase() !== "islam")
         .forEach((anak) => {
@@ -647,7 +808,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
     }
   }
 
-  // 6. SAUDARA
   if (!adaAnak && !ahliWaris.ayah && sisaHarta > 0) {
     const saudaraMuslim = [
       ...ahliWaris.saudaraLakiLaki.filter(
@@ -709,7 +869,6 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
 
       sisaHarta = 0;
     } else {
-      // Tambahkan keterangan untuk saudara non-Muslim jika tidak ada saudara Muslim
       ahliWaris.saudaraLakiLaki
         .filter((s) => s.data.agama?.toLowerCase() !== "islam")
         .forEach((saudara) => {
@@ -926,14 +1085,33 @@ function desimalKePecahan(decimal, precision = 1e-6) {
 function updateGlobalData() {
   if (window.f3ChartInstance) {
     try {
-      if (typeof window.f3ChartInstance.data === "function") {
-        window.familyTreeData = window.f3ChartInstance.data();
+      // Perbarui chart sebelum mengambil data
+      window.f3ChartInstance.updateTree();
+      if (typeof window.f3ChartInstance.getChartData === "function") {
+        window.saveFamilyTreeData = window.f3ChartInstance.getChartData();
+      } else if (typeof window.f3ChartInstance.data === "function") {
+        window.saveFamilyTreeData = window.f3ChartInstance.data();
       } else if (typeof window.f3ChartInstance.getData === "function") {
-        window.familyTreeData = window.f3ChartInstance.getData();
+        window.saveFamilyTreeData = window.f3ChartInstance.getData();
+      } else if (window.f3ChartInstance._data) {
+        window.saveFamilyTreeData = window.f3ChartInstance._data;
+      } else {
+        console.warn(
+          "Tidak ada metode pengambilan data, mempertahankan window.saveFamilyTreeData"
+        );
+        window.saveFamilyTreeData = window.saveFamilyTreeData || data();
+      }
+      if (!validateFamilyTreeData(window.saveFamilyTreeData)) {
+        console.error("Invalid global data, resetting to default");
+        window.saveFamilyTreeData = data();
       }
     } catch (error) {
-      console.log("Tidak dapat memperbarui data global:", error);
+      console.error("Tidak dapat memperbarui data global:", error);
+      window.saveFamilyTreeData = window.saveFamilyTreeData || data();
     }
+  } else {
+    console.error("f3ChartInstance belum diinisialisasi");
+    window.saveFamilyTreeData = window.saveFamilyTreeData || data();
   }
 }
 
