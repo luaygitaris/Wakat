@@ -1,0 +1,61 @@
+<div
+  id="waris-riwayat-aaa"
+  class="content"
+  style="display: none; font-family: poppins, sans-serif">
+  <div class="grid grid-cols-12 gap-6">
+    <div class="col-span-12 2xl:col-span-9">
+      <div class="flex flex-col gap-6">
+        <!-- TABEL RIWAYAT WARIS -->
+        <div class="bg-white shadow rounded-lg p-5 mt-5">
+          <h3 class="text-lg font-semibold mb-3 text-primary">Riwayat Waris</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full border text-sm">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="px-3 py-2 border">No</th>
+                  <th class="px-3 py-2 border">Tanggal Dibuat</th>
+                  <th class="px-3 py-2 border">Nama yang Meninggal</th>
+                  <th class="px-3 py-2 border">Jumlah Harta Warisan</th>
+                  <th class="px-3 py-2 border">Action</th>
+                </tr>
+              </thead>
+              <tbody id="warisRiwayatTableBody">
+                <!-- Data riwayat waris akan diisi oleh JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <script>
+          // Contoh data dummy, ganti dengan data asli dari backend/localStorage jika ada
+          const riwayatWaris = [
+            { tanggal: "2025-06-17", nama: "Ahmad Bin Umar", harta: 150000000 },
+            {
+              tanggal: "2025-06-10",
+              nama: "Fatimah Binti Ali",
+              harta: 90000000,
+            },
+          ];
+          function formatRupiah(num) {
+            return "Rp " + num.toLocaleString("id-ID");
+          }
+          const tbody = document.getElementById("warisRiwayatTableBody");
+          tbody.innerHTML = "";
+          riwayatWaris.forEach((item, idx) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+            <td class="border px-3 py-2 text-center">${idx + 1}</td>
+            <td class="border px-3 py-2">${item.tanggal}</td>
+            <td class="border px-3 py-2">${item.nama}</td>
+            <td class="border px-3 py-2">${formatRupiah(item.harta)}</td>
+            <td class="border px-3 py-2 text-center">
+              <button class="bg-green-500 text-white px-2 py-1 rounded mr-2" title="Save PDF">Save</button>
+              <button class="bg-blue-500 text-white px-2 py-1 rounded" title="Lihat">Lihat</button>
+            </td>
+          `;
+            tbody.appendChild(tr);
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>

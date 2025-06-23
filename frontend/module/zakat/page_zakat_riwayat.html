@@ -1,0 +1,54 @@
+
+<div id="zakat-riwayat-aaa" class="content" style="display: none; font-family: poppins, sans-serif">
+  <div class="grid grid-cols-12 gap-6">
+    <div class="col-span-12 2xl:col-span-9">
+      <div class="flex flex-col gap-6">
+        <div class="bg-white shadow rounded-lg p-5 mt-5">
+          <h3 class="text-lg font-semibold mb-3 text-primary">Riwayat Zakat</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full border text-sm">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="px-3 py-2 border">No</th>
+                  <th class="px-3 py-2 border">Tanggal Dibuat</th>
+                  <th class="px-3 py-2 border">Jenis Zakat</th>
+                  <th class="px-3 py-2 border">Jumlah Zakat</th>
+                  <th class="px-3 py-2 border">Action</th>
+                </tr>
+              </thead>
+              <tbody id="zakatRiwayatTableBody">
+                <!-- Data riwayat zakat akan diisi oleh JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <script>
+        // Data dummy, ganti dengan data asli jika ada
+        const riwayatZakat = [
+          { tanggal: '2025-06-17', jenis: 'Zakat Fitrah', jumlah: 350000 },
+          { tanggal: '2025-05-10', jenis: 'Zakat Mal', jumlah: 2000000 },
+        ];
+        function formatRupiah(num) {
+          return 'Rp ' + num.toLocaleString('id-ID');
+        }
+        const tbodyzakat = document.getElementById('zakatRiwayatTableBody');
+        tbodyzakat.innerHTML = '';
+        riwayatZakat.forEach((item, idx) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="border px-3 py-2 text-center">${idx + 1}</td>
+            <td class="border px-3 py-2">${item.tanggal}</td>
+            <td class="border px-3 py-2">${item.jenis}</td>
+            <td class="border px-3 py-2">${formatRupiah(item.jumlah)}</td>
+            <td class="border px-3 py-2 text-center">
+              <button class="bg-biru text-black px-2 py-1 rounded mr-2" title="Lihat">Lihat</button>
+              <button class="bg-red text-white px-2 py-1 rounded" title="Save PDF">Save</button>
+            </td>
+          `;
+          tbodyzakat.appendChild(tr);
+        });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
