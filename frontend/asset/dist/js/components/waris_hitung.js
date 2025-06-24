@@ -137,6 +137,10 @@ function hitungWaris() {
           </tbody>
         </table>
       </div>
+      <div class="mt-4">
+        <input type="text" id="namaWaris" placeholder="Masukkan nama perwakilan (opsional)" class="border p-2 mr-2">
+        <button onclick="simpanWaris(${total})" class="bg-blue-600 text-black px-4 py-2 rounded hover:bg-blue-700">Simpan</button>
+      </div>
   `;
 
   [
@@ -152,6 +156,33 @@ function hitungWaris() {
   ].forEach((id) => {
     document.getElementById(id).value = "";
   });
+}
+
+function simpanWaris(total) {
+  const nama = document.getElementById("namaWaris").value || "Waris Tanpa Nama";
+  const date = new Date().toISOString().split("T")[0];
+
+  // Ambil data dari localStorage
+  let dataWaris = JSON.parse(localStorage.getItem("dataWaris")) || [];
+  const newId =
+    dataWaris.length > 0 ? Math.max(...dataWaris.map((d) => d.id)) + 1 : 1;
+
+  dataWaris.push({
+    id: newId,
+    nama: nama,
+    tanggal: date,
+    jumlah: formatRupiah(total),
+  });
+
+  // Simpan kembali ke localStorage
+  localStorage.setItem("dataWaris", JSON.stringify(dataWaris));
+
+  // Panggil renderTabel jika tersedia (dari riwazat.js)
+  if (typeof renderTabel === "function") {
+    renderTabel();
+  }
+
+  alert("Data waris berhasil disimpan ke riwayat!");
 }
 
 function formatRupiah(num) {

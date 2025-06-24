@@ -915,7 +915,60 @@ function displaySavedWarisResult({ hasilPembagian, totalHarta, almarhum }) {
     `;
   }
 
+  // Tambahkan tombol simpan ke riwayat
+  html += `
+    <div class="mt-4 flex flex-col items-center">
+      <button id="btnSimpanRiwayatWaris" style="padding: 10px 24px; background: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 500; margin-bottom: 10px; cursor: pointer;">Simpan ke Riwayat</button>
+      <small>Data silsilah keluarga dan hasil waris akan disimpan ke riwayat dengan nama yang Anda tentukan.</small>
+    </div>
+  `;
+
   el.innerHTML = html;
+
+  // Event handler tombol simpan ke riwayat
+  const btnSimpan = document.getElementById("btnSimpanRiwayatWaris");
+  if (btnSimpan) {
+    btnSimpan.onclick = function () {
+      let nama = prompt("Masukkan nama riwayat waris (misal: Waris Budi 2025):");
+      if (!nama || !nama.trim()) {
+        alert("Nama riwayat tidak boleh kosong!");
+        return;
+      }
+      // Ambil data familytree terbaru
+      let familyTreeData = null;
+      try {
+        if (window.f3ChartInstance && typeof window.f3ChartInstance.getChartData === "function") {
+          familyTreeData = window.f3ChartInstance.getChartData();
+        } else {
+          const saved = localStorage.getItem("myFamilyTree");
+          familyTreeData = saved ? JSON.parse(saved) : null;
+        }
+      } catch (e) {
+        familyTreeData = null;
+      }
+      if (!familyTreeData) {
+        alert("Gagal mengambil data silsilah keluarga.");
+        return;
+      }
+      // Ambil riwayat lama
+      let riwayat = [];
+      try {
+        const old = localStorage.getItem("riwayatWaris");
+        riwayat = old ? JSON.parse(old) : [];
+      } catch (e) {
+        riwayat = [];
+      }
+      // Simpan data baru
+      riwayat.push({
+        nama: nama.trim(),
+        tanggal: new Date().toISOString(),
+        familyTree: familyTreeData,
+        hasilWaris: { hasilPembagian, totalHarta, almarhum }
+      });
+      localStorage.setItem("riwayatWaris", JSON.stringify(riwayat));
+      alert("Berhasil disimpan ke riwayat waris!");
+    };
+  }
 }
 
 function formatRupiah(num) {
