@@ -1,0 +1,23 @@
+.lg-hidden {
+    display: hide;
+}
+.lg-flex {
+    display: flex;
+}
+@media screen and (min-width: 1024px) {
+    .lg-hidden {
+        display: none;
+    }
+    .lg-flex {
+        display: flex;
+    }
+    
+}
+@media screen and (min-width: 640px) and (max-width: 1023px) {
+    .lg-hidden {
+        display: block;
+    }
+    .lg-flex {
+        display: none;
+    }
+}

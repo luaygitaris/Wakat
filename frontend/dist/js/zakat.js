@@ -30,49 +30,6 @@ if (pemasukanInput) {
 if (pengeluaranInput) {
   pengeluaranInput.addEventListener("input", updatePenghasilanZakat);
 }
-// document
-//   .getElementById("zakatForm")
-//   .addEventListener("submit", async function (e) {
-//     e.preventDefault();
-//     const form = e.target;
-//     // Ambil nilai numerik dari penghasilan dan zakat (hilangkan format rupiah)
-//     const penghasilanBersih = Number(
-//       (form.penghasilan_bersih.value || "0").replace(/[^\d]/g, "")
-//     );
-//     const zakat25 = Number((form.zakat_25.value || "0").replace(/[^\d]/g, ""));
-//     const data = {
-//       bulan: form.bulan.value,
-//       pemasukan: Number(form.pemasukan.value),
-//       pengeluaran: Number(form.pengeluaran.value),
-//       penghasilan_bersih: penghasilanBersih,
-//       keterangan_nishab: form.keterangan_nishab.value,
-//       zakat_25: zakat25,
-//     };
-//     const token = localStorage.getItem("token");
-//     const msgDiv = document.getElementById("msg");
-//     if (!token) {
-//       msgDiv.textContent = "Anda belum login!";
-//       msgDiv.style.color = "red";
-//       return;
-//     }
-//     msgDiv.textContent = "Mengirim...";
-//     try {
-//       const res = await fetch("http://localhost:4000/zakat-hitung", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: token,
-//         },
-//         body: JSON.stringify(data),
-//       });
-//       const result = await res.json();
-//       msgDiv.textContent = result.message || (res.ok ? "Berhasil!" : "Gagal!");
-//       msgDiv.style.color = res.ok ? "green" : "red";
-//     } catch (err) {
-//       msgDiv.textContent = "Gagal mengirim data!";
-//       msgDiv.style.color = "red";
-//     }
-//   });
 
 function contentHitungZakat(contentId) {
   const allContent = document.querySelectorAll(".hitung");
@@ -146,6 +103,7 @@ function hitungZakat() {
   }
 
   const wajibZakat = total >= nisab;
+  const statusNisab = wajibZakat ? "Mencapai Nishab" : "Belum Mencapai Nishab";
   const zakat = wajibZakat ? total * 0.025 : 0;
 
   hasilTabel.innerHTML = `
@@ -229,9 +187,58 @@ function hitungZakat() {
         <p>
           Hadis ini berbicara tentang ancaman bagi orang yang tidak menunaikan zakat harta, terutama emas dan perak. Dalam praktiknya, zakat perniagaan dihitung berdasarkan nilai harta dagangan, dan nilai itu sering dikonversi dalam satuan emas atau perak, sehingga diqiyaskan dengan zakat emas dan perak. Cara hitungnya juga sama. Jika nilainya setara 85 gram emas dan sudah dimiliki selama 1 tahun, maka wajib zakat 2,5%.
         </p>
-      </div>
-    </div>
-  `;
+        <div>
+          <button
+            id="simpanhasilPerniagaan"
+            class="p-3 mt-3 border bg-primary text-white rounded-lg">
+            Simpan
+          </button>
+        </div>
+      </div>`;
+
+  // Pastikan event listener tombol simpan selalu terpasang setelah render
+  setTimeout(() => {
+    const btnSimpan = document.getElementById("simpanhasilPerniagaan");
+    if (btnSimpan) {
+      btnSimpan.onclick = function () {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          document.getElementById("statusKirim").innerHTML =
+            "<div class='text-red-600 mt-2'>Anda harus login terlebih dahulu untuk menghitung zakat perniagaan.</div>";
+          return;
+        }
+        fetch("http://localhost:4000/zakat-perniagaan", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            uang_tunai: kas,
+            persediaan_barang_dagangan: persediaan,
+            piutang: piutang,
+            uang_jatuh_tempo: utang,
+            total: total,
+            keterangan_nishab: statusNisab,
+            zakat_25: zakat,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("statusKirim").innerHTML =
+              "<div class='text-green-600 mt-2'>" +
+              (data.message || "Data berhasil disimpan.") +
+              "</div>";
+          })
+          .catch((error) => {
+            document.getElementById("statusKirim").innerHTML =
+              "<div class='text-red-600 mt-2'>Terjadi kesalahan saat mengirim data: " +
+              error +
+              "</div>";
+          });
+      };
+    }
+  }, 0);
 }
 // emas perak
 function hitungEmasPerak() {
@@ -239,12 +246,25 @@ function hitungEmasPerak() {
   const berat = parseFloat(document.getElementById("berat").value) || 0;
   const harga = parseFloat(document.getElementById("harga").value) || 0;
 
+  // Conditional rendering: tampilkan field berat_perak hanya jika jenis == "perak"
+  const beratPerakField = document.getElementById("berat_perak_field");
+  if (beratPerakField) {
+    if (jenis === "perak") {
+      beratPerakField.style.display = "block";
+    } else {
+      beratPerakField.style.display = "none";
+    }
+  }
+
   const total = berat * harga;
   const nisabGram = jenis === "emas" ? 85 : 595;
   const nisab = nisabGram * harga;
   const wajibZakat = berat >= nisabGram;
   const zakat = wajibZakat ? total * 0.025 : 0;
   const namaLogam = jenis === "emas" ? "Emas" : "Perak";
+  const keteranganNishab = wajibZakat
+    ? "Mencapai Nishab"
+    : "Belum Mencapai Nishab";
 
   // Dalil berbeda untuk emas dan perak
   let dalilArab, dalilLatin, dalilPenjelasan, nomerDalil;
@@ -324,8 +344,54 @@ function hitungEmasPerak() {
         <strong class="mt-4">Penjelasan :</strong>
         <p>${dalilPenjelasan}</p>
       </div>
+      <div class="flex flex-col gap-2 mt-4">
+        <button id="simpanhasilEmas" class="p-3 mt-3 border bg-primary text-white rounded-lg">Simpan</button>
+        <div id="statusKirimEmas"></div>
+      </div>
     </div>
   `;
+
+  setTimeout(() => {
+    const btnSimpan = document.getElementById("simpanhasilEmas");
+    if (btnSimpan) {
+      btnSimpan.onclick = function () {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          document.getElementById("statusKirimEmas").innerHTML =
+            "<div class='text-red-600 mt-2'>Anda harus login terlebih dahulu untuk menyimpan hasil zakat emas/perak.</div>";
+          return;
+        }
+        fetch("http://localhost:4000/zakat-emas-perak", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            berat_emas: jenis === "emas" ? berat : 0,
+            berat_perak: jenis !== "emas" ? berat : 0,
+            harga_pergram: harga,
+            total: total,
+            keterangan_nishab: keteranganNishab,
+            zakat_25: zakat,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("statusKirimEmas").innerHTML =
+              "<div class='text-green-600 mt-2'>" +
+              (data.message || "Data berhasil disimpan.") +
+              "</div>";
+          })
+          .catch((error) => {
+            document.getElementById("statusKirimEmas").innerHTML =
+              "<div class='text-red-600 mt-2'>Terjadi kesalahan saat mengirim data: " +
+              error +
+              "</div>";
+          });
+      };
+    }
+  }, 0);
 }
 // fungtion zakat ternak
 function hitungZakatTernak() {
@@ -533,6 +599,8 @@ function hitungZakatTernak() {
       // Ini kembali ke pola 2 hiqqah + zakat untuk sisa (1-9 unta)
     }
   }
+  const keteranganNishab =
+    wajibZakat === true ? "Mencapai Nishab" : "Belum Mencapai Nishab";
 
   hasil = `
     <table class="responsive-table w-full mt-6 table-auto border border-gray-300 text-left">
@@ -576,10 +644,54 @@ function hitungZakatTernak() {
           Zakat peternakan wajib bagi orang yang memelihara ternak seperti unta, sapi, dan kambing/domba, bukan untuk kerja atau angkut barang, tapi untuk diternakkan dan berkembang (biasanya digembalakan). Zakat ini hanya wajib kalau jumlah hewannya sudah mencapai batas minimal (nisab), dipelihara selama 1 tahun penuh (haul), dan dibiarkan makan di padang rumput (bukan dikandangkan dan diberi makan khusus).
         </p>
       </div>
+      <div class="flex flex-col gap-2 mt-4">
+        <button id="simpanhasilTernak" class="p-3 mt-3 border bg-primary text-white rounded-lg">Simpan</button>
+        <div id="statusKirimTernak"></div>
+      </div>
     </div>
   `;
 
   document.getElementById("hasilTernak").innerHTML = hasil;
+
+  setTimeout(() => {
+    const btnSimpan = document.getElementById("simpanhasilTernak");
+    if (btnSimpan) {
+      btnSimpan.onclick = function () {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          document.getElementById("statusKirimTernak").innerHTML =
+            "<div class='text-red-600 mt-2'>Anda harus login terlebih dahulu untuk menyimpan hasil zakat emas/perak.</div>";
+          return;
+        }
+        fetch("http://localhost:4000/zakat-ternak", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            jenis_ternak: jenis,
+            jumlah_ternak: jumlah,
+            keterangan_nishab: keteranganNishab,
+            zakat_25: zakat,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("statusKirimTernak").innerHTML =
+              "<div class='text-green-600 mt-2'>" +
+              (data.message || "Data berhasil disimpan.") +
+              "</div>";
+          })
+          .catch((error) => {
+            document.getElementById("statusKirimTernak").innerHTML =
+              "<div class='text-red-600 mt-2'>Terjadi kesalahan saat mengirim data: " +
+              error +
+              "</div>";
+          });
+      };
+    }
+  }, 0);
 }
 // fungsion pertanian
 function hitungZakatPertanian() {
@@ -595,6 +707,9 @@ function hitungZakatPertanian() {
     persen = pengairan === "alami" ? 10 : 5;
     zakat = (hasilPanen * persen) / 100;
   }
+  const keteranganNishab = wajibZakat
+    ? "Mencapai Nishab"
+    : "Belum Mencapai Nishab";
 
   const hasilHTML = `
     <table class="responsive-table w-full mt-6 table-auto border border-gray-300 text-left">
@@ -644,10 +759,55 @@ function hitungZakatPertanian() {
           Zakat pertanian wajib dikeluarkan dari hasil panen seperti padi, gandum, kurma, anggur, dll (menurut sebagian ulama: yang bisa disimpan dan ditakar). Jika tanaman tumbuh dengan air hujan atau alami, zakatnya 10% dari hasil panen. Jika menggunakan biaya atau alat untuk mengairi (misalnya pompa air atau irigasi buatan), zakatnya 5% dari hasil panen. Syarat wajib zakat: hasil panen mencapai nisab (batas minimal), yaitu sekitar 653 kg gabah (5 wasaq).
         </p>
       </div>
+      <div class="flex flex-col gap-2 mt-4">
+        <button id="simpanhasilPertanian" class="p-3 mt-3 border bg-primary text-white rounded-lg">Simpan</button>
+        <div id="statusKirimPertanian"></div>
+      </div>
     </div>
   `;
 
   document.getElementById("hasilPertanian").innerHTML = hasilHTML;
+
+  setTimeout(() => {
+    const btnSimpan = document.getElementById("simpanhasilPertanian");
+    if (btnSimpan) {
+      btnSimpan.onclick = function () {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          document.getElementById("statusKirimPertanian").innerHTML =
+            "<div class='text-red-600 mt-2'>Anda harus login terlebih dahulu untuk menyimpan hasil zakat pertanian.</div>";
+          return;
+        }
+        fetch("http://localhost:4000/zakat-pertanian", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            hasil_panen: hasilPanen,
+            jenis_pengairan: pengairan,
+            persentase_zakat: persen,
+            keterangan_nishab: keteranganNishab,
+            zakat_25: zakat + "kg",
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("statusKirimPertanian").innerHTML =
+              "<div class='text-green-600 mt-2'>" +
+              (data.message || "Data berhasil disimpan.") +
+              "</div>";
+          })
+          .catch((error) => {
+            document.getElementById("statusKirimPertanian").innerHTML =
+              "<div class='text-red-600 mt-2'>Terjadi kesalahan saat mengirim data: " +
+              error +
+              "</div>";
+          });
+      };
+    }
+  }, 0);
 }
 
 // function temuan
@@ -699,163 +859,52 @@ function hitungZakatRikaz() {
           Rikaz adalah harta karun yang ditemukan di dalam tanah, biasanya peninggalan zaman dulu dan tidak diketahui siapa pemiliknya. Jika menemukan rikaz, kita wajib mengeluarkan zakat sebesar 20% (seperlima) langsung saat ditemukan, tanpa perlu menunggu 1 tahun. Zakatnya digunakan untuk kepentingan umum karena harta ini dianggap seperti rampasan perang, bukan milik pribadi.
         </p>
       </div>
+      <div class="flex flex-col gap-2 mt-4">
+        <button id="simpanhasilRikaz" class="p-3 mt-3 border bg-primary text-white rounded-lg">Simpan</button>
+        <div id="statusKirimRikaz"></div>
+      </div>
     </div>
   `;
 
   document.getElementById("hasilRikaz").innerHTML = hasilHTML;
+
+  setTimeout(() => {
+    const btnSimpan = document.getElementById("simpanhasilRikaz");
+    if (btnSimpan) {
+      btnSimpan.onclick = function () {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          document.getElementById("statusKirimRikaz").innerHTML =
+            "<div class='text-red-600 mt-2'>Anda harus login terlebih dahulu untuk menyimpan hasil zakat rikaz.</div>";
+          return;
+        }
+        fetch("http://localhost:4000/zakat-rikaz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            nilai_barang_temuan: nilaiTemuan,
+            persentase_zakat: 20,
+            keterangan_nishab: nilaiTemuan >= 0 ? "Mencapai Nishab" : "Belum Mencapai Nishab",
+            zakat_25: zakat,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("statusKirimRikaz").innerHTML =
+              "<div class='text-green-600 mt-2'>" +
+              (data.message || "Data berhasil disimpan.") +
+              "</div>";
+          })
+          .catch((error) => {
+            document.getElementById("statusKirimRikaz").innerHTML =
+              "<div class='text-red-600 mt-2'>Terjadi kesalahan saat mengirim data: " +
+              error +
+              "</div>";
+          });
+      };
+    }
+  }, 0);
 }
-// document.addEventListener("DOMContentLoaded", function () {
-//   lucide.createIcons(); // Render icon lucide
-
-//   const monthNames = [
-//     "Muharram",
-//     "Safar",
-//     "Rabiul Awal",
-//     "Rabiul Akhir",
-//     "Jumadil Awal",
-//     "Jumadil Akhir",
-//     "Rajab",
-//     "Sya'ban",
-//     "Ramadhan",
-//     "Syawal",
-//     "Zulkaidah",
-//     "Dzulhijjah",
-//   ];
-
-//   let currentDate = new Date(); // Tanggal saat ini
-
-//   function renderCalendar(date) {
-//     const hijriFormatter = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
-//       day: "numeric",
-//       month: "numeric",
-//       year: "numeric",
-//     });
-
-//     const parts = hijriFormatter.formatToParts(date);
-//     const hijriMonth = parseInt(parts.find((p) => p.type === "month").value);
-//     const hijriYear = parseInt(parts.find((p) => p.type === "year").value);
-
-//     document.getElementById("monthTitle").innerText = `${
-//       monthNames[hijriMonth - 1]
-//     } ${hijriYear} H`;
-
-//     const daysContainer = document.getElementById("contentTanggal");
-//     daysContainer.innerHTML = "";
-//     console.log(daysContainer);
-
-//     // Header hari
-//     const weekdays = [
-//       "Minggu",
-//       "Senin",
-//       "Selasa",
-//       "Rabu",
-//       "Kamis",
-//       "Jum'at",
-//       "Sabtu",
-//     ];
-//     weekdays.forEach((day) => {
-//       const div = document.createElement("div");
-//       div.className = "font-medium";
-//       div.innerText = day;
-//       daysContainer.appendChild(div);
-//     });
-
-//     // Hitung jumlah hari dalam bulan Hijriah ini
-//     const tempDate = new Date(date);
-//     let daysInMonth = 30; // asumsi default
-
-//     for (let i = 31; i <= 30; i++) {
-//       const testDate = new Date(tempDate);
-//       testDate.setDate(1);
-//       testDate.setDate(testDate.getDate() + i - 1);
-
-//       const partsTest = hijriFormatter.formatToParts(testDate);
-//       const testMonth = parseInt(
-//         partsTest.find((p) => p.type === "month").value
-//       );
-
-//       if (testMonth !== hijriMonth) {
-//         daysInMonth = i - 1;
-//         break;
-//       }
-//     }
-
-//     // Cari hari apa tanggal 1 Hijriah jatuh (0 = Minggu)
-//     const firstHijriDate = new Date(date);
-//     firstHijriDate.setDate(1); // Set tanggal ke 1
-//     const hijriToGregorian = new Intl.DateTimeFormat("en-TN-u-ca-islamic", {
-//       day: "numeric",
-//       month: "numeric",
-//       year: "numeric",
-//     });
-//     const firstHijriParts = hijriToGregorian.formatToParts(firstHijriDate);
-//     const firstHijriMonth = parseInt(
-//       firstHijriParts.find((p) => p.type === "month").value
-//     );
-
-//     // Cari tanggal Gregorian yang cocok dengan 1 Hijriah
-//     let gregorianDateForFirstHijri;
-//     for (let offset = -15; offset <= 15; offset++) {
-//       const temp = new Date(firstHijriDate);
-//       temp.setDate(temp.getDate() + offset);
-//       const parts = hijriToGregorian.formatToParts(temp);
-//       const day = parseInt(parts.find((p) => p.type === "day").value);
-//       const month = parseInt(parts.find((p) => p.type === "month").value);
-//       if (day === 1 && month === firstHijriMonth) {
-//         gregorianDateForFirstHijri = temp;
-//         break;
-//       }
-//     }
-
-//     const startDay = gregorianDateForFirstHijri.getDay(); // Hari (0-6)
-
-//     // Tambahkan padding kosong di awal
-//     for (let i = 0; i < startDay; i++) {
-//       const empty = document.createElement("div");
-//       daysContainer.appendChild(empty);
-//     }
-
-//     // Render hari-hari bulan ini
-//     for (let i = 1; i <= daysInMonth; i++) {
-//       const div = document.createElement("div");
-//       div.className = "py-0.5 rounded relative";
-//       div.setAttribute("data-hijri", i);
-//       div.innerText = i;
-//       daysContainer.appendChild(div);
-//     }
-
-//     // Tandai hari ini
-//     const today = new Date();
-//     const todayHijriParts = hijriFormatter.formatToParts(today);
-//     const todayHijriMonth = parseInt(
-//       todayHijriParts.find((p) => p.type === "month").value
-//     );
-//     const todayHijriYear = parseInt(
-//       todayHijriParts.find((p) => p.type === "year").value
-//     );
-//     const todayHijriDay = parseInt(
-//       todayHijriParts.find((p) => p.type === "day").value
-//     );
-
-//     if (hijriMonth === todayHijriMonth && hijriYear === todayHijriYear) {
-//       const elToday = document.querySelector(`[data-hijri="${todayHijriDay}"]`);
-//       if (elToday) {
-//         elToday.classList.add("bg-success", "text-white");
-//       }
-//     }
-//   }
-
-//   // Navigasi bulan
-//   document.getElementById("prevMonth").addEventListener("click", () => {
-//     currentDate.setMonth(currentDate.getMonth() - 1);
-//     renderCalendar(currentDate);
-//   });
-
-//   document.getElementById("nextMonth").addEventListener("click", () => {
-//     currentDate.setMonth(currentDate.getMonth() + 1);
-//     renderCalendar(currentDate);
-//   });
-
-//   // Render pertama kali
-//   renderCalendar(currentDate);
-// });
