@@ -205,22 +205,79 @@ document.addEventListener("DOMContentLoaded", function () {
         '<li class="text-gray-400">Belum ada agenda bulan ini.</li>';
       return;
     }
-    agendaList.forEach((a) => {
+    agendaList.forEach((a, idx) => {
       const li = document.createElement("li");
-      li.innerHTML = `<span class="text-gray-400">${a.day} ${hijriMonthNames[a.month - 1]}</span> (${a.title})`;
+      li.innerHTML = `<span class="text-gray-400">${a.day} ${hijriMonthNames[a.month - 1]}</span> (${a.title})
+        <button class="ml-2 text-xs text-blue-600 underline btn-edit-agenda" data-idx="${idx}" title="Edit">Edit</button>
+        <button class="ml-1 text-xs text-red-600 underline btn-hapus-agenda" data-idx="${idx}" title="Hapus">Hapus</button>`;
       ul.appendChild(li);
     });
+    // Event handler hapus & edit
+    setTimeout(() => {
+      const btnsHapus = document.querySelectorAll('.btn-hapus-agenda');
+      btnsHapus.forEach(btn => {
+        btn.onclick = function() {
+          const idx = parseInt(btn.getAttribute('data-idx'));
+          let agendaList = getAgendaList();
+          // Hapus hanya agenda pada bulan ini
+          const filtered = agendaList.filter(a => a.month === bulanAktif);
+          const globalIdx = agendaList.findIndex((a, i) => a.month === bulanAktif && i === idx);
+          if (globalIdx !== -1) {
+            if (confirm('Yakin ingin menghapus agenda ini?')) {
+              agendaList.splice(globalIdx, 1);
+              saveAgendaList(agendaList);
+              renderAgendaList(bulanAktif);
+              renderHijriCalendar(currentHijriDate);
+            }
+          }
+        };
+      });
+      const btnsEdit = document.querySelectorAll('.btn-edit-agenda');
+      btnsEdit.forEach(btn => {
+        btn.onclick = function() {
+          const idx = parseInt(btn.getAttribute('data-idx'));
+          let agendaList = getAgendaList();
+          const filtered = agendaList.filter(a => a.month === bulanAktif);
+          const agenda = filtered[idx];
+          if (agenda) {
+            document.getElementById("agendaPopup").classList.remove("hidden");
+            document.getElementById("agendaHijriDay").value = agenda.day;
+            document.getElementById("agendaHijriMonth").value = agenda.month;
+            document.getElementById("agendaHijriDateText").innerText = `${agenda.day} ${hijriMonthNames[agenda.month - 1]}`;
+            document.getElementById("agendaTitle").value = agenda.title;
+            // Simpan index edit di dataset
+            document.getElementById("agendaForm").setAttribute('data-edit-idx', idx);
+          }
+        };
+      });
+    }, 0);
   }
 
+  function getUserId() {
+    // Ambil userId dari localStorage user object (misal: user.id)
+    try {
+      const userStr = localStorage.getItem('user');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        if (user && user.id) return user.id;
+        // fallback jika id tidak ada, coba user.user_id atau user.userId
+        if (user && user.user_id) return user.user_id;
+        if (user && user.ID) return user.ID;
+      }
+    } catch {}
+    return 'default';
+  }
   function getAgendaList() {
     try {
-      return JSON.parse(localStorage.getItem("hijriAgendaList") || "[]");
+      const userId = getUserId();
+      return JSON.parse(localStorage.getItem("hijriAgendaList_" + userId) || "[]");
     } catch {
       return [];
     }
   }
   function saveAgendaList(list) {
-    localStorage.setItem("hijriAgendaList", JSON.stringify(list));
+    const userId = getUserId();
+    localStorage.setItem("hijriAgendaList_" + userId, JSON.stringify(list));
   }
   function openAgendaPopup(day, month, year) {
     document.getElementById("agendaPopup").classList.remove("hidden");
@@ -241,10 +298,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const title = document.getElementById("agendaTitle").value.trim();
     if (!title) return;
     let agendaList = getAgendaList();
-    agendaList.push({ day, month, title });
+    const editIdx = this.getAttribute('data-edit-idx');
+    const userId = getUserId();
+    if (editIdx !== null && editIdx !== undefined) {
+      // Edit mode
+      let filtered = agendaList.filter(a => a.month === month);
+      const globalIdx = agendaList.findIndex((a, i) => a.month === month && i === parseInt(editIdx));
+      if (globalIdx !== -1) {
+        // Pastikan userId tetap sama pada edit
+        agendaList[globalIdx] = { day, month, title, userId: agendaList[globalIdx].userId || userId };
+      }
+      this.removeAttribute('data-edit-idx');
+    } else {
+      // Tambah baru, selalu simpan userId
+      agendaList.push({ day, month, title, userId });
+    }
     saveAgendaList(agendaList);
     document.getElementById("agendaPopup").classList.add("hidden");
-    renderAgendaList();
+    renderAgendaList(month);
     renderHijriCalendar(currentHijriDate);
   };
   // Navigasi bulan

@@ -1,12 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
   function switchPage(parentId, subId) {
+    const isLoggedIn = !!localStorage.getItem("token") && !!localStorage.getItem("user");
+    // Daftar halaman yang boleh diakses tanpa login
+    const allowedNoLogin = [
+      ["dashboard", "dashboard"],
+      ["dashboard", "zakat"],
+      ["dashboard", "waris"]
+    ];
+    // Jika belum login dan akses selain halaman yang diizinkan, redirect ke dashboard
+    if (!isLoggedIn) {
+      const allowed = allowedNoLogin.some(([p, s]) => p === parentId && s === subId);
+      if (!allowed) {
+        parentId = "dashboard";
+        subId = "dashboard";
+      }
+    }
     document.querySelectorAll(".content").forEach((content) => {
       content.style.display = "none";
     });
     // Khusus dashboard: cek login
     if (parentId === "dashboard" && subId === "dashboard") {
-      const isLoggedIn =
-        !!localStorage.getItem("token") && !!localStorage.getItem("user");
       const dashLogin = document.getElementById("dashboard-login-content");
       const dashDefault = document.getElementById("dashboard-dashboard-aaa");
       if (isLoggedIn && dashLogin) {
@@ -74,12 +87,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Jika buka halaman langsung dengan path tertentu
     const pathParts = window.location.pathname.split("/").filter(Boolean);
+    let parentId = "dashboard", subId = "dashboard";
     if (pathParts.length === 2) {
-      switchPage(pathParts[0], pathParts[1]);
-    } else {
-      // Default ke dashboard-dashboard
-      switchPage("dashboard", "dashboard");
+      parentId = pathParts[0];
+      subId = pathParts[1];
     }
+    // Cek login dan akses awal
+    const isLoggedIn = !!localStorage.getItem("token") && !!localStorage.getItem("user");
+    const allowedNoLogin = [
+      ["dashboard", "dashboard"],
+      ["dashboard", "zakat"],
+      ["dashboard", "waris"]
+    ];
+    if (!isLoggedIn) {
+      const allowed = allowedNoLogin.some(([p, s]) => p === parentId && s === subId);
+      if (!allowed) {
+        parentId = "dashboard";
+        subId = "dashboard";
+        history.replaceState(null, "", "/");
+      }
+    }
+    switchPage(parentId, subId);
   }
 
   setupMenuListeners();
