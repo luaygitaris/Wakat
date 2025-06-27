@@ -1,4 +1,5 @@
-const STORAGE_KEY = "myFamilyTree";
+const STORAGE_KEY = "myFamilyTree_" + getUserId();
+
 let f3EditTree;
 
 // Ambil dari localStorage, jika tidak ada pakai data() default
@@ -73,9 +74,39 @@ function data() {
 
 // Reset hanya localStorage + reload
 window.resetTree = function () {
-  localStorage.removeItem(STORAGE_KEY);
+  const keysToRemove = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (
+      key.startsWith("myFamilyTree_") ||
+      key.startsWith("warisResult_") ||
+      key.startsWith("riwayatWaris_")
+    ) {
+      keysToRemove.push(key);
+    }
+  }
+  keysToRemove.forEach((key) => localStorage.removeItem(key));
+  alert("Seluruh data pengguna telah dihapus.");
   location.reload();
 };
+
+function getUserId() {
+  try {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+
+      const id = user.id || user.user_id || user.ID || user.Id || user.ID_user;
+
+      if (typeof id === "number") return String(id); // convert ke string
+      if (typeof id === "string" && id.trim()) return id.trim();
+    }
+    console.warn("User ID tidak ditemukan, menggunakan fallback.");
+  } catch (e) {
+    console.error("Gagal mem-parsing user:", e);
+  }
+  return "guest";
+}
 
 function addButtons(f3Chart) {
   document.addEventListener("DOMContentLoaded", function () {
@@ -132,9 +163,13 @@ function addButtons(f3Chart) {
       btnReset.style.transform = "translateY(0)";
     };
     btnReset.onclick = () => {
-      if (confirm("Apakah Anda yakin ingin mereset data silsilah keluarga?")) {
+      if (
+        confirm(
+          "Apakah Anda yakin ingin mereset semua data termasuk hasil waris dan riwayat?"
+        )
+      ) {
         window.resetTree();
-        alert("Data silsilah keluarga telah direset.");
+        alert("Seluruh data telah direset.");
       }
     };
 
@@ -241,7 +276,8 @@ function showWarisCalculation(f3Chart) {
   // Ambil data family tree dari localStorage
   let allData = [];
   try {
-    const saved = localStorage.getItem("myFamilyTree");
+    const STORAGE_KEY = "myFamilyTree_" + getUserId();
+    const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       allData = JSON.parse(saved);
     }
@@ -282,18 +318,19 @@ function showWarisCalculation(f3Chart) {
   };
 
   document.getElementById("saveWaris").onclick = () => {
-    if (window.lastWarisResult) {
-      localStorage.setItem(
-        "warisResult",
-        JSON.stringify(window.lastWarisResult)
-      );
-      displaySavedWarisResult(window.lastWarisResult);
-      document.body.removeChild(modal);
-    } else {
-      alert(
-        "Tidak ada hasil warisan untuk disimpan. Silakan pilih almarhum terlebih dahulu."
-      );
-    }
+    document.getElementById("saveWaris").onclick = () => {
+      if (window.lastWarisResult) {
+        const key = "warisResult_" + getUserId();
+        localStorage.setItem(key, JSON.stringify(window.lastWarisResult));
+        displaySavedWarisResult(window.lastWarisResult);
+        const modal = document.getElementById("warisModal");
+        if (modal) document.body.removeChild(modal);
+      } else {
+        alert(
+          "Tidak ada hasil warisan untuk disimpan. Silakan pilih almarhum terlebih dahulu."
+        );
+      }
+    };
   };
 
   modal.onclick = (e) => {
@@ -929,44 +966,64 @@ function displaySavedWarisResult({ hasilPembagian, totalHarta, almarhum }) {
   const btnSimpan = document.getElementById("btnSimpanRiwayatWaris");
   if (btnSimpan) {
     btnSimpan.onclick = function () {
-      let nama = prompt("Masukkan nama riwayat waris (misal: Waris Budi 2025):");
+      let nama = prompt(
+        "Masukkan nama riwayat waris (misal: Waris Budi 2025):"
+      );
       if (!nama || !nama.trim()) {
         alert("Nama riwayat tidak boleh kosong!");
         return;
       }
+
       // Ambil data familytree terbaru
       let familyTreeData = null;
       try {
-        if (window.f3ChartInstance && typeof window.f3ChartInstance.getChartData === "function") {
+        if (
+          window.f3ChartInstance &&
+          typeof window.f3ChartInstance.getChartData === "function"
+        ) {
           familyTreeData = window.f3ChartInstance.getChartData();
         } else {
-          const saved = localStorage.getItem("myFamilyTree");
+          const STORAGE_KEY = "myFamilyTree_" + getUserId();
+          const saved = localStorage.getItem(STORAGE_KEY);
           familyTreeData = saved ? JSON.parse(saved) : null;
         }
       } catch (e) {
         familyTreeData = null;
       }
+
       if (!familyTreeData) {
         alert("Gagal mengambil data silsilah keluarga.");
         return;
       }
+
       // Ambil riwayat lama
       let riwayat = [];
       try {
-        const old = localStorage.getItem("riwayatWaris");
+        const old = localStorage.getItem("riwayatWaris_" + getUserId());
         riwayat = old ? JSON.parse(old) : [];
       } catch (e) {
         riwayat = [];
       }
+
       // Simpan data baru
       riwayat.push({
         nama: nama.trim(),
         tanggal: new Date().toISOString(),
         familyTree: familyTreeData,
-        hasilWaris: { hasilPembagian, totalHarta, almarhum }
+        hasilWaris: { hasilPembagian, totalHarta, almarhum },
       });
-      localStorage.setItem("riwayatWaris", JSON.stringify(riwayat));
+
+      localStorage.setItem(
+        "riwayatWaris_" + getUserId(),
+        JSON.stringify(riwayat)
+      );
+
       alert("Berhasil disimpan ke riwayat waris!");
+
+      // ⬅️ Tambahkan baris ini agar langsung muncul di halaman riwayat jika ada
+      if (typeof renderTabel === "function") {
+        renderTabel();
+      }
     };
   }
 }
@@ -1028,7 +1085,7 @@ function updateGlobalData() {
 }
 
 window.addEventListener("load", () => {
-  const savedResult = localStorage.getItem("warisResult");
+  const savedResult = localStorage.getItem("warisResult_" + getUserId());
   if (savedResult) {
     try {
       const result = JSON.parse(savedResult);

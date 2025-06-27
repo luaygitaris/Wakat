@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstHijriDate = new Date(date);
     firstHijriDate.setDate(1);
     let gregorianDateForFirstHijri;
-    for (let offset = -15; offset <= 15; offset++) {
+    for (let offset = -30; offset <= 30; offset++) {
       const temp = new Date(firstHijriDate);
       temp.setDate(temp.getDate() + offset);
       const parts = fmt.formatToParts(temp);

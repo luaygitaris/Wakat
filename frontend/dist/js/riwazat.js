@@ -2,7 +2,17 @@ function renderTabel() {
   const tableBody = document.getElementById("warisRiwayatTableBody");
   tableBody.innerHTML = "";
 
-  const riwayat = JSON.parse(localStorage.getItem("riwayatWaris")) || [];
+  const userStr = localStorage.getItem("user");
+  let userId = "guest";
+  if (userStr) {
+    try {
+      const user = JSON.parse(userStr);
+      userId = user.id || user.user_id || user.ID || "guest";
+    } catch (e) {}
+  }
+
+  const riwayat =
+    JSON.parse(localStorage.getItem("riwayatWaris_" + userId)) || [];
 
   riwayat.forEach((item, index) => {
     let namaAlmarhum = "Tidak diketahui";
@@ -32,6 +42,37 @@ function renderTabel() {
     `;
     tableBody.appendChild(tr);
   });
+}
+
+function getUserId() {
+  try {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      return user.id || user.user_id || user.ID || "guest";
+    }
+  } catch (e) {}
+  return "guest";
+}
+
+function simpanKeRiwayat(hasilWaris, familyTreeData) {
+  const userId = getUserId();
+  const key = "riwayatWaris_" + userId;
+
+  const riwayatLama =
+    JSON.parse(localStorage.getItem("riwayatWaris_" + getUserId(key))) || [];
+
+  const entriBaru = {
+    tanggal: new Date().toISOString(),
+    hasilWaris,
+    familyTree: familyTreeData,
+  };
+
+  riwayatLama.push(entriBaru);
+  localStorage.setItem(
+    "riwayatWaris_" + getUserId(),
+    JSON.stringify(riwayatLama)
+  );
 }
 
 function renderFamilyTree(container, treeData) {
@@ -81,7 +122,8 @@ function renderFamilyTree(container, treeData) {
 }
 
 function lihatRiwayat(index) {
-  const riwayat = JSON.parse(localStorage.getItem("riwayatWaris")) || [];
+  const riwayat =
+    JSON.parse(localStorage.getItem("riwayatWaris_" + getUserId())) || [];
   const item = riwayat[index];
   if (!item) return alert("Data tidak ditemukan!");
 
@@ -224,7 +266,8 @@ function lihatRiwayat(index) {
 // Fungsi lainnya tetap sama...
 
 function downloadPDF(index) {
-  const riwayat = JSON.parse(localStorage.getItem("riwayatWaris")) || [];
+  const riwayat =
+    JSON.parse(localStorage.getItem("riwayatWaris_" + getUserId())) || [];
   const item = riwayat[index];
   if (!item) return alert("Data tidak ditemukan!");
 
@@ -383,7 +426,8 @@ function downloadPDF(index) {
 // Ensure other functions like renderFamilyTree, formatRupiah, etc., remain defined elsewhere in your code.
 
 function hapusById(index) {
-  let riwayat = JSON.parse(localStorage.getItem("riwayatWaris")) || [];
+  let riwayat =
+    JSON.parse(localStorage.getItem("riwayatWaris_" + getUserId())) || [];
   const item = riwayat[index];
   if (!item) return alert("Data tidak ditemukan!");
 
@@ -393,7 +437,10 @@ function hapusById(index) {
   if (!yakin) return;
 
   riwayat.splice(index, 1);
-  localStorage.setItem("riwayatWaris", JSON.stringify(riwayat));
+  localStorage.setItem(
+    "riwayatWaris_" + getUserId(),
+    ...JSON.stringify(riwayat)
+  );
   renderTabel();
 }
 
@@ -407,4 +454,26 @@ function formatRupiah(num) {
 
 window.addEventListener("DOMContentLoaded", () => {
   renderTabel();
+
+  const saveBtn = document.getElementById("saveWaris");
+  if (saveBtn) {
+    saveBtn.onclick = () => {
+      if (window.lastWarisResult && window.currentFamilyTree) {
+        const key = "warisResult_" + getUserId();
+        localStorage.setItem(key, JSON.stringify(window.lastWarisResult));
+
+        simpanKeRiwayat(window.lastWarisResult, window.currentFamilyTree);
+
+        displaySavedWarisResult(window.lastWarisResult);
+
+        // ⬅️ Tambahkan baris ini agar langsung muncul di riwayat
+        if (typeof renderTabel === "function") renderTabel();
+
+        const modal = document.getElementById("warisModal");
+        if (modal) document.body.removeChild(modal);
+      } else {
+        alert("Data warisan belum lengkap.");
+      }
+    };
+  }
 });
