@@ -162,9 +162,49 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const menuLinks = mobileMenu.querySelectorAll("a");
+  // Handler baru untuk mobile menu dashboard
+  const dashboardText = mobileMenu.querySelector('.dashboard-link-mobile');
+  const dashboardDropdown = mobileMenu.querySelector('.dashboard-dropdown-mobile');
+  // Cari submenu dashboard: ambil ul setelah .dashboard-dropdown-mobile
+  let dashboardSubmenu = null;
+  if (dashboardDropdown) {
+    // .dashboard-dropdown-mobile ada di dalam <span> di dalam <div class="menu ...">
+    // parent .menu -> parent <li> -> cari ul (submenu)
+    const parentLi = dashboardDropdown.closest('li');
+    if (parentLi) {
+      dashboardSubmenu = parentLi.querySelector('ul');
+    }
+  }
 
+  if (dashboardText) {
+    dashboardText.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll(".content").forEach((content) => {
+        content.style.display = "none";
+      });
+      const pageToShow = document.getElementById(`dashboard-dashboard-aaa`);
+      if (pageToShow) {
+        pageToShow.style.display = "block";
+      }
+      history.pushState(null, "", "/");
+      mobileMenu.classList.remove("mobile-menu--active");
+    });
+  }
+  if (dashboardDropdown && dashboardSubmenu) {
+    dashboardDropdown.addEventListener('click', function(e) {
+      e.preventDefault();
+      dashboardSubmenu.classList.toggle('menu__sub-open');
+      // Cari icon <i data-lucide="chevron-down"> di dalam dashboardDropdown
+      const icon = dashboardDropdown.querySelector('i[data-lucide="chevron-down"]');
+      if (icon) icon.classList.toggle('rotate-180');
+    });
+  }
+
+  // Handler untuk submenu dan menu lain tetap seperti sebelumnya
+  const menuLinks = mobileMenu.querySelectorAll("a.menu");
   menuLinks.forEach((link) => {
+    // Jangan override handler dashboard utama
+    if (link.querySelector('.dashboard-link-mobile')) return;
     link.addEventListener("click", function (e) {
       const parentLi = this.closest("li");
       const submenu = parentLi?.querySelector("ul");
@@ -201,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const parentTitle =
         this.closest("ul")
           ?.closest("li")
-          ?.querySelector("a .menu__title")
+          ?.querySelector(".menu__title")
           ?.textContent.trim()
           .toLowerCase() || "";
       if (parentTitle.includes("dashboard")) parentId = "dashboard";
@@ -355,7 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("logoutButton")?.addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    location.reload();
+    window.location.href = "/"; // Redirect ke dashboard setelah logout
   });
 
   document

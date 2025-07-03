@@ -18420,6 +18420,11 @@ html body {
   align-items: flex-start;
   margin-bottom: 0.75rem;
 }
+.tombol-waris {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .dot {
   width: 8px;
@@ -18487,6 +18492,12 @@ html body {
   .text-h6 {
     font-size: 0.8rem;
     line-height: 1.4;
+  }
+  .tombol-waris {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -18577,7 +18588,7 @@ html body {
 }
 
 .responsive-table-dashboard-waris-hitung thead {
-background-color: #f3f4f6; /* Tailwind gray-100 */
+  background-color: #f3f4f6; /* Tailwind gray-100 */
   color: #111827; /* Tailwind gray-900 */
 }
 
@@ -18634,4 +18645,95 @@ background-color: #f3f4f6; /* Tailwind gray-100 */
   .responsive-table-dashboard-waris-hitung td:nth-child(3)::before {
     content: "Jumlah";
   }
+}
+
+.responsive-table-waris-hitung table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #374151; /* gray-700 */
+  font-size: 0.95rem;
+}
+
+.responsive-table-waris-hitung th,
+.responsive-table-waris-hitung td {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  text-align: left;
+  vertical-align: top;
+}
+
+.responsive-table-waris-hitung thead {
+  background-color: #f3f4f6; /* gray-100 */
+  color: #111827; /* gray-900 */
+}
+
+.responsive-table-waris-hitung tfoot td {
+  background-color: #f9fafb;
+  font-weight: bold;
+}
+
+/* Tambahan: Bungkus agar bisa scroll horizontal di layar sangat kecil */
+@media screen and (max-width: 1024px) {
+  .responsive-table-waris-hitung {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Versi responsif penuh untuk mobile */
+@media screen and (max-width: 768px) {
+  .responsive-table-waris-hitung table,
+  .responsive-table-waris-hitung thead,
+  .responsive-table-waris-hitung tbody,
+  .responsive-table-waris-hitung tfoot,
+  .responsive-table-waris-hitung th,
+  .responsive-table-waris-hitung td,
+  .responsive-table-waris-hitung tr {
+    display: block;
+  }
+
+  .responsive-table-waris-hitung thead {
+    display: none;
+  }
+
+  .responsive-table-waris-hitung tr {
+    margin-bottom: 1rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .responsive-table-waris-hitung td {
+    padding: 0.75rem 0.75rem 0.75rem 50%;
+    border: none;
+    border-bottom: 1px solid #f3f4f6;
+    position: relative;
+    text-align: left;
+    font-size: 0.7rem;
+  }
+  .responsive-table-waris-hitung td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0rem;
+    top: 0.75rem;
+    width: 45%;
+    font-weight: 600;
+    color: #6b7280; /* gray-500 */
+    white-space: nowrap;
+  }
+
+  .responsive-table-waris-hitung tfoot {
+    display: block;
+  }
+
+  .responsive-table-waris-hitung tfoot td {
+    border: none;
+    text-align: left;
+  }
+  .tfoot-label {
+  padding-left: 0.2rem !important;
+  text-align: center !important;
+}
 }

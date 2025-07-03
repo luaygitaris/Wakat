@@ -1,23 +1,167 @@
 .lg-hidden {
-    display: hide;
+  display: hide;
 }
 .lg-flex {
-    display: flex;
+  display: flex;
 }
 @media screen and (min-width: 1024px) {
-    .lg-hidden {
-        display: none;
-    }
-    .lg-flex {
-        display: flex;
-    }
-    
+  .lg-hidden {
+    display: none;
+  }
+  .lg-flex {
+    display: flex;
+  }
 }
 @media screen and (min-width: 640px) and (max-width: 1023px) {
-    .lg-hidden {
-        display: block;
-    }
-    .lg-flex {
-        display: none;
-    }
+  .lg-hidden {
+    display: block;
+  }
+  .lg-flex {
+    display: none;
+  }
+}
+
+.responsive-table-zakat-emas table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #374151; /* Tailwind gray-700 */
+}
+
+.responsive-table-zakat-emas th,
+.responsive-table-zakat-emas td {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  text-align: left;
+}
+
+.responsive-table-zakat-emas thead {
+  background-color: #f3f4f6; /* Tailwind gray-100 */
+  color: #111827; /* Tailwind gray-900 */
+}
+
+/* Responsif untuk layar kecil */
+@media screen and (max-width: 768px) {
+  .responsive-table-zakat-emas table,
+  .responsive-table-zakat-emas thead,
+  .responsive-table-zakat-emas tbody,
+  .responsive-table-zakat-emas th,
+  .responsive-table-zakat-emas td,
+  .responsive-table-zakat-emas tr {
+    display: block;
+  }
+
+  .responsive-table-zakat-emas thead {
+    display: none; /* sembunyikan header */
+  }
+
+  .responsive-table-zakat-emas tr {
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: #fff;
+  }
+
+  .responsive-table-zakat-emas td {
+    padding: 0.5rem;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .responsive-table-zakat-emas td::before {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.75rem;
+    width: 45%;
+    padding-right: 0.5rem;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #6b7280; /* Tailwind gray-500 */
+  }
+
+  /* Label tiap kolom */
+  .responsive-table-zakat-emas td:nth-child(1)::before {
+    content: "Jenis Logam Emas";
+  }
+  .responsive-table-zakat-emas td:nth-child(2)::before {
+    content: "Berat";
+  }
+  .responsive-table-zakat-emas td:nth-child(3)::before {
+    content: "Harga per gram";
+  }
+  .responsive-table-zakat-emas td:nth-child(4)::before {
+    content: "Total Nilai";
+  }
+  .responsive-table-zakat-emas td:nth-child(5)::before {
+    content: "Nishab";
+  }
+  .responsive-table-zakat-emas td:nth-child(6)::before {
+    content: "Wajiba Zakat?";
+  }
+  .responsive-table-zakat-emas td:nth-child(7)::before {
+    content: "Zakat yang harus dibayar";
+  }
+}
+
+/* Tabel Utama */
+.responsive-table-zakat {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: sans-serif;
+  margin-top: 1.5rem;
+}
+
+/* Header & Cell */
+.responsive-table-zakat th,
+.responsive-table-zakat td {
+  border: 1px solid #ddd;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+/* Baris penting */
+.responsive-table-zakat tr.bg-yellow-100 {
+  background-color: #fef3c7;
+  font-weight: 600;
+}
+
+.responsive-table-zakat tr.bg-green-100 {
+  background-color: #d1fae5;
+  font-weight: bold;
+}
+
+.responsive-table-zakat td.text-blue-700 {
+  color: #1d4ed8;
+}
+
+.responsive-table-zakat td.text-green-600 {
+  color: #16a34a;
+}
+
+.responsive-table-zakat td.text-red-600 {
+  color: #dc2626;
+}
+
+/* Responsif Mobile */
+@media screen and (max-width: 768px) {
+  .responsive-table-zakat th,
+  .responsive-table-zakat td {
+    padding: 8px 12px;
+    font-size: 0.875rem; /* Lebih kecil sedikit */
+  }
+
+  .responsive-table-zakat tr.bg-yellow-100,
+  .responsive-table-zakat tr.bg-green-100 {
+    font-size: 0.9rem;
+  }
+
+  .responsive-table-zakat td.text-blue-700,
+  .responsive-table-zakat td.text-green-600,
+  .responsive-table-zakat td.text-red-600 {
+    font-size: 0.95rem;
+  }
 }
