@@ -21,22 +21,16 @@
     </a>
     <ul class="scrollable__content py-2">
       <li>
-        <a class="menu menu--active">
-          <div class="menu__icon"><i data-lucide="home"></i></div>
-          <div class="menu__title">
-            Dashboard
-            <i
-              data-lucide="chevron-down"
-              class="menu__sub-icon transform rotate-180"></i>
+        <div class="menu menu--active flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="menu__icon"><i data-lucide="home"></i></div>
+            <span class="menu__title dashboard-link-mobile cursor-pointer">Dashboard</span>
           </div>
-        </a>
+          <span class="menu__sub-icon dashboard-dropdown-mobile transform cursor-pointer">
+            <i data-lucide="chevron-down"></i>
+          </span>
+        </div>
         <ul class="menu__sub-open">
-          <li data-page="dashboard">
-            <a href="javascript:;" class="menu menu--active">
-              <div class="menu__icon"><i data-lucide="activity"></i></div>
-              <div class="menu__title">Home</div></a
-            >
-          </li>
           <li data-page="waris">
             <a href="javascript:;" class="menu">
               <div class="menu__icon"><i data-lucide="activity"></i></div>

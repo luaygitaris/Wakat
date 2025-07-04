@@ -1,7 +1,8 @@
 <div
   id="dashboard-zakat-aaa"
   class="content"
-  style="display: none; font-family: poppins, sans-serif">
+  style="display: none; font-family: poppins, sans-serif"
+>
   <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12 2xl:col-span-9">
       <div class="flex flex-col gap-6">
@@ -68,7 +69,7 @@
         </div>
         <!-- END: General Report -->
         <!-- dalil zakat mall -->
-          <div class="col-span-12 lg:col-span-8 xl:col-span-6 mt-2">
+        <div class="col-span-12 lg:col-span-8 xl:col-span-6 mt-2">
           <div class="intro-y block sm:flex items-center h-10">
             <h2 class="text-lg font-medium truncate mr-5">Dalil Zakat Mall</h2>
             <h2 class="sm:ml-auto mt-3 sm:mt-0 sm:w-auto box p-3">
@@ -80,7 +81,8 @@
               <div class="bg-white shadow rounded-lg p-8 mt-5">
                 <p
                   class="text-right arabic-font leading-relaxed text-gray-700 mb-4"
-                  style="font-size: large;">
+                  style="font-size: large"
+                >
                   يَا أَيُّهَا الَّذِينَ آمَنُوا أَنفِقُوا مِن طَيِّبَاتِ مَا
                   كَسَبْتُمْ وَمِمَّا أَخْرَجْنَا لَكُم مِّنَ الْأَرْضِ وَلَا
                   تَيَمَّمُوا الْخَبِيثَ مِنْهُ تُنفِقُونَ وَلَسْتُم بِآخِذِيهِ
@@ -105,10 +107,9 @@
         <div class="box p-5 flex flex-col items-center justify-center">
           <div class="report-box-2 w-full">
             <div class="box p-5">
-              <!-- Mobile Dropdown -->
               <div class="block md:hidden mb-4">
                 <select
-                  class="w-full p-2 border rounded-md bg-primary text-white"
+                  class="w-full p-2 border rounded-md bg-slate-100"
                   onchange="showContent(this.value)"
                 >
                   <option value="content1">Emas & Perak</option>
@@ -118,6 +119,7 @@
                   <option value="content5">Barang Temuan</option>
                 </select>
               </div>
+              <!-- Mobile Dropdown -->
               <ul
                 class="nav nav-pills bg-slate-100 rounded-md mx-auto hidden md:flex items-center"
                 role="tablist"
@@ -165,11 +167,12 @@
               </ul>
 
               <!-- Tab Contents -->
-              <div class="tab-content mt-6 rounded-md mx-auto">
-                <div id="content1" class="flex flex-col gap-4">
+              <div
+                class="tab-content mt-6 w-full md:w-4/5 p-4 md:p-5 rounded-md mx-auto text-sm md:text-base"
+              >
+                <div id="content1" class="flex flex-col">
                   <p
-                    class="text-right text-base arabic-font p-3 leading-relaxed text-gray-700"
-                    style="font-size: large;"
+                    class="text-right text-base arabic-font p-2 leading-relaxed text-gray-700"
                   >
                     يَا أَيُّهَا الَّذِينَ آمَنُوا إِنَّ كَثِيرًا مِّنَ
                     الْأَحْبَارِ وَالرُّهْبَانِ لَيَأْكُلُونَ أَمْوَالَ النَّاسِ
@@ -177,7 +180,7 @@
                     يَكْنِزُونَ الذَّهَبَ وَالْفِضَّةَ وَلَا يُنفِقُونَهَا فِي
                     سَبِيلِ اللَّهِ فَبَشِّرْهُم بِعَذَابٍ أَلِيمٍ
                   </p>
-                  <p class="text-sm">
+                  <p class="translation text-slate-600 intro-x">
                     Wahai orang-orang yang beriman, sesungguhnya banyak dari
                     para rabi dan rahib benar-benar memakan harta manusia dengan
                     batil serta memalingkan (manusia) dari jalan Allah.
@@ -187,17 +190,16 @@
                   </p>
                 </div>
 
-                <div id="content2" class="flex flex-col gap-4 hidden">
+                <div id="content2" class="flex flex-col hidden">
                   <p
-                    class="text-right text-base arabic-font p-3 leading-relaxed text-gray-700"
-                    style="font-size: large;"
+                    class="text-right text-base arabic-font p-2 leading-relaxed text-gray-700"
                   >
                     عَنْ سَمُرَةَ بْنِ جُنْدَبٍ رَضِيَ اللهُ عَنْهُ قَالَ:
                     "أَمَرَنَا رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ
                     أَنْ نُخْرِجَ الصَّدَقَةَ مِمَّا نُعِدُّهُ لِلْبَيْعِ."
                     (رَوَاهُ أَبُو دَاوُد)
                   </p>
-                  <p class="text-sm">
+                  <p class="translation text-slate-600 intro-x">
                     Dari Samurah bin Jundub radhiyallahu 'anhu, ia berkata:
                     “Rasulullah ﷺ memerintahkan kami untuk mengeluarkan sedekah
                     (zakat) dari barang yang kami siapkan untuk dijual.” (HR.
@@ -205,10 +207,9 @@
                   </p>
                 </div>
 
-                <div id="content3" class="flex flex-col gap-4 hidden">
+                <div id="content3" class="flex flex-col hidden">
                   <p
-                    class="text-right text-base arabic-font p-3 leading-relaxed text-gray-700"
-                    style="font-size: large;"
+                    class="text-right text-base arabic-font p-2 leading-relaxed text-gray-700"
                   >
                     وَهُوَ الَّذِيْٓ اَنْشَاَ جَنّٰتٍ مَّعْرُوْشٰتٍ وَّغَيْرَ
                     مَعْرُوْشٰتٍ وَّالنَّخْلَ وَالزَّرْعَ مُخْتَلِفًا اُكُلُهٗ
@@ -217,7 +218,7 @@
                     وَاٰتُوْا حَقَّهٗ يَوْمَ حَصَادِهٖۖ وَلَا تُسْرِفُوْا
                     ۗاِنَّهٗ لَا يُحِبُّ الْمُسْرِفِيْنَۙ
                   </p>
-                  <p class="text-sm">
+                  <p class="translation text-slate-600 intro-x">
                     Dialah yang menumbuhkan tanaman-tanaman yang merambat dan
                     yang tidak merambat, pohon kurma, tanaman yang beraneka
                     ragam rasanya, serta zaitun dan delima yang serupa (bentuk
@@ -229,10 +230,9 @@
                   </p>
                 </div>
 
-                <div id="content4" class="flex flex-col gap-4 hidden">
+                <div id="content4" class="flex flex-col hidden">
                   <p
-                    class="text-right text-base arabic-font p-3 leading-relaxed text-gray-700"
-                    style="font-size: large;"
+                    class="text-right text-base arabic-font p-2 leading-relaxed text-gray-700"
                   >
                     عَنْ أَبِي ذَرٍّ رَضِيَ اللَّهُ عَنْهُ، قَالَ: قَالَ رَسُولُ
                     اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: "ما من صاحب إبل،
@@ -240,7 +240,7 @@
                     أعظم ما تكون، وأسمن، تنطحه بقرونها، وتطؤه بأخفافها، كلما
                     نفدت أخراها، عادت عليه أولاها، حتى يقضى بين الناس."
                   </p>
-                  <p class="text-sm">
+                  <p class="translation text-slate-600 mt-4 intro-x">
                     “Tidaklah seorang pun memiliki unta, sapi, atau kambing lalu
                     tidak menunaikan zakatnya, kecuali hewan-hewan itu akan
                     datang pada hari kiamat dalam keadaan paling besar dan
@@ -251,16 +251,15 @@
                   </p>
                 </div>
 
-                <div id="content5" class="flex flex-col gap-4 hidden">
+                <div id="content5" class="flex flex-col hidden">
                   <p
-                    class="text-right text-base arabic-font p-3 leading-relaxed text-gray-700"
-                    style="font-size: large;"
+                    class="text-right text-base arabic-font p-2 leading-relaxed text-gray-700"
                   >
                     عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، قَالَ: قَالَ
                     رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «فِي
                     الرِّكَازِ الخُمُسُ»
                   </p>
-                  <p class="text-sm">
+                  <p class="translation text-slate-600 intro-x">
                     Dari Abu Hurairah radhiyallahu ‘anhu, ia berkata: Rasulullah
                     ﷺ bersabda, “Pada rikaz (harta terpendam/temuan), terdapat
                     kewajiban (zakat) sebesar seperlima (20%).”
@@ -269,58 +268,61 @@
               </div>
 
               <!-- Script to Switch Content -->
-            <script>
-              function showContent(contentId) {
-                const allContents = [
-                  "content1",
-                  "content2",
-                  "content3",
-                  "content4",
-                  "content5",
-                ];
+              <script>
+                function showContent(contentId) {
+                  const allContents = [
+                    "content1",
+                    "content2",
+                    "content3",
+                    "content4",
+                    "content5",
+                  ];
 
-                // Sembunyikan semua konten
-                allContents.forEach((id) => {
-                  const el = document.getElementById(id);
-                  if (el) el.classList.add("hidden");
-                });
+                  // Sembunyikan semua konten
+                  allContents.forEach((id) => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.add("hidden");
+                  });
 
-                // Tampilkan konten yang dipilih
-                const target = document.getElementById(contentId);
-                if (target) target.classList.remove("hidden");
+                  // Tampilkan konten yang dipilih
+                  const target = document.getElementById(contentId);
+                  if (target) target.classList.remove("hidden");
 
-                // Hapus style aktif dari semua tombol tab
-                document.querySelectorAll(".nav-link").forEach((btn) => {
-                  btn.classList.remove("bg-blue-600", "text-white");
-                  btn.classList.add("bg-slate-100", "text-black");
-                });
+                  // Hapus style aktif dari semua tombol tab
+                  document.querySelectorAll(".nav-link").forEach((btn) => {
+                    btn.classList.remove("bg-blue-600", "text-white");
+                    btn.classList.add("bg-slate-100", "text-black");
+                  });
 
-                                  // Tambahkan style aktif ke tombol yang sesuai
-                document.querySelectorAll(".nav-link").forEach((btn) => {
-                  btn.classList.remove("active", "bg-blue-600", "text-white");
-                  btn.classList.add("bg-slate-100", "text-black");
-                });
+                  // Tambahkan style aktif ke tombol yang sesuai
+                  document.querySelectorAll(".nav-link").forEach((btn) => {
+                    btn.classList.remove("active", "bg-blue-600", "text-white");
+                    btn.classList.add("bg-slate-100", "text-black");
+                  });
 
-                const activeButton = Array.from(document.querySelectorAll(".nav-link")).find((btn) =>
-                  btn.getAttribute("onclick")?.includes(contentId)
-                );
-                if (activeButton) {
-                  activeButton.classList.add("active", "bg-blue-600", "text-white");
-                  activeButton.classList.remove("bg-slate-100", "text-black");
+                  const activeButton = Array.from(
+                    document.querySelectorAll(".nav-link")
+                  ).find((btn) =>
+                    btn.getAttribute("onclick")?.includes(contentId)
+                  );
+                  if (activeButton) {
+                    activeButton.classList.add(
+                      "active",
+                      "bg-blue-600",
+                      "text-white"
+                    );
+                    activeButton.classList.remove("bg-slate-100", "text-black");
+                  }
+
+                  // Sinkronisasi juga dengan dropdown mobile (opsional tapi disarankan)
+                  const dropdown = document.querySelector("select");
+                  if (dropdown) dropdown.value = contentId;
                 }
-
-                // Sinkronisasi juga dengan dropdown mobile (opsional tapi disarankan)
-                const dropdown = document.querySelector("select");
-                if (dropdown) dropdown.value = contentId;
-
-              }
-
-            </script>
-
+              </script>
             </div>
           </div>
         </div>
-        
+
         <!-- BEGIN: Visitors -->
         <div class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2">
           <div class="intro-y flex items-center h-10">
@@ -469,7 +471,8 @@
         <!-- END: Visitors -->
         <!-- BEGIN: Users By Age -->
         <div
-          class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2 lg:mt-6 xl:mt-2">
+          class="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 mt-2 lg:mt-6 xl:mt-2"
+        >
           <div class="intro-y flex items-center h-10">
             <h2 class="text-h4 truncate mr-5">Syarat Syarat Zakat</h2>
           </div>
@@ -480,29 +483,33 @@
               <div class="block md:hidden w-full md:w-4/5 mx-auto mb-4">
                 <select
                   class="w-full p-2 rounded-md bg-slate-100 text-h6 dark:bg-black/20"
-                  onchange="showContent(this.value)">
-                  <option value="content1">Islam</option>
-                  <option value="content2">Miliknya seutuhnya</option>
-                  <option value="content3">Mencapai Nisab</option>
-                  <option value="content4">Mencapai Haul</option>
+                  onchange="showSyarat(this.value)"
+                >
+                  <option value="syarat1">Islam</option>
+                  <option value="syarat2">Miliknya seutuhnya</option>
+                  <option value="syarat3">Mencapai Nisab</option>
+                  <option value="syarat4">Mencapai Haul</option>
                 </select>
               </div>
 
               <!-- Tabs untuk desktop -->
               <ul
                 class="nav nav-pills hidden md:block md:flex flex-row gap-0 bg-slate-100 dark:bg-black/20 rounded-md w-full md:w-4/5 mx-auto overflow-x-auto"
-                role="tablist">
+                role="tablist"
+              >
                 <li class="nav-item flex-1" role="presentation">
                   <button
                     class="nav-link w-full py-2 px-3 text-base active flex items-center justify-center"
-                    onclick="showContent('content1')">
+                    onclick="showSyarat('syarat1')"
+                  >
                     Islam
                   </button>
                 </li>
                 <li class="nav-item flex-1" role="presentation">
                   <button
                     class="nav-link w-full py-2 px-3 text-base flex items-center justify-center"
-                    onclick="showContent('content2')">
+                    onclick="showSyarat('syarat2')"
+                  >
                     Miliknya
                     <span class="px-2 md:hidden 2xl:block">seutuhnya</span>
                   </button>
@@ -510,14 +517,16 @@
                 <li class="nav-item flex-1" role="presentation">
                   <button
                     class="nav-link w-full py-2 px-3 text-base"
-                    onclick="showContent('content3')">
+                    onclick="showSyarat('syarat3')"
+                  >
                     Mencapai Nisab
                   </button>
                 </li>
                 <li class="nav-item flex-1" role="presentation">
                   <button
                     class="nav-link w-full py-2 px-3 text-base"
-                    onclick="showContent('content4')">
+                    onclick="showSyarat('syarat4')"
+                  >
                     Mencapai Haul
                   </button>
                 </li>
@@ -525,13 +534,15 @@
 
               <!-- Tab Content -->
               <div
-                class="tab-content mt-6 w-full md:w-4/5 p-4 md:p-5 rounded-md mx-auto text-sm md:text-base">
-                <div id="content1" class="flex flex-col gap-4">
+                class="tab-content mt-6 w-full md:w-4/5 p-4 md:p-5 rounded-md mx-auto text-sm md:text-base"
+              >
+                <div id="syarat1" class="flex flex-col gap-4">
                   <p class="text-p text-slate-600 mt-4 intro-x">
                     Nabi ﷺ bersabda:
                   </p>
                   <div
-                    class="arabic-font leading-relaxed text-center text-gray-800 tracking-wide intro-x mt-4">
+                    class="arabic-font leading-relaxed text-center text-gray-800 tracking-wide intro-x mt-4"
+                  >
                     قَالَ رَسُولُ اللَّهِ ﷺ: «تُؤْخَذُ مِنْ أَغْنِيَائِهِمْ
                     فَتُرَدُّ عَلَى فُقَرَائِهِمْ»
                   </div>
@@ -549,13 +560,14 @@
                   </div>
                 </div>
 
-                <div id="content2" class="flex flex-col gap-4 hidden">
+                <div id="syarat2" class="flex flex-col gap-4 hidden">
                   <p class="text-p text-slate-600 mt-4 intro-x">
                     Nabi ﷺ bersabda kepada Mu’adz bin Jabal saat mengutusnya ke
                     Yaman:
                   </p>
                   <div
-                    class="arabic-font leading-relaxed text-center text-gray-800 tracking-wide intro-x mt-4">
+                    class="arabic-font leading-relaxed text-center text-gray-800 tracking-wide intro-x mt-4"
+                  >
                     «فَأَخْبِرْهُمْ أَنَّ اللَّهَ افْتَرَضَ عَلَيْهِمْ صَدَقَةً،
                     تُؤْخَذُ مِنْ أَغْنِيَائِهِمْ»
                   </div>
@@ -572,13 +584,14 @@
                   </div>
                 </div>
 
-                <div id="content3" class="flex flex-col gap-4 hidden">
+                <div id="syarat3" class="flex flex-col gap-4 hidden">
                   <p class="text-p text-slate-600 mt-4 intro-x">
                     Dari Ali bin Abi Thalib radhiyallahu ‘anhu, Rasulullah ﷺ
                     bersabda:
                   </p>
                   <div
-                    class="arabic-font leading-relaxed text-center text-gray-800 tracking-wide intro-x mt-4">
+                    class="arabic-font leading-relaxed text-center text-gray-800 tracking-wide intro-x mt-4"
+                  >
                     «إِذَا كَانَتْ لَكَ مِئَتَا دِرْهَمٍ، وَحَالَ عَلَيْهَا
                     الْحَوْلُ، فَفِيهَا خَمْسَةُ دَرَاهِمَ، وَلَيْسَ عَلَيْكَ
                     شَيْءٌ -يَعْنِي فِي الذَّهَبِ- حَتَّى يَكُونَ لَكَ عِشْرُونَ
@@ -601,10 +614,11 @@
                   </div>
                 </div>
 
-                <div id="content4" class="flex flex-col gap-4 hidden">
+                <div id="syarat4" class="flex flex-col gap-4 hidden">
                   <p class="text-p text-slate-600 mt-4 intro-x">Dalil:</p>
                   <div
-                    class="arabic-font leading-relaxed text-center text-gray-800 tracking-wide intro-x mt-4">
+                    class="arabic-font leading-relaxed text-center text-gray-800 tracking-wide intro-x mt-4"
+                  >
                     «لَا زَكَاةَ فِي مَالٍ حَتَّى يَحُولَ عَلَيْهِ الْحَوْلُ»
                   </div>
                   <div>
@@ -620,6 +634,57 @@
                   </div>
                 </div>
               </div>
+
+              <script>
+                function showSyarat(syaratId) {
+                  const allContents = [
+                    "syarat1",
+                    "syarat2",
+                    "syarat3",
+                    "syarat4",
+                  ];
+
+                  // Sembunyikan semua konten
+                  allContents.forEach((id) => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.add("hidden");
+                  });
+
+                  // Tampilkan konten yang dipilih
+                  const target = document.getElementById(syaratId);
+                  if (target) target.classList.remove("hidden");
+
+                  // Hapus style aktif dari semua tombol tab
+                  document.querySelectorAll(".nav-link").forEach((btn) => {
+                    btn.classList.remove("bg-blue-600", "text-white");
+                    btn.classList.add("bg-slate-100", "text-black");
+                  });
+
+                  // Tambahkan style aktif ke tombol yang sesuai
+                  document.querySelectorAll(".nav-link").forEach((btn) => {
+                    btn.classList.remove("active", "bg-blue-600", "text-white");
+                    btn.classList.add("bg-slate-100", "text-black");
+                  });
+
+                  const activeButton = Array.from(
+                    document.querySelectorAll(".nav-link")
+                  ).find((btn) =>
+                    btn.getAttribute("onclick")?.includes(syaratId)
+                  );
+                  if (activeButton) {
+                    activeButton.classList.add(
+                      "active",
+                      "bg-blue-600",
+                      "text-white"
+                    );
+                    activeButton.classList.remove("bg-slate-100", "text-black");
+                  }
+
+                  // Sinkronisasi juga dengan dropdown mobile (opsional tapi disarankan)
+                  const dropdown = document.querySelector("select");
+                  if (dropdown) dropdown.value = syaratId;
+                }
+              </script>
             </div>
           </div>
         </div>
@@ -631,95 +696,96 @@
           </div>
           <div class="intro-y box p-5 mt-12 sm:mt-5">
             <div
-              class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6 flex flex-col items-center w-full">
+              class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6 flex flex-col items-center w-full"
+            >
               <h1 class="text-h5 mb-4 text-center text-gray-700">
                 Tabel Perhitungan Zakat Mal Penghasilan
               </h1>
               <!-- Wrapper responsif -->
               <div class="w-full overflow-x-auto mb-4">
-                  <table
-                    class="min-w-full border border-gray-300 text-sm md:text-base"
-                  >
-                    <thead class="bg-gray-200">
-                      <tr>
-                        <th class="border px-4 py-2 text-left whitespace-nowrap">
-                          No
-                        </th>
-                        <th class="border px-4 py-2 text-left whitespace-nowrap">
-                          Bulan
-                        </th>
-                        <th class="border px-4 py-2 text-right whitespace-nowrap">
-                          Pemasukan (Rp)
-                        </th>
-                        <th class="border px-4 py-2 text-right whitespace-nowrap">
-                          Pengeluaran (Rp)
-                        </th>
-                        <th class="border px-4 py-2 text-right whitespace-nowrap">
-                          Penghasilan Bersih (Rp)
-                        </th>
-                        <th class="border px-4 py-2 text-left whitespace-nowrap">
-                          Keterangan Nishab
-                        </th>
-                        <th class="border px-4 py-2 text-right whitespace-nowrap">
-                          Zakat 2.5% (Rp)
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="bg-white">
-                      <tr>
-                        <td class="border px-4 py-2">1</td>
-                        <td class="border px-4 py-2">Januari</td>
-                        <td class="border px-4 py-2 text-right">10.000.000</td>
-                        <td class="border px-4 py-2 text-right">3.000.000</td>
-                        <td class="border px-4 py-2 text-right">7.000.000</td>
-                        <td class="border px-4 py-2">Belum mencapai nishab</td>
-                        <td class="border px-4 py-2 text-right">0</td>
-                      </tr>
-                      <tr class="bg-gray-50">
-                        <td class="border px-4 py-2">2</td>
-                        <td class="border px-4 py-2">Februari</td>
-                        <td class="border px-4 py-2 text-right">12.000.000</td>
-                        <td class="border px-4 py-2 text-right">3.000.000</td>
-                        <td class="border px-4 py-2 text-right">9.000.000</td>
-                        <td class="border px-4 py-2 text-green-600 font-semibold">
-                          Mencapai nishab
-                        </td>
-                        <td class="border px-4 py-2 text-right">225.000</td>
-                      </tr>
-                      <tr>
-                        <td class="border px-4 py-2">3</td>
-                        <td class="border px-4 py-2">Maret</td>
-                        <td class="border px-4 py-2 text-right">11.000.000</td>
-                        <td class="border px-4 py-2 text-right">2.500.000</td>
-                        <td class="border px-4 py-2 text-right">8.500.000</td>
-                        <td class="border px-4 py-2 text-green-600 font-semibold">
-                          Sama dengan nishab
-                        </td>
-                        <td class="border px-4 py-2 text-right">212.500</td>
-                      </tr>
-                      <tr class="bg-gray-50">
-                        <td class="border px-4 py-2">4</td>
-                        <td class="border px-4 py-2">April</td>
-                        <td class="border px-4 py-2 text-right">15.000.000</td>
-                        <td class="border px-4 py-2 text-right">5.000.000</td>
-                        <td class="border px-4 py-2 text-right">10.000.000</td>
-                        <td class="border px-4 py-2 text-green-600 font-semibold">
-                          Melebihi nishab
-                        </td>
-                        <td class="border px-4 py-2 text-right">250.000</td>
-                      </tr>
-                      <tr class="font-bold bg-gray-100">
-                        <td colspan="2" class="border px-4 py-2 text-right">
-                          Total
-                        </td>
-                        <td class="border px-4 py-2 text-right">48.000.000</td>
-                        <td class="border px-4 py-2 text-right">13.500.000</td>
-                        <td class="border px-4 py-2 text-right">34.500.000</td>
-                        <td class="border px-4 py-2"></td>
-                        <td class="border px-4 py-2 text-right">687.500</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <table
+                  class="min-w-full border border-gray-300 text-sm md:text-base"
+                >
+                  <thead class="bg-gray-200">
+                    <tr>
+                      <th class="border px-4 py-2 text-left whitespace-nowrap">
+                        No
+                      </th>
+                      <th class="border px-4 py-2 text-left whitespace-nowrap">
+                        Bulan
+                      </th>
+                      <th class="border px-4 py-2 text-right whitespace-nowrap">
+                        Pemasukan (Rp)
+                      </th>
+                      <th class="border px-4 py-2 text-right whitespace-nowrap">
+                        Pengeluaran (Rp)
+                      </th>
+                      <th class="border px-4 py-2 text-right whitespace-nowrap">
+                        Penghasilan Bersih (Rp)
+                      </th>
+                      <th class="border px-4 py-2 text-left whitespace-nowrap">
+                        Keterangan Nishab
+                      </th>
+                      <th class="border px-4 py-2 text-right whitespace-nowrap">
+                        Zakat 2.5% (Rp)
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white">
+                    <tr>
+                      <td class="border px-4 py-2">1</td>
+                      <td class="border px-4 py-2">Januari</td>
+                      <td class="border px-4 py-2 text-right">10.000.000</td>
+                      <td class="border px-4 py-2 text-right">3.000.000</td>
+                      <td class="border px-4 py-2 text-right">7.000.000</td>
+                      <td class="border px-4 py-2">Belum mencapai nishab</td>
+                      <td class="border px-4 py-2 text-right">0</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border px-4 py-2">2</td>
+                      <td class="border px-4 py-2">Februari</td>
+                      <td class="border px-4 py-2 text-right">12.000.000</td>
+                      <td class="border px-4 py-2 text-right">3.000.000</td>
+                      <td class="border px-4 py-2 text-right">9.000.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">
+                        Mencapai nishab
+                      </td>
+                      <td class="border px-4 py-2 text-right">225.000</td>
+                    </tr>
+                    <tr>
+                      <td class="border px-4 py-2">3</td>
+                      <td class="border px-4 py-2">Maret</td>
+                      <td class="border px-4 py-2 text-right">11.000.000</td>
+                      <td class="border px-4 py-2 text-right">2.500.000</td>
+                      <td class="border px-4 py-2 text-right">8.500.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">
+                        Sama dengan nishab
+                      </td>
+                      <td class="border px-4 py-2 text-right">212.500</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border px-4 py-2">4</td>
+                      <td class="border px-4 py-2">April</td>
+                      <td class="border px-4 py-2 text-right">15.000.000</td>
+                      <td class="border px-4 py-2 text-right">5.000.000</td>
+                      <td class="border px-4 py-2 text-right">10.000.000</td>
+                      <td class="border px-4 py-2 text-green-600 font-semibold">
+                        Melebihi nishab
+                      </td>
+                      <td class="border px-4 py-2 text-right">250.000</td>
+                    </tr>
+                    <tr class="font-bold bg-gray-100">
+                      <td colspan="2" class="border px-4 py-2 text-right">
+                        Total
+                      </td>
+                      <td class="border px-4 py-2 text-right">48.000.000</td>
+                      <td class="border px-4 py-2 text-right">13.500.000</td>
+                      <td class="border px-4 py-2 text-right">34.500.000</td>
+                      <td class="border px-4 py-2"></td>
+                      <td class="border px-4 py-2 text-right">687.500</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
