@@ -20,7 +20,12 @@ function create(treeData) {
 
   const f3Card = f3Chart
     .setCard(f3.CardHtml)
-    .setCardDisplay([["nama lengkap"], ["status(hidup/meninggal)"], ["agama"]])
+    .setCardDisplay([
+      ["nama lengkap"],
+      ["status(hidup/meninggal)"],
+      ["agama"],
+      ["waris"],
+    ])
     .setMiniTree(true)
     .setStyle("imageRect")
     .setOnHoverPathToMain();
@@ -28,7 +33,7 @@ function create(treeData) {
   f3EditTree = f3Chart
     .editTree()
     .fixed(true)
-    .setFields(["nama lengkap", "status(hidup/meninggal)", "agama", "harta"])
+    .setFields(["nama lengkap", "status(hidup/meninggal)", "agama"])
     .setEditFirst(true)
     .setCardClickOpen(f3Card)
     .setOnChange(() => {
@@ -36,19 +41,208 @@ function create(treeData) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       console.log("✅ Data disimpan ke localStorage:", updated);
     });
+  setTimeout(() => {
+    const observer = new MutationObserver(() => {
+      convertInputsToCustomFields(); // jalankan setiap form muncul
+    });
+
+    const targetNode = document.body;
+    const config = { childList: true, subtree: true };
+
+    observer.observe(targetNode, config);
+  }, 500);
 
   f3Chart.updateTree({ initial: true });
   f3EditTree.open(f3Chart.getMainDatum());
-
-  // Jika ada node utama, buka edit
-  // if (treeData.length > 0) {
-  //   f3EditTree.open(f3Chart.getMainDatum());
-  // }
 
   window.f3ChartInstance = f3Chart;
   window.showWarisCalculation = showWarisCalculation;
 
   addButtons(f3Chart);
+
+  return f3Chart;
+}
+
+function convertInputsToCustomFields() {
+  const interval = setInterval(() => {
+    const inputAgama = document.querySelector('input[name="agama"]');
+    const statusField = document.querySelector(
+      'input[name="status(hidup/meninggal)"], select[name="status(hidup/meninggal)"]'
+    );
+
+    // === STATUS → Radio Button ===
+    if (statusField && !statusField.closest('div[data-converted="status"]')) {
+      const savedStatus =
+        localStorage.getItem("status_hidup_meninggal") ||
+        (statusField.tagName === "INPUT"
+          ? statusField.value
+          : statusField.options[statusField.selectedIndex]?.value || "hidup");
+
+      const container = document.createElement("div");
+      container.className = "flex gap-4 items-center";
+      container.dataset.converted = "status";
+
+      // Radio: Hidup
+      const hidupDiv = document.createElement("div");
+      hidupDiv.className = "flex items-center";
+      const radioHidup = document.createElement("input");
+      radioHidup.type = "radio";
+      radioHidup.name = statusField.name;
+      radioHidup.value = "hidup";
+      radioHidup.id = "status-hidup-" + Math.random().toString(36).substring(2);
+      radioHidup.className = "form-radio text-blue-600 mr-2";
+      if (savedStatus === "hidup") radioHidup.checked = true;
+      const labelHidup = document.createElement("label");
+      labelHidup.htmlFor = radioHidup.id;
+      labelHidup.className = "text-sm";
+      labelHidup.textContent = "Hidup";
+      hidupDiv.appendChild(radioHidup);
+      hidupDiv.appendChild(labelHidup);
+
+      // Radio: Meninggal
+      const meninggalDiv = document.createElement("div");
+      meninggalDiv.className = "flex items-center";
+      const radioMeninggal = document.createElement("input");
+      radioMeninggal.type = "radio";
+      radioMeninggal.name = statusField.name;
+      radioMeninggal.value = "meninggal";
+      radioMeninggal.id =
+        "status-meninggal-" + Math.random().toString(36).substring(2);
+      radioMeninggal.className = "form-radio text-red-600 mr-2";
+      if (savedStatus === "meninggal") radioMeninggal.checked = true;
+      const labelMeninggal = document.createElement("label");
+      labelMeninggal.htmlFor = radioMeninggal.id;
+      labelMeninggal.className = "text-sm";
+      labelMeninggal.textContent = "Meninggal";
+      meninggalDiv.appendChild(radioMeninggal);
+      meninggalDiv.appendChild(labelMeninggal);
+
+      container.appendChild(hidupDiv);
+      container.appendChild(meninggalDiv);
+
+      // Ganti statusField dengan radio container
+      statusField.replaceWith(container);
+
+      // === Fungsi toggle input harta
+      const toggleHartaField = () => {
+        const formGroup =
+          container.closest(".f3-form") || container.parentElement;
+        if (!formGroup) return;
+
+        // Hapus bagian harta (jika ada) dulu
+        const existingHarta = formGroup.querySelector(".dynamic-harta-group");
+        if (existingHarta) existingHarta.remove();
+
+        const showHarta =
+          container.querySelector('input[type="radio"]:checked')?.value ===
+          "meninggal";
+
+        // Buat ulang hanya jika status "meninggal"
+        if (showHarta) {
+          const hartaGroup = document.createElement("div");
+          hartaGroup.className = "dynamic-harta-group mt-2";
+
+          const label = document.createElement("label");
+          label.textContent = "Harta (jika meninggal)";
+          label.className = "block text-sm font-medium text-white";
+
+          const input = document.createElement("input");
+          input.type = "text";
+          input.name = "harta";
+          input.placeholder = "Jumlah harta";
+          input.className = "border px-3 py-2 rounded w-full text-sm mt-1";
+          input.inputMode = "numeric";
+
+          input.addEventListener("input", () => {
+            const raw = input.value.replace(/\D/g, "");
+            const formatted = new Intl.NumberFormat("id-ID").format(raw);
+            input.value = raw ? `Rp ${formatted}` : "";
+            localStorage.setItem("harta_terakhir", raw);
+          });
+
+          const lastHarta = localStorage.getItem("harta_terakhir");
+          if (lastHarta)
+            input.value = `Rp ${new Intl.NumberFormat("id-ID").format(
+              lastHarta
+            )}`;
+
+          hartaGroup.appendChild(label);
+          hartaGroup.appendChild(input);
+          formGroup.appendChild(hartaGroup);
+        }
+
+        // 🔁 Tambahkan tombol Hitung selalu (di luar hartaGroup)
+        let btnHitung = formGroup.querySelector(".btn-hitung-waris");
+        if (!btnHitung) {
+          btnHitung = document.createElement("button");
+          btnHitung.type = "button";
+          btnHitung.className =
+            "btn-hitung-waris  bg-blue-500 text-black px-4 py-2 rounded shadow font-semibold";
+          btnHitung.innerText = "Hitung";
+          btnHitung.onclick = function () {
+            if (window.f3ChartInstance) {
+              showWarisCalculation(window.f3ChartInstance);
+            } else {
+              alert("Family tree belum siap.");
+            }
+          };
+          formGroup.appendChild(btnHitung);
+        }
+      };
+
+      // Pasang listener pada radio
+      container.querySelectorAll('input[type="radio"]').forEach((radio) => {
+        radio.addEventListener("change", () => {
+          localStorage.setItem("status_hidup_meninggal", radio.value);
+          toggleHartaField();
+        });
+      });
+
+      // Jalankan awal setelah radio muncul
+      setTimeout(toggleHartaField, 0);
+    }
+
+    // === AGAMA → Dropdown ===
+    if (
+      inputAgama &&
+      !document.querySelector('select[data-converted="agama"]')
+    ) {
+      const savedAgama =
+        localStorage.getItem("agama_terakhir") || inputAgama.value;
+
+      const select = document.createElement("select");
+      select.name = inputAgama.name;
+      select.id = inputAgama.id || "agama";
+      select.className =
+        "border px-3 py-2 rounded w-full text-sm text-gray-700";
+      select.dataset.converted = "agama";
+
+      ["Islam", "Non-Islam"].forEach((agama) => {
+        const option = document.createElement("option");
+        option.value = agama;
+        option.textContent = agama;
+        if (savedAgama.toLowerCase() === agama.toLowerCase()) {
+          option.selected = true;
+        }
+        select.appendChild(option);
+      });
+
+      inputAgama.parentNode.replaceChild(select, inputAgama);
+
+      select.addEventListener("change", () => {
+        localStorage.setItem("agama_terakhir", select.value);
+      });
+    }
+
+    // === STOP interval setelah sukses
+    const statusDone = document.querySelector('div[data-converted="status"]');
+    const agamaDone = document.querySelector('select[data-converted="agama"]');
+
+    if (statusDone && agamaDone) {
+      clearInterval(interval);
+      console.log("✅ Konversi form selesai.");
+    }
+  }, 300);
 }
 
 function data() {
@@ -107,6 +301,7 @@ function getUserId() {
   }
   return "guest";
 }
+// Biarkan tombol submit pada familytree tetap menjadi submit (tidak diubah lagi)
 
 function addButtons(f3Chart) {
   document.addEventListener("DOMContentLoaded", function () {
@@ -173,32 +368,32 @@ function addButtons(f3Chart) {
       }
     };
 
-    const btnSaveTree = document.createElement("button");
-    btnSaveTree.id = "saveFamilyTree";
-    btnSaveTree.textContent = "Simpan Silsilah Keluarga";
-    btnSaveTree.style.cssText = `
-      margin-left: 10px;
-      padding: 12px 24px;
-      background-color: #f59e0b;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 500;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      transition: all 0.2s ease;
-    `;
-    btnSaveTree.onmouseover = () => {
-      btnSaveTree.style.backgroundColor = "#d97706";
-      btnSaveTree.style.transform = "translateY(-1px)";
-    };
-    btnSaveTree.onmouseout = () => {
-      btnSaveTree.style.backgroundColor = "#f59e0b";
-      btnSaveTree.style.transform = "translateY(0)";
-    };
-    btnSaveTree.onclick = () => {
-      saveCurrentFamilyTree();
-    };
+    // const btnSaveTree = document.createElement("button");
+    // btnSaveTree.id = "saveFamilyTree";
+    // btnSaveTree.textContent = "Simpan Silsilah Keluarga";
+    // btnSaveTree.style.cssText = `
+    //   margin-left: 10px;
+    //   padding: 12px 24px;
+    //   background-color: #f59e0b;
+    //   color: white;
+    //   border: none;
+    //   border-radius: 8px;
+    //   cursor: pointer;
+    //   font-weight: 500;
+    //   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    //   transition: all 0.2s ease;
+    // `;
+    // btnSaveTree.onmouseover = () => {
+    //   btnSaveTree.style.backgroundColor = "#d97706";
+    //   btnSaveTree.style.transform = "translateY(-1px)";
+    // };
+    // btnSaveTree.onmouseout = () => {
+    //   btnSaveTree.style.backgroundColor = "#f59e0b";
+    //   btnSaveTree.style.transform = "translateY(0)";
+    // };
+    // btnSaveTree.onclick = () => {
+    //   saveCurrentFamilyTree();
+    // };
 
     try {
       container.appendChild(btnWaris);
@@ -208,9 +403,7 @@ function addButtons(f3Chart) {
     } catch (error) {
       console.error("Error menambahkan tombol:", error);
       container.innerHTML = `
-        <p style="margin-bottom: 10px; color: #555; font-size: 14px;">
-          Pastikan untuk menyimpan silsilah keluarga setelah melakukan perubahan.
-        </p>
+       
         <button id="calculateInheritance" onclick="showWarisCalculation(window.f3ChartInstance)" 
                 style="margin-right: 10px; padding: 12px 24px; background-color: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
           Hitung Warisan
@@ -219,126 +412,153 @@ function addButtons(f3Chart) {
                 style="margin-left: 10px; padding: 12px 24px; background-color: #16a34a; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
           Reset Silsilah Keluarga
         </button>
-        <button id="saveFamilyTree" onclick="saveCurrentFamilyTree()" 
-                style="margin-left: 10px; padding: 12px 24px; background-color: #f59e0b; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-          Simpan Silsilah Keluarga
-        </button>
+       
       `;
     }
   });
 }
 
-function showWarisCalculation(f3Chart) {
-  const modal = document.createElement("div");
-  modal.id = "warisModal";
-  modal.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  `;
-
-  const modalContent = document.createElement("div");
-  modalContent.style.cssText = `
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 80%;
-    max-height: 80%;
-    overflow-y: auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  `;
-
-  modalContent.innerHTML = `
-    <h2 style="margin-bottom: 20px; text-align: center;">Perhitungan Waris</h2>
-    <div style="margin-bottom: 20px;">
-      <label>Pilih Almarhum/Almarhumah:</label>
-      <select id="selectAlmarhum" style="width: 100%; padding: 8px; margin-top: 5px;">
-        <option value="">-- Pilih Almarhum --</option>
-      </select>
-    </div>
-    <div id="hasilWaris"></div>
-    <div style="text-align: center; margin-top: 20px;">
-      <button id="saveWaris" style="padding: 10px 20px; background: #16a34a; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">Simpan</button>
-      <button id="closeModal" style="padding: 10px 20px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;">Tutup</button>
-    </div>
-  `;
-
-  modal.appendChild(modalContent);
-  document.body.appendChild(modal);
-
-  // Ambil data family tree dari localStorage
-  let allData = [];
-  try {
-    const STORAGE_KEY = "myFamilyTree_" + getUserId();
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      allData = JSON.parse(saved);
+window.addEventListener("load", () => {
+  const savedResult = localStorage.getItem("warisResult_" + getUserId());
+  if (savedResult) {
+    try {
+      const result = JSON.parse(savedResult);
+      displaySavedWarisResult(result);
+    } catch (error) {
+      console.error("Error parsing saved waris result:", error);
     }
-  } catch (e) {
-    console.error("Gagal mengambil data family tree dari localStorage:", e);
-    allData = [];
   }
 
-  const selectAlmarhum = document.getElementById("selectAlmarhum");
-  selectAlmarhum.innerHTML = '<option value="">-- Pilih Almarhum --</option>';
+  // Panggil render riwayat langsung di halaman
+  if (typeof renderTabel === "function") renderTabel();
+});
 
-  if (Array.isArray(allData)) {
-    allData.forEach((person) => {
-      if (
-        person.data &&
-        String(person.data["status(hidup/meninggal)"]).toLowerCase() ===
-          "meninggal"
-      ) {
-        const option = document.createElement("option");
-        option.value = person.id;
-        option.textContent = person.data["nama lengkap"];
-        selectAlmarhum.appendChild(option);
-      }
-    });
+// === MODIFIKASI: tampilkan hasil waris langsung di form ===
+function showWarisCalculation(f3Chart) {
+  console.log("✅ Fungsi showWarisCalculation dipanggil");
+
+  const STORAGE_KEY = "myFamilyTree_" + getUserId();
+  const saved = localStorage.getItem(STORAGE_KEY);
+  const allData = saved ? JSON.parse(saved) : [];
+
+  const almarhum = allData.find(
+    (p) =>
+      String(p.data["status(hidup/meninggal)"]).toLowerCase() === "meninggal"
+  );
+
+  if (!almarhum) {
+    alert("Pilih almarhum terlebih dahulu!");
+    return;
   }
-  // Setelah pengisian selectAlmarhum...
-  selectAlmarhum.addEventListener("change", function () {
-    const almarhumId = this.value;
-    if (almarhumId) {
-      hitungWarisFromSilsilah(almarhumId);
-    } else {
-      document.getElementById("hasilWaris").innerHTML = "";
+
+  const totalHarta = parseFloat(
+    (typeof almarhum.data.harta === "string"
+      ? almarhum.data.harta.replace(/[^\d]/g, "")
+      : almarhum.data.harta) || 0
+  );
+
+  if (!totalHarta || isNaN(totalHarta)) {
+    alert("Harta belum diisi atau tidak valid.");
+    return;
+  }
+
+  const ahliWaris = identifikasiAhliWaris(allData, almarhum);
+  const hasilPembagian = hitungPembagianWaris(totalHarta, ahliWaris, almarhum);
+  window.lastWarisResult = { hasilPembagian, totalHarta, almarhum };
+  window.currentFamilyTree = allData;
+
+  // ✅ Buat map ID → Warisan + Keterangan
+  const mapWarisan = {};
+  hasilPembagian.forEach((item) => {
+    const orang = allData.find((o) => o.data["nama lengkap"] === item.nama);
+    if (orang) {
+      mapWarisan[orang.id] = {
+        bagian: item.bagian,
+        keterangan: `${item.persentase || ""}${
+          item.catatan ? " (" + item.catatan + ")" : ""
+        }`.trim(),
+      };
     }
   });
 
-  document.getElementById("closeModal").onclick = () => {
-    document.body.removeChild(modal);
-  };
-
-  document.getElementById("saveWaris").onclick = () => {
-    document.getElementById("saveWaris").onclick = () => {
-      if (window.lastWarisResult) {
-        const key = "warisResult_" + getUserId();
-        localStorage.setItem(key, JSON.stringify(window.lastWarisResult));
-        displaySavedWarisResult(window.lastWarisResult);
-        const modal = document.getElementById("warisModal");
-        if (modal) document.body.removeChild(modal);
-      } else {
-        alert(
-          "Tidak ada hasil warisan untuk disimpan. Silakan pilih almarhum terlebih dahulu."
-        );
-      }
-    };
-  };
-
-  modal.onclick = (e) => {
-    if (e.target === modal) {
-      document.body.removeChild(modal);
+  // ✅ Masukkan ke data.waris → multi-baris
+  allData.forEach((orang) => {
+    const map = mapWarisan[orang.id];
+    if (map) {
+      orang.data.waris = `${map.keterangan}<br/>${formatRupiah(map.bagian)}`;
+    } else {
+      delete orang.data.waris;
     }
-  };
+  });
+
+  // ✅ Simpan dan update tampilan
+  // ✅ Simpan dan update tampilan secara paksa
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+  f3Chart.updateTree([]); // Kosongkan dulu
+  f3Chart.updateTree(allData); // Render ulang
+
+  // ✅ Simpan ke riwayat otomatis
+  if (typeof simpanKeRiwayat === "function") {
+    simpanKeRiwayat(window.lastWarisResult, allData);
+    if (typeof renderTabel === "function") renderTabel(); // update tabel
+  }
+
+  f3Chart.updateTree([]);
+  f3Chart.updateTree(allData);
+
+  const f3Card = f3Chart
+    .setCard(f3.CardHtml)
+    .setCardDisplay([
+      ["nama lengkap"],
+      ["status(hidup/meninggal)"],
+      ["agama"],
+      ["waris"],
+    ]);
+
+  // ⬇️ Tambahkan blok ini
+  if (window.f3ChartInstance) {
+    f3EditTree = window.f3ChartInstance
+      .editTree()
+      .fixed(true)
+      .setFields(["nama lengkap", "status(hidup/meninggal)", "agama"])
+      .setEditFirst(true)
+      .setCardClickOpen(f3Chart.getCard())
+      .setOnChange(() => {
+        const updated = f3EditTree.getStoreDataCopy();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        console.log("✅ Data disimpan ke localStorage:", updated);
+      });
+
+    f3EditTree.open(f3Chart.getMainDatum());
+  }
+
+  setTimeout(() => {
+    f3Chart.updateTree([]);
+    f3Chart.updateTree(allData);
+  }, 50); // 50 ms delay
 }
+
+function formatRupiah(value) {
+  let number = parseFloat(
+    typeof value === "string" ? value.replace(/[^0-9.-]/g, "") : value
+  );
+
+  if (!isFinite(number) || isNaN(number)) return "Rp 0";
+
+  return (
+    "Rp " +
+    Math.round(number)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  );
+}
+
+// Tambahkan renderTabel jika tersedia dari riwazat.js
+window.renderTabel =
+  window.renderTabel ||
+  function () {
+    console.warn("renderTabel belum tersedia saat inisialisasi.");
+  };
 
 function hitungWarisFromSilsilah(almarhumId) {
   // Selalu ambil data dari localStorage agar data almarhum & harta selalu akurat
@@ -1028,14 +1248,6 @@ function displaySavedWarisResult({ hasilPembagian, totalHarta, almarhum }) {
   }
 }
 
-function formatRupiah(num) {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(num);
-}
-
 function desimalKePecahan(decimal, precision = 1e-6) {
   let numerator = 1;
   let denominator = 1;
@@ -1093,5 +1305,39 @@ window.addEventListener("load", () => {
     } catch (error) {
       console.error("Error parsing saved waris result:", error);
     }
+  }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const oldInput = document.querySelector(
+    'input[name="status(hidup/meninggal)"]'
+  );
+
+  if (oldInput) {
+    // Ambil nilai terakhir yang tersimpan (jika ada)
+    const savedStatus =
+      localStorage.getItem("status_hidup_meninggal") || oldInput.value;
+
+    // Buat elemen select
+    const select = document.createElement("select");
+    select.name = oldInput.name;
+    select.id = oldInput.id || "status";
+
+    select.innerHTML = `
+      <option value="hidup" ${
+        savedStatus === "hidup" ? "selected" : ""
+      }>hidup</option>
+      <option value="meninggal" ${
+        savedStatus === "meninggal" ? "selected" : ""
+      }>meninggal</option>
+    `;
+
+    // Ganti input dengan select
+    oldInput.parentNode.replaceChild(select, oldInput);
+
+    // Simpan perubahan jika pengguna mengganti isi dropdown
+    select.addEventListener("change", () => {
+      localStorage.setItem("status_hidup_meninggal", select.value);
+    });
   }
 });

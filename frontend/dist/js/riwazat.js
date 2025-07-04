@@ -59,8 +59,17 @@ function simpanKeRiwayat(hasilWaris, familyTreeData) {
   const userId = getUserId();
   const key = "riwayatWaris_" + userId;
 
-  const riwayatLama =
-    JSON.parse(localStorage.getItem("riwayatWaris_" + getUserId(key))) || [];
+  let riwayatLama = [];
+
+  try {
+    const dataStr = localStorage.getItem(key);
+    if (dataStr && dataStr.trim() !== "") {
+      riwayatLama = JSON.parse(dataStr);
+    }
+  } catch (err) {
+    console.warn("⚠️ Gagal parse riwayat lama, gunakan array kosong.", err);
+    riwayatLama = [];
+  }
 
   const entriBaru = {
     tanggal: new Date().toISOString(),
@@ -69,10 +78,7 @@ function simpanKeRiwayat(hasilWaris, familyTreeData) {
   };
 
   riwayatLama.push(entriBaru);
-  localStorage.setItem(
-    "riwayatWaris_" + getUserId(),
-    JSON.stringify(riwayatLama)
-  );
+  localStorage.setItem(key, JSON.stringify(riwayatLama));
 }
 
 function renderFamilyTree(container, treeData) {
@@ -263,6 +269,23 @@ function lihatRiwayat(index) {
   };
 }
 
+function hapusById(index) {
+  let riwayat =
+    JSON.parse(localStorage.getItem("riwayatWaris_" + getUserId())) || [];
+  const item = riwayat[index];
+  if (!item) return alert("Data tidak ditemukan!");
+
+  const yakin = confirm(
+    `Hapus data untuk "${item.hasilWaris.almarhum.data["nama lengkap"]}"?`
+  );
+  if (!yakin) return;
+
+  riwayat.splice(index, 1);
+  localStorage.setItem("riwayatWaris_" + getUserId(), JSON.stringify(riwayat));
+
+  renderTabel();
+}
+
 // Fungsi lainnya tetap sama...
 
 function downloadPDF(index) {
@@ -425,25 +448,6 @@ function downloadPDF(index) {
 
 // Ensure other functions like renderFamilyTree, formatRupiah, etc., remain defined elsewhere in your code.
 
-function hapusById(index) {
-  let riwayat =
-    JSON.parse(localStorage.getItem("riwayatWaris_" + getUserId())) || [];
-  const item = riwayat[index];
-  if (!item) return alert("Data tidak ditemukan!");
-
-  const yakin = confirm(
-    `Hapus data untuk "${item.hasilWaris.almarhum.data["nama lengkap"]}"?`
-  );
-  if (!yakin) return;
-
-  riwayat.splice(index, 1);
-  localStorage.setItem(
-    "riwayatWaris_" + getUserId(),
-    ...JSON.stringify(riwayat)
-  );
-  renderTabel();
-}
-
 function formatRupiah(num) {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -457,7 +461,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const saveBtn = document.getElementById("saveWaris");
   if (saveBtn) {
-    saveBtn.onclick = () => {
+    document.getElementById("saveWaris").onclick = () => {
       if (window.lastWarisResult && window.currentFamilyTree) {
         const key = "warisResult_" + getUserId();
         localStorage.setItem(key, JSON.stringify(window.lastWarisResult));
@@ -466,7 +470,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         displaySavedWarisResult(window.lastWarisResult);
 
-        // ⬅️ Tambahkan baris ini agar langsung muncul di riwayat
+        // Menampilkan riwayat secara otomatis
         if (typeof renderTabel === "function") renderTabel();
 
         const modal = document.getElementById("warisModal");

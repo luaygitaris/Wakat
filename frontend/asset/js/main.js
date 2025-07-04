@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         },1000);
     }
     
-    localStorage.setItem("base_url", "http://wakat.local");
+    // localStorage.setItem("base_url", "http://wakat.local");
     load_page_url();
 
     if(document.getElementById("loading_awal")){ 

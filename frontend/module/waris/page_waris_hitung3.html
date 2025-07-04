@@ -6,23 +6,45 @@
   <div class="box p-5 flex flex-col items-center justify-center intro-y">
     <h3 class="text-2xl font-bold mb-4">Input Silsilah Keluarga</h3>
     <!-- Container untuk Family Chart -->
-    <div
-      id="FamilyChart"
-      class="f3"
-      style="
-        width: 100%;
-        height: 900px;
-        margin: auto;
-        background-color: rgb(33, 33, 33);
-        color: #fff;
-        overflow: auto;
-      "
-    ></div>
+    <div id="tombol" class="flex items-center justify-end"></div>
   </div>
+  <div
+    id="FamilyChart"
+    class="f3"
+    style="
+      width: 100%;
+      height: 900px;
+      margin: auto;
+      background-color: rgb(9, 102, 194);
+      color: #fff;
+      overflow: auto;
+    "
+  ></div>
+  <hr class="my-6 border-t border-gray-300" />
+  <div class="overflow-x-auto">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Riwayat Warisan</h2>
+    <table
+      class="w-full text-sm text-gray-700 border border-gray-300"
+      id="warisRiwayatTable"
+    >
+      <thead class="bg-gray-100 text-gray-800">
+        <tr>
+          <th class="px-4 py-2 border">No</th>
+          <th class="px-4 py-2 border">Tanggal</th>
+          <th class="px-4 py-2 border">Almarhum</th>
+          <th class="px-4 py-2 border text-right">Jumlah</th>
+          <th class="px-4 py-2 border text-center">Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="warisRiwayatTableBody" class="bg-white"></tbody>
+    </table>
+  </div>
+
   <div style="text-align: center; margin: 1rem">
-    <div id="tombol"></div>
+    
+    <div class="hasil-waris mt-4"></div>
   </div>
-  
+
   <div>
     <div
       class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md p-5 intro-y"
