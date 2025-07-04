@@ -499,7 +499,7 @@
               >
                 <li class="nav-item flex-1" role="presentation">
                   <button
-                    class="nav-link w-full py-2 px-3 text-base active flex items-center justify-center"
+                    class="nav-link w-full py-2 px-3 text-base"
                     onclick="showSyarat('syarat1')"
                   >
                     Islam
@@ -507,11 +507,10 @@
                 </li>
                 <li class="nav-item flex-1" role="presentation">
                   <button
-                    class="nav-link w-full py-2 px-3 text-base flex items-center justify-center"
+                    class="nav-link w-full py-2 px-3 text-base"
                     onclick="showSyarat('syarat2')"
                   >
-                    Miliknya
-                    <span class="px-2 md:hidden 2xl:block">seutuhnya</span>
+                    Miliknya Seutuhnya
                   </button>
                 </li>
                 <li class="nav-item flex-1" role="presentation">
@@ -689,6 +688,474 @@
           </div>
         </div>
         <!-- END: Users By Age -->
+        <!-- tabel ternak -->
+
+        <div class="col-span-12 lg:col-span-8 xl:col-span-6 mt-5">
+          <div class="intro-y block sm:flex items-center h-10">
+            <h2 class="text-lg font-semibold truncate mr-5">Keterangan</h2>
+          </div>
+
+          <div class="box p-5 bg-white rounded-lg shadow mt-5">
+            <div class="w-full flex lg-hidden" style="justify-content: right">
+              <select
+                class="p-4 border overflow-x-auto rounded"
+                onchange="contentPenjelasan(this.value)"
+              >
+                <option value="Kambing">Kambing</option>
+                <option value="Sapi">Sapi</option>
+                <option value="Unta">Unta</option>
+              </select>
+            </div>
+            <ul class="nav nav-pills hidden lg-flex w-full" role="tablist">
+              <li class="nav-item flex-1" role="presentation">
+                <button
+                  class="nav-link w-full py-2 px-3 text-base active flex flex-col items-center justify-center"
+                  onclick="contentPenjelasan('Kambing')"
+                >
+                  <span>Kambing</span>
+                </button>
+              </li>
+              <li class="nav-item flex-1" role="presentation">
+                <button
+                  class="nav-link w-full py-2 px-3 text-base flex flex-col items-center justify-center"
+                  onclick="contentPenjelasan('Sapi')"
+                >
+                  <span>Sapi</span>
+                </button>
+              </li>
+              <li class="nav-item flex-1" role="presentation">
+                <button
+                  class="nav-link w-full py-2 px-3 text-base flex flex-col items-center justify-center"
+                  onclick="contentPenjelasan('Unta')"
+                >
+                  <span>Unta</span>
+                </button>
+              </li>
+            </ul>
+
+            <div
+              id="Kambing-desktop"
+              class="penjelasan hidden overflow-x-auto mt-4"
+            >
+              <table
+                class="table-auto w-full border border-gray-300 text-sm text-left border-collapse"
+              >
+                <thead class="bg-gray-100">
+                  <tr>
+                    <th class="border px-4 py-2 text-center">Jenis</th>
+                    <th class="border px-4 py-2">Jumlah</th>
+                    <th class="border px-4 py-2">Kadar Wajib Zakat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border px-4 py-2 text-center" rowspan="4">
+                      Kambing
+                    </td>
+                    <td class="border px-4 py-2">40 sampai 120</td>
+                    <td class="border px-4 py-2">
+                      1 kambing dari jenis domba umur 1 tahun atau ma’iz umur 2
+                      tahun
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">121 sampai 200</td>
+                    <td class="border px-4 py-2">2 kambing</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">201 sampai 300</td>
+                    <td class="border px-4 py-2">3 kambing</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">301 ke atas</td>
+                    <td class="border px-4 py-2">
+                      Setiap 100 ekor bertambah 1 kambing
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="Kambing-mobile" class="penjelasan hidden mt-4">
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Kambing</p>
+                <p><span class="font-semibold">Jumlah:</span> 40 sampai 120</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 1 kambing dari
+                  jenis domba umur 1 tahun atau ma’iz umur 2 tahun
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Kambing</p>
+                <p><span class="font-semibold">Jumlah:</span> 121 sampai 200</p>
+                <p><span class="font-semibold">Kadar Zakat:</span> 2 kambing</p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Kambing</p>
+                <p><span class="font-semibold">Jumlah:</span> 201 sampai 300</p>
+                <p><span class="font-semibold">Kadar Zakat:</span> 3 kambing</p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Kambing</p>
+                <p><span class="font-semibold">Jumlah:</span> 301 ke atas</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> Setiap 100
+                  ekor bertambah 1 kambing
+                </p>
+              </div>
+            </div>
+
+            <div
+              id="Sapi-desktop"
+              class="penjelasan hidden overflow-x-auto mt-4"
+            >
+              <table
+                class="table-auto w-full border border-gray-300 text-sm text-left border-collapse"
+              >
+                <thead class="bg-gray-100">
+                  <tr>
+                    <th class="border px-4 py-2 text-center">Jenis</th>
+                    <th class="border px-4 py-2">Jumlah</th>
+                    <th class="border px-4 py-2">Kadar Wajib Zakat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border px-4 py-2 text-center" rowspan="9">
+                      Sapi
+                    </td>
+                    <td class="border px-4 py-2">30 sampai 39</td>
+                    <td class="border px-4 py-2">
+                      1 tabi’ (sapi jantan berumur 1 tahun) atau tabi’ah (sapi
+                      betina berumur 1 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">40 sampai 59</td>
+                    <td class="border px-4 py-2">
+                      1 musinnah (sapi betina berumur 2 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">60 sampai 69</td>
+                    <td class="border px-4 py-2">
+                      2 tabi’ (sapi jantan berumur 1 tahun) atau tabi’ah (sapi
+                      betina berumur 1 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">70 sampai 79</td>
+                    <td class="border px-4 py-2">1 musinnah dan 1 tabi’</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">80 sampai 89</td>
+                    <td class="border px-4 py-2">2 musinnah</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">90 sampai 99</td>
+                    <td class="border px-4 py-2">3 tabi’</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">100 sampai 109</td>
+                    <td class="border px-4 py-2">2 tabi’ dan 1 musinnah</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">110 sampai 119</td>
+                    <td class="border px-4 py-2">2 musinnah dan 1 tabi’</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">120 ke atas</td>
+                    <td class="border px-4 py-2">
+                      setiap 30 ekor: 1 tabi’ atau tabi’ah, setiap 40 ekor: 1
+                      musinnah
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="Sapi-mobile" class="penjelasan hidden mt-4">
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 30 sampai 39</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 1 tabi’ (sapi
+                  jantan berumur 1 tahun) atau tabi’ah (sapi betina berumur 1
+                  tahun)
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 40 sampai 59</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 1 musinnah
+                  (sapi betina berumur 2 tahun)
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 60 sampai 69</p>
+                <p><span class="font-semibold">Kadar Zakat:</span> 2 tabi’</p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 70 sampai 79</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 1 musinnah dan
+                  1 tabi’
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 80 sampai 89</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 2 musinnah
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 90 sampai 99</p>
+                <p><span class="font-semibold">Kadar Zakat:</span> 3 tabi’</p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 100 sampai 109</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 2 tabi’ dan
+                  1musinnah
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 110 sampai 119</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 2 musinnah dan
+                  1 tabi’
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Sapi</p>
+                <p><span class="font-semibold">Jumlah:</span> 120 ke atas</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> setiap 30
+                  ekor: 1 tabi’ atau tabi’ah, setiap 40 ekor: 1 musinnah
+                </p>
+              </div>
+            </div>
+            <div
+              id="Unta-desktop"
+              class="hidden penjelasan overflow-x-auto mt-4"
+            >
+              <table
+                class="table-auto w-full border border-gray-300 text-sm text-left border-collapse"
+              >
+                <thead>
+                  <tr>
+                    <th class="border px-4 py-2 text-center">Jenis</th>
+                    <th class="border px-4 py-2">Jumlah</th>
+                    <th class="border px-4 py-2">Kadar Wajib Zakat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border px-4 py-2 text-center" rowspan="11">
+                      Unta
+                    </td>
+                    <td class="border px-4 py-2">1 sampai 9</td>
+                    <td class="border px-4 py-2">1 kambing</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">10 sampai 14</td>
+                    <td class="border px-4 py-2">2 kambing</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">15 sampai 19</td>
+                    <td class="border px-4 py-2">3 kambing</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">20 sampai 24</td>
+                    <td class="border px-4 py-2">4 kambing</td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">25 sampai 35</td>
+                    <td class="border px-4 py-2">
+                      1 bintu makhod (unta betina berumur 1 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">36 sampai 45</td>
+                    <td class="border px-4 py-2">
+                      1 bintu labun (unta betina berumur 2 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">46 sampai 60</td>
+                    <td class="border px-4 py-2">
+                      1 hiqqoh (unta betina berumur 3 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">61 sampai 75</td>
+                    <td class="border px-4 py-2">
+                      1 jadza’ah (unta betina berumur 4 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">76 sampai 90</td>
+                    <td class="border px-4 py-2">
+                      2 bintu labun (unta betina berumur 2 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">91 sampai 120</td>
+                    <td class="border px-4 py-2">
+                      2 hiqqoh (unta betina berumur 3 tahun)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border px-4 py-2">121 ke atas</td>
+                    <td class="border px-4 py-2">
+                      setiap kelipatan 40: 1 bintu labun, setiap kelipatan 50: 1
+                      hiqqoh
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="Unta-mobile" class="penjelasan hidden mt-4">
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 5 sampai 9</p>
+                <p><span class="font-semibold">Kadar Zakat:</span> 1 Kambing</p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 10 sampai 14</p>
+                <p><span class="font-semibold">Kadar Zakat:</span> 2 Kambing</p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 15 sampai 19</p>
+                <p><span class="font-semibold">Kadar Zakat:</span> 3 kambing</p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 20 sampai 24</p>
+                <p><span class="font-semibold">Kadar Zakat:</span> 4 kambing</p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 25 sampai 35</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 1 bintu makhod
+                  (unta betina berumur 1 tahun)
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 36 sampai 45</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 1 bintu labun
+                  (unta betina berumur 2 tahun)
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 46 sampai 60</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 1 hiqqoh (unta
+                  betina berumur 3 tahun)
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 61 sampai 75</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 1 jadza’ah
+                  (unta betina berumur 4 tahun)
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 76 sampai 90</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 2 bintu labun
+                  (unta betina berumur 2 tahun)
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 91 sampai 120</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> 2 hiqqoh (unta
+                  betina berumur 3 tahun)
+                </p>
+              </div>
+              <div
+                class="border flex flex-col gap-2 rounded-xl p-5 shadow-sm mb-4"
+              >
+                <p><span class="font-semibold">Jenis:</span> Unta</p>
+                <p><span class="font-semibold">Jumlah:</span> 121 ke atas</p>
+                <p>
+                  <span class="font-semibold">Kadar Zakat:</span> setiap
+                  kelipatan 40: 1 bintu labun, setiap kelipatan 50: 1 hiqqoh
+                </p>
+              </div>
+            </div>
+            
+            <div class="mt-5 p-2 bg-yellow-50 border border-yellow-200 rounded">
+              <p class="text-yellow-700 text-p">
+                Catatan: Jika tidak ada ahli waris inti di atas, maka harta
+                jatuh kepada ashabah (keluarga terdekat), lalu dzawil arham
+                (kerabat jauh), atau baitul mal (negara).
+              </p>
+            </div>
+          </div>
+        </div>
         <!-- BEGIN: Official Store -->
         <div class="col-span-12 lg:col-span-8 mt-6">
           <div class="intro-y block sm:flex items-center h-10">
