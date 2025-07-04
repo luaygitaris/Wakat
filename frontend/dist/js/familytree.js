@@ -171,22 +171,45 @@ function convertInputsToCustomFields() {
           formGroup.appendChild(hartaGroup);
         }
 
-        // 🔁 Tambahkan tombol Hitung selalu (di luar hartaGroup)
+        // 🔁 Tambahkan tombol Hitung hanya jika ada anggota "meninggal"
         let btnHitung = formGroup.querySelector(".btn-hitung-waris");
-        if (!btnHitung) {
+        // Cek apakah ada anggota familytree yang statusnya "meninggal"
+        let adaMeninggal = false;
+        try {
+          const STORAGE_KEY = "myFamilyTree_" + getUserId();
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) {
+            const allData = JSON.parse(saved);
+            adaMeninggal = allData.some(
+              (p) =>
+                String(p.data["status(hidup/meninggal)"]).toLowerCase() === "meninggal"
+            );
+          }
+        } catch (e) {
+          adaMeninggal = false;
+        }
+        if (!btnHitung && adaMeninggal) {
           btnHitung = document.createElement("button");
           btnHitung.type = "button";
           btnHitung.className =
-            "btn-hitung-waris  bg-blue-500 text-black px-4 py-2 rounded shadow font-semibold";
+            "btn-hitung-waris bg-white text-black px-4 py-2 rounded shadow font-semibold";
           btnHitung.innerText = "Hitung";
           btnHitung.onclick = function () {
             if (window.f3ChartInstance) {
               showWarisCalculation(window.f3ChartInstance);
+              setTimeout(() => {
+                location.reload();
+              }, 300);
             } else {
               alert("Family tree belum siap.");
             }
           };
           formGroup.appendChild(btnHitung);
+        } else if (btnHitung && !adaMeninggal) {
+          // Jika tidak ada yang meninggal, sembunyikan tombol Hitung
+          btnHitung.style.display = "none";
+        } else if (btnHitung && adaMeninggal) {
+          btnHitung.style.display = "";
         }
       };
 

@@ -18368,6 +18368,12 @@ html body {
 .bg-biru {
   background: #e0f7fa;
 }
+.bg-white {
+  background: #ffffff;
+}
+.text-black {
+  color: #000000;
+}
 .text-p {
   font-size: 14px;
 }
