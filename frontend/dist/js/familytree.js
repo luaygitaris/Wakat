@@ -33,13 +33,14 @@ function create(treeData) {
   f3EditTree = f3Chart
     .editTree()
     .fixed(true)
-    .setFields(["nama lengkap", "status(hidup/meninggal)", "agama"])
+    .setFields(["nama lengkap", "status(hidup/meninggal)", "agama", "waris"])
     .setEditFirst(true)
     .setCardClickOpen(f3Card)
     .setOnChange(() => {
       const updated = f3EditTree.getStoreDataCopy();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       console.log("✅ Data disimpan ke localStorage:", updated);
+      location.reload(); // Reload untuk update tampilan
     });
   setTimeout(() => {
     const observer = new MutationObserver(() => {
@@ -62,6 +63,78 @@ function create(treeData) {
 
   return f3Chart;
 }
+
+function highlightCardsFromStorage() {
+  try {
+    const STORAGE_KEY = "myFamilyTree_" + getUserId();
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+
+    const allData = JSON.parse(saved);
+
+    allData.forEach((person) => {
+      const status = String(
+        person.data["status(hidup/meninggal)"] || ""
+      ).toLowerCase();
+      const id = person.id;
+
+      if (status === "meninggal") {
+        const card = document.querySelector(`.card[data-id="${id}"]`);
+        if (card) {
+          card.style.border = "3px solid red";
+          card.style.borderRadius = "8px";
+        }
+      }
+    });
+  } catch (e) {
+    console.error("Gagal highlight kartu meninggal:", e);
+  }
+}
+
+// Panggil saat halaman dimuat
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(highlightCardsFromStorage, 300); // tunggu f3Chart render selesai
+});
+
+// Panggil ulang jika kamu punya event khusus (misal setelah submit)
+if (window.f3ChartInstance?.onUpdate) {
+  window.f3ChartInstance.onUpdate(() => {
+    highlightCardsFromStorage();
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const historyControls = document.querySelector(".f3-history-controls");
+  if (historyControls) {
+    historyControls.style.display = "block";
+    historyControls.style.position = "absolute";
+    historyControls.style.top = "16px";
+    historyControls.style.left = "16px";
+    historyControls.style.right = "auto";
+    historyControls.style.zIndex = "100";
+  }
+
+  // Ubah tombol submit pada .f3-form-buttons menjadi "Hitung" dan jalankan showWarisCalculation
+  document.querySelectorAll(".f3-form-buttons").forEach((formBtn) => {
+    const submitBtn = formBtn.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.textContent = "Hitung";
+      submitBtn.onclick = function (e) {
+        e.preventDefault();
+        if (window.f3ChartInstance) {
+          showWarisCalculation(window.f3ChartInstance);
+        } else {
+          alert("Family tree belum siap.");
+        }
+      };
+    }
+  });
+
+  const card_view = document.querySelector(".card-label");
+  if (card_view) {
+    card_view.style.margin = "5px";
+  }
+});
 
 function convertInputsToCustomFields() {
   const interval = setInterval(() => {
@@ -182,7 +255,8 @@ function convertInputsToCustomFields() {
             const allData = JSON.parse(saved);
             adaMeninggal = allData.some(
               (p) =>
-                String(p.data["status(hidup/meninggal)"]).toLowerCase() === "meninggal"
+                String(p.data["status(hidup/meninggal)"]).toLowerCase() ===
+                "meninggal"
             );
           }
         } catch (e) {
@@ -193,7 +267,7 @@ function convertInputsToCustomFields() {
           btnHitung.type = "button";
           btnHitung.className =
             "btn-hitung-waris bg-white text-black px-4 py-2 rounded shadow font-semibold";
-          btnHitung.innerText = "Hitung";
+          btnHitung.innerText = "Simpan";
           btnHitung.onclick = function () {
             if (window.f3ChartInstance) {
               showWarisCalculation(window.f3ChartInstance);
@@ -257,15 +331,128 @@ function convertInputsToCustomFields() {
       });
     }
 
+    // === Selalu ubah tombol submit pada .f3-form-buttons ===
+    document.querySelectorAll(".f3-form-buttons").forEach((formBtn) => {
+      const submitBtn = formBtn.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        // Cek apakah ada anggota familytree yang statusnya "meninggal"
+        let adaMeninggal = false;
+        try {
+          const STORAGE_KEY = "myFamilyTree_" + getUserId();
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) {
+            const allData = JSON.parse(saved);
+            adaMeninggal = allData.some(
+              (p) =>
+                String(p.data["status(hidup/meninggal)"]).toLowerCase() ===
+                "meninggal"
+            );
+          }
+        } catch (e) {
+          adaMeninggal = false;
+        }
+        if (adaMeninggal) {
+          submitBtn.type = "submit";
+          submitBtn.textContent = "Hitung";
+          // Pastikan hanya satu event listener
+          submitBtn.onclick = null;
+          // Tambahkan event listener pada parent form
+          const form = formBtn.closest("form");
+          if (form && !form._warisSubmitListener) {
+            form._warisSubmitListener = true;
+            form.addEventListener("submit", function (e) {
+              // Setelah submit normal (validasi form), jalankan hitung
+              setTimeout(() => {
+                if (window.f3ChartInstance) {
+                  showWarisCalculation(window.f3ChartInstance, {
+                    simpanRiwayat: false,
+                  });
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 300);
+                }
+              }, 10);
+            });
+          }
+        } else {
+          submitBtn.type = "submit";
+          submitBtn.textContent = "Submit";
+          submitBtn.onclick = null;
+        }
+      }
+    });
+
+    // === Ubah tombol biru (Hitung Warisan) menjadi Simpan ke Riwayat ===
+    const btnWaris = document.getElementById("calculateInheritance");
+    if (btnWaris) {
+      btnWaris.textContent = "Simpan ke Riwayat";
+      btnWaris.style.backgroundColor = "#2563eb";
+      btnWaris.onclick = function () {
+        // Simpan ke riwayat menggunakan data terakhir
+        if (
+          typeof window.lastWarisResult === "object" &&
+          window.lastWarisResult &&
+          window.currentFamilyTree
+        ) {
+          let nama = prompt(
+            "Masukkan nama riwayat waris (misal: Waris Budi 2025):"
+          );
+          if (!nama || !nama.trim()) {
+            alert("Nama riwayat tidak boleh kosong!");
+            return;
+          }
+          let riwayat = [];
+          try {
+            const old = localStorage.getItem("riwayatWaris_" + getUserId());
+            riwayat = old ? JSON.parse(old) : [];
+          } catch (e) {
+            riwayat = [];
+          }
+          riwayat.push({
+            nama: nama.trim(),
+            tanggal: new Date().toISOString(),
+            familyTree: window.currentFamilyTree,
+            hasilWaris: window.lastWarisResult,
+          });
+          localStorage.setItem(
+            "riwayatWaris_" + getUserId(),
+            JSON.stringify(riwayat)
+          );
+          alert("Berhasil disimpan ke riwayat waris!");
+          if (typeof renderTabel === "function") renderTabel();
+        } else {
+          alert("Silakan lakukan perhitungan waris terlebih dahulu.");
+        }
+      };
+    }
+
     // === STOP interval setelah sukses
     const statusDone = document.querySelector('div[data-converted="status"]');
     const agamaDone = document.querySelector('select[data-converted="agama"]');
 
     if (statusDone && agamaDone) {
       clearInterval(interval);
-      console.log("✅ Konversi form selesai.");
     }
   }, 300);
+
+  // === Ubah input waris menjadi textarea ===
+  document.querySelectorAll("input, textarea, select").forEach((input) => {
+    if (
+      (input.name && input.name.toLowerCase().includes("waris")) ||
+      (input.id && input.id.toLowerCase().includes("waris"))
+    ) {
+      input.style.backgroundColor = "transparent";
+      const value = input.value.replace(/<br\s*\/?>/gi, "\n"); // ganti <br> jadi newline
+      const textarea = document.createElement("textarea");
+      textarea.value = value;
+      textarea.readOnly = true;
+      textarea.style.backgroundColor = "transparent";
+      textarea.style.width = input.offsetWidth + "px";
+      textarea.style.height = input.offsetHeight + 20 + "px";
+
+      input.parentNode.replaceChild(textarea, input);
+    }
+  });
 }
 
 function data() {
@@ -457,7 +644,7 @@ window.addEventListener("load", () => {
 });
 
 // === MODIFIKASI: tampilkan hasil waris langsung di form ===
-function showWarisCalculation(f3Chart) {
+function showWarisCalculation(f3Chart, options = {}) {
   console.log("✅ Fungsi showWarisCalculation dipanggil");
 
   const STORAGE_KEY = "myFamilyTree_" + getUserId();
@@ -514,14 +701,16 @@ function showWarisCalculation(f3Chart) {
     }
   });
 
-  // ✅ Simpan dan update tampilan
   // ✅ Simpan dan update tampilan secara paksa
   localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
   f3Chart.updateTree([]); // Kosongkan dulu
   f3Chart.updateTree(allData); // Render ulang
 
   // ✅ Simpan ke riwayat otomatis
-  if (typeof simpanKeRiwayat === "function") {
+  if (
+    options.simpanRiwayat !== false &&
+    typeof simpanKeRiwayat === "function"
+  ) {
     simpanKeRiwayat(window.lastWarisResult, allData);
     if (typeof renderTabel === "function") renderTabel(); // update tabel
   }

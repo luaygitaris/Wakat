@@ -133,140 +133,183 @@ function lihatRiwayat(index) {
   const item = riwayat[index];
   if (!item) return alert("Data tidak ditemukan!");
 
-  const modal = document.createElement("div");
-  modal.id = "riwayatModal";
-  modal.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  `;
+  // Tampilkan konfirmasi sebelum mengubah database
+  const konfirmasi = confirm(
+    "Apakah Anda ingin memuat data silsilah ini ke aplikasi utama?"
+  );
 
-  const modalContent = document.createElement("div");
-  modalContent.style.cssText = `
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 1200px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    position: relative;
-  `;
+  if (konfirmasi) {
+    // Simpan data family tree ke localStorage myFamilyTree_[userId]
+    const userId = getUserId();
+    const familyTreeKey = "myFamilyTree_" + userId;
+    localStorage.setItem(familyTreeKey, JSON.stringify(item.familyTree));
 
-  // Header modal
-  modalContent.innerHTML = `
-    <div class="flex justify-between items-center mb-6 pb-4 border-b">
-      <h2 class="text-2xl font-bold text-gray-800">Detail Riwayat Waris</h2>
-      <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-700">Silsilah Keluarga</h3>
-        <div id="familyTreeContainer"></div>
-      </div>
-      <div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-700">Hasil Pembagian Waris</h3>
-        <div id="hasilWarisContainer"></div>
-      </div>
-    </div>
-  `;
+    // Simpan hasil waris jika ada
+    if (item.hasilWaris) {
+      const warisResultKey = "warisResult_" + userId;
+      localStorage.setItem(warisResultKey, JSON.stringify(item.hasilWaris));
+    }
 
-  modal.appendChild(modalContent);
-  document.body.appendChild(modal);
-
-  // Render family tree
-  const treeContainer = document.getElementById("familyTreeContainer");
-  renderFamilyTree(treeContainer, item.familyTree);
-
-  // Render hasil waris
-  const hasilWarisContainer = document.getElementById("hasilWarisContainer");
-  if (item.hasilWaris) {
-    let html = `
-      <div class="bg-gray-50 p-4 rounded-lg mb-4">
-        <p class="mb-2"><span class="font-semibold">Almarhum:</span> ${
-          item.hasilWaris.almarhum.data["nama lengkap"]
-        }</p>
-        <p><span class="font-semibold">Total Harta:</span> ${formatRupiah(
-          item.hasilWaris.totalHarta
-        )}</p>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-700 border">
-          <thead class="bg-gray-200 text-gray-800">
-            <tr>
-              <th class="px-4 py-2 border">Ahli Waris</th>
-              <th class="px-4 py-2 border">Nama</th>
-              <th class="px-4 py-2 border">Bagian</th>
-              <th class="px-4 py-2 border">Jumlah</th>
-            </tr>
-          </thead>
-          <tbody>
+    // Reload halaman untuk menerapkan perubahan
+    location.reload();
+  } else {
+    // Tampilkan modal seperti biasa jika user tidak ingin memuat data
+    const modal = document.createElement("div");
+    modal.id = "riwayatModal";
+    modal.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
     `;
 
-    item.hasilWaris.hasilPembagian.forEach((waris) => {
-      html += `
-        <tr class="bg-white border-b hover:bg-gray-50">
-          <td class="px-4 py-2 border">${waris.ahli}</td>
-          <td class="px-4 py-2 border">${waris.nama || "-"}</td>
-          <td class="px-4 py-2 border text-center">${
-            waris.persentase || "-"
-          }</td>
-          <td class="px-4 py-2 border text-right">${
-            waris.bagian ? formatRupiah(waris.bagian) : "-"
-          }</td>
-        </tr>
+    const modalContent = document.createElement("div");
+    modalContent.style.cssText = `
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 1200px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+    `;
+
+    // Header modal
+    modalContent.innerHTML = `
+      <div class="flex justify-between items-center mb-6 pb-4 border-b">
+        <h2 class="text-2xl font-bold text-gray-800">Detail Riwayat Waris</h2>
+        <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-700">Silsilah Keluarga</h3>
+          <div id="familyTreeContainer"></div>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-700">Hasil Pembagian Waris</h3>
+          <div id="hasilWarisContainer"></div>
+        </div>
+      </div>
+      <div class="mt-4 text-center">
+        <button id="loadToMainApp" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Muat ke Aplikasi Utama
+        </button>
+      </div>
+    `;
+
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+
+    // Render family tree
+    const treeContainer = document.getElementById("familyTreeContainer");
+    renderFamilyTree(treeContainer, item.familyTree);
+
+    // Render hasil waris
+    const hasilWarisContainer = document.getElementById("hasilWarisContainer");
+    if (item.hasilWaris) {
+      let html = `
+        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+          <p class="mb-2"><span class="font-semibold">Almarhum:</span> ${
+            item.hasilWaris.almarhum.data["nama lengkap"]
+          }</p>
+          <p><span class="font-semibold">Total Harta:</span> ${formatRupiah(
+            item.hasilWaris.totalHarta
+          )}</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left text-gray-700 border">
+            <thead class="bg-gray-200 text-gray-800">
+              <tr>
+                <th class="px-4 py-2 border">Ahli Waris</th>
+                <th class="px-4 py-2 border">Nama</th>
+                <th class="px-4 py-2 border">Bagian</th>
+                <th class="px-4 py-2 border">Jumlah</th>
+              </tr>
+            </thead>
+            <tbody>
       `;
-    });
 
-    html += `
-          </tbody>
-        </table>
-      </div>
-    `;
+      item.hasilWaris.hasilPembagian.forEach((waris) => {
+        html += `
+          <tr class="bg-white border-b hover:bg-gray-50">
+            <td class="px-4 py-2 border">${waris.ahli}</td>
+            <td class="px-4 py-2 border">${waris.nama || "-"}</td>
+            <td class="px-4 py-2 border text-center">${
+              waris.persentase || "-"
+            }</td>
+            <td class="px-4 py-2 border text-right">${
+              waris.bagian ? formatRupiah(waris.bagian) : "-"
+            }</td>
+          </tr>
+        `;
+      });
 
-    // Hitung total terbagi
-    const totalTerbagi = item.hasilWaris.hasilPembagian.reduce(
-      (total, waris) => {
-        return total + (waris.bagian || 0);
-      },
-      0
-    );
-
-    // Tampilkan sisa harta jika ada
-    const sisaHarta = item.hasilWaris.totalHarta - totalTerbagi;
-    if (sisaHarta > 0) {
       html += `
-        <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p class="font-semibold">Sisa Harta: ${formatRupiah(sisaHarta)}</p>
-          <p class="text-sm text-gray-600 mt-1">Sisa harta dapat diberikan kepada ahli waris terdekat atau untuk kepentingan umum.</p>
+            </tbody>
+          </table>
         </div>
       `;
+
+      // Hitung total terbagi
+      const totalTerbagi = item.hasilWaris.hasilPembagian.reduce(
+        (total, waris) => {
+          return total + (waris.bagian || 0);
+        },
+        0
+      );
+
+      // Tampilkan sisa harta jika ada
+      const sisaHarta = item.hasilWaris.totalHarta - totalTerbagi;
+      if (sisaHarta > 0) {
+        html += `
+          <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p class="font-semibold">Sisa Harta: ${formatRupiah(sisaHarta)}</p>
+            <p class="text-sm text-gray-600 mt-1">Sisa harta dapat diberikan kepada ahli waris terdekat atau untuk kepentingan umum.</p>
+          </div>
+        `;
+      }
+
+      hasilWarisContainer.innerHTML = html;
+    } else {
+      hasilWarisContainer.innerHTML =
+        '<p class="text-red-500">Data hasil waris tidak tersedia</p>';
     }
 
-    hasilWarisContainer.innerHTML = html;
-  } else {
-    hasilWarisContainer.innerHTML =
-      '<p class="text-red-500">Data hasil waris tidak tersedia</p>';
-  }
-
-  // Event listener untuk tombol tutup
-  document.getElementById("closeModal").onclick = () => {
-    document.body.removeChild(modal);
-  };
-
-  modal.onclick = (e) => {
-    if (e.target === modal) {
+    // Event listener untuk tombol tutup
+    document.getElementById("closeModal").onclick = () => {
       document.body.removeChild(modal);
-    }
-  };
+    };
+
+    // Event listener untuk tombol "Muat ke Aplikasi Utama"
+    document.getElementById("loadToMainApp").onclick = () => {
+      const userId = getUserId();
+      const familyTreeKey = "myFamilyTree_" + userId;
+      localStorage.setItem(familyTreeKey, JSON.stringify(item.familyTree));
+
+      if (item.hasilWaris) {
+        const warisResultKey = "warisResult_" + userId;
+        localStorage.setItem(warisResultKey, JSON.stringify(item.hasilWaris));
+      }
+
+      alert("Data silsilah telah dimuat ke aplikasi utama");
+      document.body.removeChild(modal);
+      location.reload();
+    };
+
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        document.body.removeChild(modal);
+      }
+    };
+  }
 }
 
 function hapusById(index) {
