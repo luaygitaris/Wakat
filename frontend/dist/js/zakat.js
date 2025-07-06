@@ -209,7 +209,7 @@ function hitungEmasPerak() {
   }
 
   document.getElementById("hasilEmas").innerHTML = `
-    <table class="responsive-table w-full mt-6 table-auto border text-left">
+    <table class="responsive-table-zakat">
       <thead class="bg-gray-100">
         <tr>
           <th class="border px-4 py-2">Komponen</th>
@@ -266,12 +266,12 @@ function hitungEmasPerak() {
       <h3 class="text-lg font-semibold mb-2">Dalil Zakat ${namaLogam}</h3>
       <strong>${nomerDalil}</strong>
       <div class="flex flex-col text-center mt-4 gap-2">
-        <p class="text-xl mt-4 text-gray-700">${dalilArab}</p>
-        <p class="text-sm">${dalilLatin}</p>
+        <p class="arabic-font">${dalilArab}</p>
+        <p class="translation">${dalilLatin}</p>
       </div>
       <div class="flex flex-col gap-2 mt-4">
         <strong class="mt-4">Penjelasan :</strong>
-        <p>${dalilPenjelasan}</p>
+        <p class="text-p">${dalilPenjelasan}</p>
       </div>
       <div class="flex flex-col gap-2 mt-4">
         <button id="simpanhasilEmas" class="p-3 mt-3 border bg-primary text-white rounded-lg">Simpan</button>
@@ -401,7 +401,7 @@ function hitungZakat() {
   const zakat = wajibZakat ? total * 0.025 : 0;
 
   hasilTabel.innerHTML = `
-    <table class="responsive-table w-full mt-6 table-auto border border-gray-300 text-left">
+    <table class="responsive-table-zakat">
       <thead class="bg-gray-100">
         <tr>
           <th class="border px-4 py-2">Komponen</th>
@@ -468,17 +468,17 @@ function hitungZakat() {
       <h3 class="text-lg font-semibold mb-2">Dalil Zakat Perniagaan</h3>
       <strong>Hadis No. 492 dalam Bulugh al-Maram :</strong>
       <div class="flex flex-col text-center mt-4 gap-2">
-        <p class="text-xl mt-4 text-gray-700">    
+        <p class="arabic-font">    
           عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ ﷺ:
           "مَا مِنْ صَاحِبِ ذَهَبٍ وَلَا فِضَّةٍ لَا يُؤَدِّي مِنْهَا حَقَّهَا إِلَّا إِذَا كَانَ يَوْمُ الْقِيَامَةِ صُفِّحَتْ لَهُ صَفَائِحُ مِنْ نَارٍ، فَأُحْمِيَ عَلَيْهَا فِي نَارِ جَهَنَّمَ، فَيُكْوَى بِهَا جَنْبُهُ وَجَبِينُهُ وَظَهْرُهُ..."
         </p>
-        <p class="text-sm">
+        <p class="translation">
           "Tidak ada seorang pemilik emas dan perak yang tidak menunaikan haknya (zakatnya), kecuali pada hari kiamat akan dibuatkan untuknya lempengan dari api neraka, lalu dipanaskan dalam neraka Jahanam, lalu disetrika dengannya lambung, dahi, dan punggungnya..."
         </p>
       </div>
       <div class="flex flex-col gap-2 mt-4">
         <strong class="mt-4">Penjelasan :</strong>
-        <p>
+        <p class="text-p">
           Hadis ini berbicara tentang ancaman bagi orang yang tidak menunaikan zakat harta, terutama emas dan perak. Dalam praktiknya, zakat perniagaan dihitung berdasarkan nilai harta dagangan, dan nilai itu sering dikonversi dalam satuan emas atau perak, sehingga diqiyaskan dengan zakat emas dan perak. Cara hitungnya juga sama. Jika nilainya setara 85 gram emas dan sudah dimiliki selama 1 tahun, maka wajib zakat 2,5%.
         </p>
         <div>
@@ -780,7 +780,7 @@ function hitungZakatTernak() {
     wajibZakat === true ? "Mencapai Nishab" : "Belum Mencapai Nishab";
 
   hasil = `
-    <table class="responsive-table w-full mt-6 table-auto border border-gray-300 text-left">
+    <table class="responsive-table-zakat">
       <thead class="bg-gray-100">
         <tr>
           <th class="border px-4 py-2">Jenis Ternak</th>
@@ -807,17 +807,17 @@ function hitungZakatTernak() {
       <h3 class="text-lg font-semibold mb-2">Dalil Zakat Peternakan</h3>
       <strong>Hadis dari Shahih Bukhari dan Bulugh al-Maram</strong>
       <div class="flex flex-col text-center mt-4 gap-2">
-        <p class="text-xl mt-4 text-gray-700">
+        <p class="arabic-font">
                   عَنْ أَبِي ذَرٍّ رَضِيَ اللَّهُ عَنْهُ، عَنِ النَّبِيِّ ﷺ قَالَ:
           "ما من صاحب إبلٍ، ولا بقرٍ، ولا غنمٍ لا يؤدي منها زكاتها، إلا أُتي بها يوم القيامة أعظم ما كانت وأسمنه، تُوطؤه بأخفافها، وتُنطحه بقرونها، كلما مر عليه أُخراها، رُد عليه أُولاها، في يومٍ كان مقداره خمسين ألف سنة..."
         </p>
-        <p class="text-sm">
+        <p class="translation">
             “Tidaklah seorang pemilik unta, sapi, atau kambing yang tidak menunaikan zakatnya, melainkan akan didatangkan ternaknya pada hari kiamat dalam keadaan paling besar dan gemuk. Ternak itu menginjak-injak dan menanduknya. Setelah semua melaluinya, yang pertama akan dikembalikan lagi, terus berulang-ulang, selama satu hari yang kadarnya 50.000 tahun...”(HR. Bukhari no. 1338, juga diriwayatkan dalam Bulugh al-Maram hadis no. 494)
         </p>
       </div>
       <div class="flex flex-col gap-2 mt-4">
         <strong style="margin-top: 10px;">Penjelasan :</strong>
-        <p>
+        <p class="text-p">
           Zakat peternakan wajib bagi orang yang memelihara ternak seperti unta, sapi, dan kambing/domba, bukan untuk kerja atau angkut barang, tapi untuk diternakkan dan berkembang (biasanya digembalakan). Zakat ini hanya wajib kalau jumlah hewannya sudah mencapai batas minimal (nisab), dipelihara selama 1 tahun penuh (haul), dan dibiarkan makan di padang rumput (bukan dikandangkan dan diberi makan khusus).
         </p>
       </div>
@@ -896,7 +896,7 @@ function hitungZakatPertanian() {
     : "Belum Mencapai Nishab";
 
   const hasilHTML = `
-    <table class="responsive-table w-full mt-6 table-auto border border-gray-300 text-left">
+    <table class="responsive-table-zakat">
       <thead class="bg-gray-100">
         <tr>
           <th class="border px-4 py-2">Jenis Pengairan</th>
@@ -934,19 +934,19 @@ function hitungZakatPertanian() {
       <h3 class="text-lg font-semibold mb-2">Dalil Zakat Pertanian</h3>
       <strong>Shahih al-Bukhari Hadis no. 1483 dan Shahih Muslim Hadis no. 981:</strong>
       <div class="flex flex-col text-center mt-4 gap-2">
-        <p class="text-xl mt-4 text-gray-700">
+        <p class="arabic-font">
                       عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:
           قَالَ رَسُولُ اللَّهِ ﷺ:
           "فِيمَا سَقَتِ السَّمَاءُ وَالْعُيُونُ أَوْ كَانَ عَثَرِيًّا الْعُشْرُ، وَفِيمَا سُقِيَ بِالنَّضْحِ نِصْفُ الْعُشْرِ."
         </p>
-        <p class="text-sm">
+        <p class="translation">
           “Tanaman yang diairi oleh air hujan, mata air, atau tumbuh sendiri, zakatnya adalah 10% (sepersepuluh).
           Sedangkan yang diairi dengan alat (irigasi buatan), zakatnya 5% (seperdua puluh).”
         </p>
       </div>
       <div class="flex flex-col gap-2 mt-4">
         <strong style="margin-top: 10px;">Penjelasan :</strong>
-        <p>
+        <p class="text-p">
           Zakat pertanian wajib dikeluarkan dari hasil panen seperti padi, gandum, kurma, anggur, dll (menurut sebagian ulama: yang bisa disimpan dan ditakar). Jika tanaman tumbuh dengan air hujan atau alami, zakatnya 10% dari hasil panen. Jika menggunakan biaya atau alat untuk mengairi (misalnya pompa air atau irigasi buatan), zakatnya 5% dari hasil panen. Syarat wajib zakat: hasil panen mencapai nisab (batas minimal), yaitu sekitar 653 kg gabah (5 wasaq).
         </p>
       </div>
@@ -1020,7 +1020,7 @@ function hitungZakatRikaz() {
   // -----------------------------------------------------------------------
 
   const hasilHTML = `
-    <table class="responsive-table w-full mt-6 table-auto border border-gray-300 text-left">
+    <table class="responsive-table-zakat">
       <thead class="bg-gray-100">
         <tr>
           <th class="border px-4 py-2">Jenis</th>
@@ -1048,18 +1048,18 @@ function hitungZakatRikaz() {
       <h3 class="text-lg font-semibold mb-2">Dalil Zakat Rikaz (Barang Temuan)</h3>
       <strong> Shahih al-Bukhari No. Hadis: 1499 dan Shahih Muslim No. Hadis: 1710</strong>
       <div class="flex flex-col text-center mt-4 gap-2">
-        <p class="text-xl mt-4 text-gray-700">
+        <p class="arabic-font">
                   عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ، أَنَّ رَسُولَ اللَّهِ ﷺ قَالَ:
           فِي الرِّكَازِ الْخُمُسُ.
         </p>
-        <p class="text-sm">
+        <p class="translation">
           Dari Abu Hurairah radhiyallahu ‘anhu, bahwa Rasulullah ﷺ bersabda:
           “Pada harta rikaz (harta terpendam), zakatnya adalah seperlima (20%).”
         </p>
       </div>
       <div class="flex flex-col gap-2 mt-4">
         <strong style="margin-top: 10px;">Penjelasan :</strong>
-        <p>
+        <p class="text-p">
           Rikaz adalah harta karun yang ditemukan di dalam tanah, biasanya peninggalan zaman dulu dan tidak diketahui siapa pemiliknya. Jika menemukan rikaz, kita wajib mengeluarkan zakat sebesar 20% (seperlima) langsung saat ditemukan, tanpa perlu menunggu 1 tahun. Zakatnya digunakan untuk kepentingan umum karena harta ini dianggap seperti rampasan perang, bukan milik pribadi.
         </p>
       </div>

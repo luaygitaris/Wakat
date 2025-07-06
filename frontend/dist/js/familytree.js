@@ -505,7 +505,6 @@ function getUserId() {
       if (typeof id === "number") return String(id); // convert ke string
       if (typeof id === "string" && id.trim()) return id.trim();
     }
-    console.warn("User ID tidak ditemukan, menggunakan fallback.");
   } catch (e) {
     console.error("Gagal mem-parsing user:", e);
   }
