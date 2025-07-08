@@ -1,4 +1,4 @@
-function formatRupiah(angka) {
+function formatRupiahZakat(angka) {
   if (!angka || isNaN(angka)) return "0,-";
   return angka.toLocaleString("id-ID") + ",-";
 }
@@ -13,15 +13,15 @@ function updatePenghasilanZakat() {
   const pengeluaran = Number(pengeluaranInput.value);
   const penghasilan = pemasukan - pengeluaran;
   penghasilanInput.value =
-    penghasilan > 0 ? formatRupiah(penghasilan) : formatRupiah(0);
+    penghasilan > 0 ? formatRupiahZakat(penghasilan) : formatRupiahZakat(0);
   let zakat = 0;
   if (penghasilan >= NISHAB) {
     keteranganInput.value = "Mencapai Nishab";
     zakat = Math.floor(penghasilan * 0.025);
-    zakatInput.value = formatRupiah(zakat);
+    zakatInput.value = formatRupiahZakat(zakat);
   } else {
     keteranganInput.value = "Belum Mencapai Nishab";
-    zakatInput.value = formatRupiah(0);
+    zakatInput.value = formatRupiahZakat(0);
   }
 }
 if (pemasukanInput) {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // perhitungan zakat mal
-function formatRupiah(angka, prefix) {
+function formatRupiahZakat(angka, prefix) {
   let number_string = angka.replace(/[^,\d]/g, "").toString(),
     split = number_string.split(","),
     sisa = split[0].length % 3,
@@ -103,55 +103,55 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (beratInput) {
     beratInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value);
+      this.value = formatRupiahZakat(this.value);
     });
   }
 
   if (hargaInput) {
     hargaInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value, "Rp");
+      this.value = formatRupiahZakat(this.value, "Rp");
     });
   }
 
   // Add event listeners for Zakat Perniagaan inputs
   if (kasInput) {
     kasInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value, "Rp");
+      this.value = formatRupiahZakat(this.value, "Rp");
     });
   }
   if (persediaanInput) {
     persediaanInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value, "Rp");
+      this.value = formatRupiahZakat(this.value, "Rp");
     });
   }
   if (piutangInput) {
     piutangInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value, "Rp");
+      this.value = formatRupiahZakat(this.value, "Rp");
     });
   }
   if (utangInput) {
     utangInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value, "Rp");
+      this.value = formatRupiahZakat(this.value, "Rp");
     });
   }
   if (hargaEmasInput) {
     hargaEmasInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value, "Rp");
+      this.value = formatRupiahZakat(this.value, "Rp");
     });
   }
   if (panenInput) {
     panenInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value);
+      this.value = formatRupiahZakat(this.value);
     });
   }
   if (ternakInput) {
     ternakInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value);
+      this.value = formatRupiahZakat(this.value);
     });
   }
   if (temuanInput) {
     temuanInput.addEventListener("keyup", function (e) {
-      this.value = formatRupiah(this.value, "Rp");
+      this.value = formatRupiahZakat(this.value, "Rp");
     });
   }
 });
