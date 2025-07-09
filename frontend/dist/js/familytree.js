@@ -40,7 +40,9 @@ function create(treeData) {
       const updated = f3EditTree.getStoreDataCopy();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       console.log("✅ Data disimpan ke localStorage:", updated);
-      location.reload(); // Reload untuk update tampilan
+
+      f3Chart.updateTree([]);
+      f3Chart.updateTree(updated);
     });
   setTimeout(() => {
     const observer = new MutationObserver(() => {
@@ -53,8 +55,30 @@ function create(treeData) {
     observer.observe(targetNode, config);
   }, 500);
 
-  f3Chart.updateTree({ initial: true });
-  f3EditTree.open(f3Chart.getMainDatum());
+f3Chart.updateTree({ initial: true });
+f3EditTree.open(f3Chart.getMainDatum());
+
+setTimeout(() => {
+  const svgWrapper = document.getElementById("htmlSvg");
+  if (svgWrapper) {
+    svgWrapper.style.position = "absolute";
+    svgWrapper.style.top = "0";
+    svgWrapper.style.left = "0";
+    svgWrapper.style.right = "0";
+    svgWrapper.style.bottom = "0";
+    svgWrapper.style.width = "100%";
+    svgWrapper.style.height = "100%";
+    svgWrapper.style.display = "block";
+    svgWrapper.style.zIndex = "2";
+  }
+
+  // Pusatkan view ke kartu utama setelah style di-reset
+  const mainId = f3Chart.getMainDatum()?.id;
+  if (mainId) {
+    f3Chart.focusOn(mainId); // atau f3Chart.fitView() jika banyak node
+  }
+}, 800);
+
 
   window.f3ChartInstance = f3Chart;
   window.showWarisCalculation = showWarisCalculation;
@@ -199,7 +223,9 @@ function convertInputsToCustomFields() {
       // === Fungsi toggle input harta
       const toggleHartaField = () => {
         const formGroup =
-          container.closest(".f3-form") || container.parentElement;
+          container.closest("[data-f3-form]") ||
+          document.querySelector(".f3-form-buttons")?.parentElement;
+
         if (!formGroup) return;
 
         // Hapus bagian harta (jika ada) dulu
@@ -210,7 +236,6 @@ function convertInputsToCustomFields() {
           container.querySelector('input[type="radio"]:checked')?.value ===
           "meninggal";
 
-        // Buat ulang hanya jika status "meninggal"
         if (showHarta) {
           const hartaGroup = document.createElement("div");
           hartaGroup.className = "dynamic-harta-group mt-2";
@@ -244,10 +269,10 @@ function convertInputsToCustomFields() {
           formGroup.appendChild(hartaGroup);
         }
 
-        // 🔁 Tambahkan tombol Hitung hanya jika ada anggota "meninggal"
+        // Tambahkan tombol hitung
         let btnHitung = formGroup.querySelector(".btn-hitung-waris");
-        // Cek apakah ada anggota familytree yang statusnya "meninggal"
         let adaMeninggal = false;
+
         try {
           const STORAGE_KEY = "myFamilyTree_" + getUserId();
           const saved = localStorage.getItem(STORAGE_KEY);
@@ -262,25 +287,18 @@ function convertInputsToCustomFields() {
         } catch (e) {
           adaMeninggal = false;
         }
+
         if (!btnHitung && adaMeninggal) {
           btnHitung = document.createElement("button");
           btnHitung.type = "button";
           btnHitung.className =
             "btn-hitung-waris bg-white text-black px-4 py-2 rounded shadow font-semibold";
           btnHitung.innerText = "Simpan";
-          btnHitung.onclick = function () {
-            if (window.f3ChartInstance) {
-              showWarisCalculation(window.f3ChartInstance);
-              setTimeout(() => {
-                location.reload();
-              }, 300);
-            } else {
-              alert("Family tree belum siap.");
-            }
+          btnHitung.onclick = () => {
+            showWarisCalculation(window.f3ChartInstance, { formGroup });
           };
           formGroup.appendChild(btnHitung);
         } else if (btnHitung && !adaMeninggal) {
-          // Jika tidak ada yang meninggal, sembunyikan tombol Hitung
           btnHitung.style.display = "none";
         } else if (btnHitung && adaMeninggal) {
           btnHitung.style.display = "";
@@ -369,7 +387,7 @@ function convertInputsToCustomFields() {
                   });
                   setTimeout(() => {
                     window.location.reload();
-                  }, 300);
+                  }, 30);
                 }
               }, 10);
             });
@@ -483,14 +501,14 @@ window.resetTree = function () {
     const key = localStorage.key(i);
     if (
       key.startsWith("myFamilyTree_") ||
-      key.startsWith("warisResult_") ||
-      key.startsWith("riwayatWaris_")
+      key.startsWith("warisResult_") 
+      // key.startsWith("riwayatWaris_")
     ) {
       keysToRemove.push(key);
     }
   }
   keysToRemove.forEach((key) => localStorage.removeItem(key));
-  alert("Seluruh data pengguna telah dihapus.");
+  if(confirm("apakah anda ingin mereset silsilah keluarga?"))
   location.reload();
 };
 
@@ -610,7 +628,7 @@ function addButtons(f3Chart) {
       container.appendChild(btnSaveTree);
       console.log("Tombol berhasil ditambahkan ke container");
     } catch (error) {
-      console.error("Error menambahkan tombol:", error);
+      // console.error("Error menambahkan tombol:", error);
       container.innerHTML = `
        
         <button id="calculateInheritance" onclick="showWarisCalculation(window.f3ChartInstance)" 
@@ -674,9 +692,18 @@ function showWarisCalculation(f3Chart, options = {}) {
   const ahliWaris = identifikasiAhliWaris(allData, almarhum);
   const hasilPembagian = hitungPembagianWaris(totalHarta, ahliWaris, almarhum);
   window.lastWarisResult = { hasilPembagian, totalHarta, almarhum };
-  window.currentFamilyTree = allData;
+
+  // render ke tree
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+  f3Chart.updateTree(allData);
+
+  // tampilkan hasil langsung ke bawah diagram
+  if (typeof displaySavedWarisResult === "function") {
+    displaySavedWarisResult(window.lastWarisResult);
+  }
 
   // ✅ Buat map ID → Warisan + Keterangan
+  // Buat map ID → Warisan + Keterangan
   const mapWarisan = {};
   hasilPembagian.forEach((item) => {
     const orang = allData.find((o) => o.data["nama lengkap"] === item.nama);
@@ -690,7 +717,7 @@ function showWarisCalculation(f3Chart, options = {}) {
     }
   });
 
-  // ✅ Masukkan ke data.waris → multi-baris
+  // Masukkan ke data.waris → untuk ditampilkan di diagram
   allData.forEach((orang) => {
     const map = mapWarisan[orang.id];
     if (map) {
@@ -700,10 +727,8 @@ function showWarisCalculation(f3Chart, options = {}) {
     }
   });
 
-  // ✅ Simpan dan update tampilan secara paksa
   localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
-  f3Chart.updateTree([]); // Kosongkan dulu
-  f3Chart.updateTree(allData); // Render ulang
+  f3Chart.updateTree(allData);
 
   // ✅ Simpan ke riwayat otomatis
   if (
@@ -717,36 +742,39 @@ function showWarisCalculation(f3Chart, options = {}) {
   f3Chart.updateTree([]);
   f3Chart.updateTree(allData);
 
-  const f3Card = f3Chart
-    .setCard(f3.CardHtml)
-    .setCardDisplay([
-      ["nama lengkap"],
-      ["status(hidup/meninggal)"],
-      ["agama"],
-      ["waris"],
-    ]);
+  f3EditTree.open(f3Chart.getMainDatum());
 
-  // ⬇️ Tambahkan blok ini
-  if (window.f3ChartInstance) {
-    f3EditTree = window.f3ChartInstance
-      .editTree()
-      .fixed(true)
-      .setFields(["nama lengkap", "status(hidup/meninggal)", "agama"])
-      .setEditFirst(true)
-      .setCardClickOpen(f3Chart.getCard())
-      .setOnChange(() => {
-        const updated = f3EditTree.getStoreDataCopy();
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        console.log("✅ Data disimpan ke localStorage:", updated);
-      });
-
-    f3EditTree.open(f3Chart.getMainDatum());
+  // ✅ Tampilkan hasil ke dalam .hasil-waris jika ada
+  let formGroup =
+    options.formGroup ||
+    document.querySelector(".dynamic-harta-group")?.closest(".f3-form");
+  if (!formGroup) {
+    console.warn(
+      "❗ Form group tidak ditemukan. Tidak bisa menampilkan hasil waris."
+    );
+    return;
   }
 
-  setTimeout(() => {
-    f3Chart.updateTree([]);
-    f3Chart.updateTree(allData);
-  }, 50); // 50 ms delay
+  let hasilDiv = formGroup.querySelector(".hasil-waris");
+  if (!hasilDiv) {
+    hasilDiv = document.createElement("div");
+    hasilDiv.className = "hasil-waris mt-3 text-sm";
+    const target = formGroup.querySelector(".dynamic-harta-group") || formGroup;
+    target.appendChild(hasilDiv);
+  }
+
+  if (hasilDiv) {
+    let html =
+      "<p class='text-sm font-semibold'>Hasil Pembagian Waris:</p><ul class='text-sm list-disc ml-4'>";
+    hasilPembagian.forEach((item) => {
+      html += `<li>${item.ahli} (${item.nama || "-"}) - ${
+        item.persentase || "-"
+      } → ${formatRupiah(item.bagian || 0)}</li>`;
+    });
+    html += "</ul>";
+    hasilDiv.innerHTML = html;
+  }
+  f3Chart.updateTree(allData);
 }
 
 function formatRupiah(value) {
@@ -1224,29 +1252,51 @@ function hitungPembagianWaris(totalHarta, ahliWaris, almarhum) {
   return hasil;
 }
 
-function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum) {
-  const hasilDiv = document.getElementById("hasilWaris");
+function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum, formGroup) {
+  // 1. Pastikan formGroup valid
+  if (!formGroup) {
+    console.warn(
+      "formGroup tidak ditemukan. Tidak bisa menampilkan hasil waris."
+    );
+    return;
+  }
 
+  // 2. Cari container .dynamic-harta-group (dibuat saat status “meninggal”)
+  const hartaGroup = formGroup.querySelector(".dynamic-harta-group");
+  if (!hartaGroup) {
+    console.warn("Container .dynamic-harta-group tidak ditemukan.");
+    return;
+  }
+
+  // 3. Jika sebelumnya sudah ada <div class='hasil-waris'>, pakai ulang; kalau belum, buat baru
+  let hasilDiv = formGroup.querySelector(".hasil-waris");
+  if (!hasilDiv) {
+    hasilDiv = document.createElement("div");
+    hasilDiv.className = "hasil-waris mt-3 text-sm";
+    hartaGroup.appendChild(hasilDiv);
+  }
+
+  // 4. Susun HTML ringkasan dan tabel pembagian
   let html = `
-    <div style="margin-bottom: 20px;">
-      <h3 style="color: #333; margin-bottom: 10px;">Pembagian Waris</h3>
+    <div style="margin-bottom: 16px;">
+      <h3 style="margin:0 0 8px;">Pembagian Waris</h3>
       <p><strong>Almarhum:</strong> ${almarhum.data["nama lengkap"]}</p>
       <p><strong>Total Harta:</strong> ${formatRupiah(totalHarta)}</p>
     </div>
   `;
 
   if (hasilPembagian.length === 0) {
-    html += `<p style="color: red; text-align: center;">Tidak ada ahli waris yang berhak.</p>`;
+    html += `<p style="color:red; text-align:center;">Tidak ada ahli waris yang berhak.</p>`;
   } else {
     html += `
-      <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;">
           <thead>
-            <tr style="background-color: #f2f2f2;">
-              <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Ahli Waris</th>
-              <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Nama</th>
-              <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Bagian</th>
-              <th style="border: 1px solid #ddd; padding: 8px; text-align: right;">Jumlah</th>
+            <tr style="background:#f2f2f2;">
+              <th style="border:1px solid #ddd;padding:6px;text-align:left;">Ahli Waris</th>
+              <th style="border:1px solid #ddd;padding:6px;text-align:left;">Nama</th>
+              <th style="border:1px solid #ddd;padding:6px;text-align:center;">Bagian</th>
+              <th style="border:1px solid #ddd;padding:6px;text-align:right;">Jumlah</th>
             </tr>
           </thead>
           <tbody>
@@ -1258,14 +1308,14 @@ function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum) {
         totalTerbagi += item.bagian;
         html += `
           <tr>
-            <td style="border: 1px solid #ddd; padding: 8px;">${item.ahli}</td>
-            <td style="border: 1px solid #ddd; padding: 8px;">${
+            <td style="border:1px solid #ddd;padding:6px;">${item.ahli}</td>
+            <td style="border:1px solid #ddd;padding:6px;">${
               item.nama || "-"
             }</td>
-            <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">${
+            <td style="border:1px solid #ddd;padding:6px;text-align:center;">${
               item.persentase
             }</td>
-            <td style="border: 1px solid #ddd; padding: 8px; text-align: right;">${formatRupiah(
+            <td style="border:1px solid #ddd;padding:6px;text-align:right;">${formatRupiah(
               item.bagian
             )}</td>
           </tr>
@@ -1273,7 +1323,7 @@ function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum) {
       } else {
         html += `
           <tr>
-            <td colspan="4" style="border: 1px solid #ddd; padding: 8px; text-align: center; color: red;">
+            <td colspan="4" style="border:1px solid #ddd;padding:6px;text-align:center;color:red;">
               ${item.keterangan}
             </td>
           </tr>
@@ -1284,9 +1334,9 @@ function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum) {
     html += `
           </tbody>
           <tfoot>
-            <tr style="background-color: #f9f9f9; font-weight: bold;">
-              <td colspan="3" style="border: 1px solid #ddd; padding: 8px; text-align: right;">Total Terbagi:</td>
-              <td style="border: 1px solid #ddd; padding: 8px; text-align: right;">${formatRupiah(
+            <tr style="font-weight:bold;background:#fafafa;">
+              <td colspan="3" style="border:1px solid #ddd;padding:6px;text-align:right;">Total Terbagi:</td>
+              <td style="border:1px solid #ddd;padding:6px;text-align:right;">${formatRupiah(
                 totalTerbagi
               )}</td>
             </tr>
@@ -1298,7 +1348,7 @@ function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum) {
     const sisaHarta = totalHarta - totalTerbagi;
     if (sisaHarta > 0) {
       html += `
-        <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px;">
+        <div style="margin-top:12px;padding:8px;background:#fff3cd;border:1px solid #ffeaa7;border-radius:4px;">
           <strong>Sisa Harta:</strong> ${formatRupiah(sisaHarta)}
           <br><small>Sisa harta dapat diberikan kepada ahli waris terdekat atau untuk kepentingan umum.</small>
         </div>
@@ -1306,158 +1356,159 @@ function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum) {
     }
   }
 
+  // 5. Tempelkan hasilnya
   hasilDiv.innerHTML = html;
 }
 
-function displaySavedWarisResult({ hasilPembagian, totalHarta, almarhum }) {
-  const el = document.getElementById("hasil");
-  if (!el) {
-    console.error("Element with id 'hasil' not found.");
-    return;
-  }
+// function displaySavedWarisResult({ hasilPembagian, totalHarta, almarhum }) {
+//   const el = document.getElementById("hasil");
+//   if (!el) {
+//     console.error("Element with id 'hasil' not found.");
+//     return;
+//   }
 
-  let html = `
-      <h3 class="font-bold text-lg mb-2">Hasil Pembagian Waris:</h3>
-      <p><strong>Almarhum:</strong> ${almarhum.data["nama lengkap"]}</p>
-      <p><strong>Total Harta:</strong> ${formatRupiah(totalHarta)}</p>
-      <div class="overflow-x-auto mt-4">
-        <table class="w-full text-sm text-left text-gray-700 border text-center">
-          <thead class="bg-gray-200 text-gray-800">
-            <tr>
-              <th class="px-4 py-2 border">Ahli Waris</th>
-              <th class="px-4 py-2 border">Nama</th>
-              <th class="px-4 py-2 border">Bagian Per Orang</th>
-              <th class="px-4 py-2 border">Total Perolehan</th>
-              <th class="px-4 py-2 border">Keterangan</th>
-            </tr>
-          </thead>
-          <tbody>
-  `;
+//   let html = `
+//       <h3 class="font-bold text-lg mb-2">Hasil Pembagian Waris:</h3>
+//       <p><strong>Almarhum:</strong> ${almarhum.data["nama lengkap"]}</p>
+//       <p><strong>Total Harta:</strong> ${formatRupiah(totalHarta)}</p>
+//       <div class="overflow-x-auto mt-4">
+//         <table class="w-full text-sm text-left text-gray-700 border text-center">
+//           <thead class="bg-gray-200 text-gray-800">
+//             <tr>
+//               <th class="px-4 py-2 border">Ahli Waris</th>
+//               <th class="px-4 py-2 border">Nama</th>
+//               <th class="px-4 py-2 border">Bagian Per Orang</th>
+//               <th class="px-4 py-2 border">Total Perolehan</th>
+//               <th class="px-4 py-2 border">Keterangan</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//   `;
 
-  let totalTerbagi = 0;
-  hasilPembagian.forEach((item) => {
-    if (item.bagian) {
-      totalTerbagi += item.bagian;
-      html += `
-        <tr class="bg-white border-b">
-          <td class="px-4 py-2 border">${item.ahli}</td>
-          <td class="px-4 py-2 border">${item.nama || "-"}</td>
-          <td class="px-4 py-2 border">${item.persentase}</td>
-          <td class="px-4 py-2 border">${formatRupiah(item.bagian)}</td>
-          <td class="px-4 py-2 border">-</td>
-        </tr>
-      `;
-    } else {
-      html += `
-        <tr class="bg-white border-b">
-          <td class="px-4 py-2 border">${item.ahli}</td>
-          <td class="px-4 py-2 border">${item.nama || "-"}</td>
-          <td class="px-4 py-2 border">-</td>
-          <td class="px-4 py-2 border">-</td>
-          <td class="px-4 py-2 border">${item.keterangan}</td>
-        </tr>
-      `;
-    }
-  });
+//   let totalTerbagi = 0;
+//   hasilPembagian.forEach((item) => {
+//     if (item.bagian) {
+//       totalTerbagi += item.bagian;
+//       html += `
+//         <tr class="bg-white border-b">
+//           <td class="px-4 py-2 border">${item.ahli}</td>
+//           <td class="px-4 py-2 border">${item.nama || "-"}</td>
+//           <td class="px-4 py-2 border">${item.persentase}</td>
+//           <td class="px-4 py-2 border">${formatRupiah(item.bagian)}</td>
+//           <td class="px-4 py-2 border">-</td>
+//         </tr>
+//       `;
+//     } else {
+//       html += `
+//         <tr class="bg-white border-b">
+//           <td class="px-4 py-2 border">${item.ahli}</td>
+//           <td class="px-4 py-2 border">${item.nama || "-"}</td>
+//           <td class="px-4 py-2 border">-</td>
+//           <td class="px-4 py-2 border">-</td>
+//           <td class="px-4 py-2 border">${item.keterangan}</td>
+//         </tr>
+//       `;
+//     }
+//   });
 
-  html += `
-          </tbody>
-          <tfoot>
-            <tr class="bg-gray-100 font-bold">
-              <td colspan="3" class="px-4 py-2 border text-right">Total Terbagi:</td>
-              <td class="px-4 py-2 border">${formatRupiah(totalTerbagi)}</td>
-              <td class="px-4 py-2 border">-</td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-  `;
+//   html += `
+//           </tbody>
+//           <tfoot>
+//             <tr class="bg-gray-100 font-bold">
+//               <td colspan="3" class="px-4 py-2 border text-right">Total Terbagi:</td>
+//               <td class="px-4 py-2 border">${formatRupiah(totalTerbagi)}</td>
+//               <td class="px-4 py-2 border">-</td>
+//             </tr>
+//           </tfoot>
+//         </table>
+//       </div>
+//   `;
 
-  const sisaHarta = totalHarta - totalTerbagi;
-  if (sisaHarta > 0) {
-    html += `
-      <div class="mt-4 p-4 bg-yellow-100 border border-yellow-300 rounded">
-        <strong>Sisa Harta:</strong> ${formatRupiah(sisaHarta)}
-        <br><small>Sisa harta dapat diberikan kepada ahli waris terdekat atau untuk kepentingan umum.</small>
-      </div>
-    `;
-  }
+//   const sisaHarta = totalHarta - totalTerbagi;
+//   if (sisaHarta > 0) {
+//     html += `
+//       <div class="mt-4 p-4 bg-yellow-100 border border-yellow-300 rounded">
+//         <strong>Sisa Harta:</strong> ${formatRupiah(sisaHarta)}
+//         <br><small>Sisa harta dapat diberikan kepada ahli waris terdekat atau untuk kepentingan umum.</small>
+//       </div>
+//     `;
+//   }
 
-  // Tambahkan tombol simpan ke riwayat
-  html += `
-    <div class="mt-4 flex flex-col items-center">
-      <button id="btnSimpanRiwayatWaris" style="padding: 10px 24px; background: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 500; margin-bottom: 10px; cursor: pointer;">Simpan ke Riwayat</button>
-      <small>Data silsilah keluarga dan hasil waris akan disimpan ke riwayat dengan nama yang Anda tentukan.</small>
-    </div>
-  `;
+//   // Tambahkan tombol simpan ke riwayat
+//   html += `
+//     <div class="mt-4 flex flex-col items-center">
+//       <button id="btnSimpanRiwayatWaris" style="padding: 10px 24px; background: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 500; margin-bottom: 10px; cursor: pointer;">Simpan ke Riwayat</button>
+//       <small>Data silsilah keluarga dan hasil waris akan disimpan ke riwayat dengan nama yang Anda tentukan.</small>
+//     </div>
+//   `;
 
-  el.innerHTML = html;
+//   el.innerHTML = html;
 
-  // Event handler tombol simpan ke riwayat
-  const btnSimpan = document.getElementById("btnSimpanRiwayatWaris");
-  if (btnSimpan) {
-    btnSimpan.onclick = function () {
-      let nama = prompt(
-        "Masukkan nama riwayat waris (misal: Waris Budi 2025):"
-      );
-      if (!nama || !nama.trim()) {
-        alert("Nama riwayat tidak boleh kosong!");
-        return;
-      }
+//   // Event handler tombol simpan ke riwayat
+//   const btnSimpan = document.getElementById("btnSimpanRiwayatWaris");
+//   if (btnSimpan) {
+//     btnSimpan.onclick = function () {
+//       let nama = prompt(
+//         "Masukkan nama riwayat waris (misal: Waris Budi 2025):"
+//       );
+//       if (!nama || !nama.trim()) {
+//         alert("Nama riwayat tidak boleh kosong!");
+//         return;
+//       }
 
-      // Ambil data familytree terbaru
-      let familyTreeData = null;
-      try {
-        if (
-          window.f3ChartInstance &&
-          typeof window.f3ChartInstance.getChartData === "function"
-        ) {
-          familyTreeData = window.f3ChartInstance.getChartData();
-        } else {
-          const STORAGE_KEY = "myFamilyTree_" + getUserId();
-          const saved = localStorage.getItem(STORAGE_KEY);
-          familyTreeData = saved ? JSON.parse(saved) : null;
-        }
-      } catch (e) {
-        familyTreeData = null;
-      }
+//       // Ambil data familytree terbaru
+//       let familyTreeData = null;
+//       try {
+//         if (
+//           window.f3ChartInstance &&
+//           typeof window.f3ChartInstance.getChartData === "function"
+//         ) {
+//           familyTreeData = window.f3ChartInstance.getChartData();
+//         } else {
+//           const STORAGE_KEY = "myFamilyTree_" + getUserId();
+//           const saved = localStorage.getItem(STORAGE_KEY);
+//           familyTreeData = saved ? JSON.parse(saved) : null;
+//         }
+//       } catch (e) {
+//         familyTreeData = null;
+//       }
 
-      if (!familyTreeData) {
-        alert("Gagal mengambil data silsilah keluarga.");
-        return;
-      }
+//       if (!familyTreeData) {
+//         alert("Gagal mengambil data silsilah keluarga.");
+//         return;
+//       }
 
-      // Ambil riwayat lama
-      let riwayat = [];
-      try {
-        const old = localStorage.getItem("riwayatWaris_" + getUserId());
-        riwayat = old ? JSON.parse(old) : [];
-      } catch (e) {
-        riwayat = [];
-      }
+//       // Ambil riwayat lama
+//       let riwayat = [];
+//       try {
+//         const old = localStorage.getItem("riwayatWaris_" + getUserId());
+//         riwayat = old ? JSON.parse(old) : [];
+//       } catch (e) {
+//         riwayat = [];
+//       }
 
-      // Simpan data baru
-      riwayat.push({
-        nama: nama.trim(),
-        tanggal: new Date().toISOString(),
-        familyTree: familyTreeData,
-        hasilWaris: { hasilPembagian, totalHarta, almarhum },
-      });
+//       // Simpan data baru
+//       riwayat.push({
+//         nama: nama.trim(),
+//         tanggal: new Date().toISOString(),
+//         familyTree: familyTreeData,
+//         hasilWaris: { hasilPembagian, totalHarta, almarhum },
+//       });
 
-      localStorage.setItem(
-        "riwayatWaris_" + getUserId(),
-        JSON.stringify(riwayat)
-      );
+//       localStorage.setItem(
+//         "riwayatWaris_" + getUserId(),
+//         JSON.stringify(riwayat)
+//       );
 
-      alert("Berhasil disimpan ke riwayat waris!");
+//       alert("Berhasil disimpan ke riwayat waris!");
 
-      // ⬅️ Tambahkan baris ini agar langsung muncul di halaman riwayat jika ada
-      if (typeof renderTabel === "function") {
-        renderTabel();
-      }
-    };
-  }
-}
+//       // ⬅️ Tambahkan baris ini agar langsung muncul di halaman riwayat jika ada
+//       if (typeof renderTabel === "function") {
+//         renderTabel();
+//       }
+//     };
+//   }
+// }
 
 function desimalKePecahan(decimal, precision = 1e-6) {
   let numerator = 1;
