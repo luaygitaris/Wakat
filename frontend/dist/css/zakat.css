@@ -164,4 +164,7 @@
   .responsive-table-zakat td.text-red-600 {
     font-size: 0.95rem;
   }
+  .lg-flex {
+    display: none;
+  }
 }
