@@ -55,30 +55,29 @@ function create(treeData) {
     observer.observe(targetNode, config);
   }, 500);
 
-f3Chart.updateTree({ initial: true });
-f3EditTree.open(f3Chart.getMainDatum());
+  f3Chart.updateTree({ initial: true });
+  f3EditTree.open(f3Chart.getMainDatum());
 
-setTimeout(() => {
-  const svgWrapper = document.getElementById("htmlSvg");
-  if (svgWrapper) {
-    svgWrapper.style.position = "absolute";
-    svgWrapper.style.top = "0";
-    svgWrapper.style.left = "0";
-    svgWrapper.style.right = "0";
-    svgWrapper.style.bottom = "0";
-    svgWrapper.style.width = "100%";
-    svgWrapper.style.height = "100%";
-    svgWrapper.style.display = "block";
-    svgWrapper.style.zIndex = "2";
-  }
+  setTimeout(() => {
+    const svgWrapper = document.getElementById("htmlSvg");
+    if (svgWrapper) {
+      svgWrapper.style.position = "absolute";
+      svgWrapper.style.top = "0";
+      svgWrapper.style.left = "0";
+      svgWrapper.style.right = "0";
+      svgWrapper.style.bottom = "0";
+      svgWrapper.style.width = "100%";
+      svgWrapper.style.height = "100%";
+      svgWrapper.style.display = "block";
+      svgWrapper.style.zIndex = "2";
+    }
 
-  // Pusatkan view ke kartu utama setelah style di-reset
-  const mainId = f3Chart.getMainDatum()?.id;
-  if (mainId) {
-    f3Chart.focusOn(mainId); // atau f3Chart.fitView() jika banyak node
-  }
-}, 800);
-
+    // Pusatkan view ke kartu utama setelah style di-reset
+    const mainId = f3Chart.getMainDatum()?.id;
+    if (mainId) {
+      f3Chart.focusOn(mainId); // atau f3Chart.fitView() jika banyak node
+    }
+  }, 800);
 
   window.f3ChartInstance = f3Chart;
   window.showWarisCalculation = showWarisCalculation;
@@ -372,24 +371,17 @@ function convertInputsToCustomFields() {
         if (adaMeninggal) {
           submitBtn.type = "submit";
           submitBtn.textContent = "Hitung";
-          // Pastikan hanya satu event listener
           submitBtn.onclick = null;
-          // Tambahkan event listener pada parent form
           const form = formBtn.closest("form");
           if (form && !form._warisSubmitListener) {
             form._warisSubmitListener = true;
             form.addEventListener("submit", function (e) {
-              // Setelah submit normal (validasi form), jalankan hitung
-              setTimeout(() => {
-                if (window.f3ChartInstance) {
-                  showWarisCalculation(window.f3ChartInstance, {
-                    simpanRiwayat: false,
-                  });
-                  setTimeout(() => {
-                    window.location.reload();
-                  }, 30);
-                }
-              }, 10);
+              e.preventDefault(); // <-- pastikan tidak reload
+              if (window.f3ChartInstance) {
+                showWarisCalculation(window.f3ChartInstance, {
+                  simpanRiwayat: false,
+                });
+              }
             });
           }
         } else {
@@ -501,15 +493,15 @@ window.resetTree = function () {
     const key = localStorage.key(i);
     if (
       key.startsWith("myFamilyTree_") ||
-      key.startsWith("warisResult_") 
+      key.startsWith("warisResult_")
       // key.startsWith("riwayatWaris_")
     ) {
       keysToRemove.push(key);
     }
   }
   keysToRemove.forEach((key) => localStorage.removeItem(key));
-  if(confirm("apakah anda ingin mereset silsilah keluarga?"))
-  location.reload();
+  if (confirm("apakah anda ingin mereset silsilah keluarga?"))
+    location.reload();
 };
 
 function getUserId() {
@@ -595,33 +587,6 @@ function addButtons(f3Chart) {
       }
     };
 
-    // const btnSaveTree = document.createElement("button");
-    // btnSaveTree.id = "saveFamilyTree";
-    // btnSaveTree.textContent = "Simpan Silsilah Keluarga";
-    // btnSaveTree.style.cssText = `
-    //   margin-left: 10px;
-    //   padding: 12px 24px;
-    //   background-color: #f59e0b;
-    //   color: white;
-    //   border: none;
-    //   border-radius: 8px;
-    //   cursor: pointer;
-    //   font-weight: 500;
-    //   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    //   transition: all 0.2s ease;
-    // `;
-    // btnSaveTree.onmouseover = () => {
-    //   btnSaveTree.style.backgroundColor = "#d97706";
-    //   btnSaveTree.style.transform = "translateY(-1px)";
-    // };
-    // btnSaveTree.onmouseout = () => {
-    //   btnSaveTree.style.backgroundColor = "#f59e0b";
-    //   btnSaveTree.style.transform = "translateY(0)";
-    // };
-    // btnSaveTree.onclick = () => {
-    //   saveCurrentFamilyTree();
-    // };
-
     try {
       container.appendChild(btnWaris);
       container.appendChild(btnReset);
@@ -693,17 +658,7 @@ function showWarisCalculation(f3Chart, options = {}) {
   const hasilPembagian = hitungPembagianWaris(totalHarta, ahliWaris, almarhum);
   window.lastWarisResult = { hasilPembagian, totalHarta, almarhum };
 
-  // render ke tree
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
-  f3Chart.updateTree(allData);
-
-  // tampilkan hasil langsung ke bawah diagram
-  if (typeof displaySavedWarisResult === "function") {
-    displaySavedWarisResult(window.lastWarisResult);
-  }
-
-  // ✅ Buat map ID → Warisan + Keterangan
-  // Buat map ID → Warisan + Keterangan
+  // === Buat mapping hasil warisan
   const mapWarisan = {};
   hasilPembagian.forEach((item) => {
     const orang = allData.find((o) => o.data["nama lengkap"] === item.nama);
@@ -717,7 +672,7 @@ function showWarisCalculation(f3Chart, options = {}) {
     }
   });
 
-  // Masukkan ke data.waris → untuk ditampilkan di diagram
+  // === Masukkan warisan ke setiap data orang
   allData.forEach((orang) => {
     const map = mapWarisan[orang.id];
     if (map) {
@@ -725,45 +680,52 @@ function showWarisCalculation(f3Chart, options = {}) {
     } else {
       delete orang.data.waris;
     }
+    orang.lastUpdated = Date.now();
+  });
+  console.log("🔍 Data akhir yang dikirim ke diagram:", allData);
+  // === Simpan ke localStorage
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+
+  // === Update diagram
+  f3Chart.updateTree([]); // clear lama
+
+  f3Chart.updateTree([]); // clear dulu
+
+  requestAnimationFrame(() => {
+    const container = document.getElementById("FamilyChart");
+    if (container) container.innerHTML = "";
+
+    create(allData); // render ulang 1 frame setelah clear
+
+    if (typeof displaySavedWarisResult === "function") {
+      displaySavedWarisResult(window.lastWarisResult);
+    }
   });
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
-  f3Chart.updateTree(allData);
-
-  // ✅ Simpan ke riwayat otomatis
+  // === Simpan ke riwayat jika diaktifkan
   if (
     options.simpanRiwayat !== false &&
     typeof simpanKeRiwayat === "function"
   ) {
     simpanKeRiwayat(window.lastWarisResult, allData);
-    if (typeof renderTabel === "function") renderTabel(); // update tabel
+    if (typeof renderTabel === "function") renderTabel();
   }
 
-  f3Chart.updateTree([]);
-  f3Chart.updateTree(allData);
-
-  f3EditTree.open(f3Chart.getMainDatum());
-
-  // ✅ Tampilkan hasil ke dalam .hasil-waris jika ada
-  let formGroup =
+  // === Tampilkan hasil ke dalam form (jika sedang buka form)
+  const formGroup =
     options.formGroup ||
     document.querySelector(".dynamic-harta-group")?.closest(".f3-form");
-  if (!formGroup) {
-    console.warn(
-      "❗ Form group tidak ditemukan. Tidak bisa menampilkan hasil waris."
-    );
-    return;
-  }
 
-  let hasilDiv = formGroup.querySelector(".hasil-waris");
-  if (!hasilDiv) {
-    hasilDiv = document.createElement("div");
-    hasilDiv.className = "hasil-waris mt-3 text-sm";
-    const target = formGroup.querySelector(".dynamic-harta-group") || formGroup;
-    target.appendChild(hasilDiv);
-  }
+  if (formGroup) {
+    let hasilDiv = formGroup.querySelector(".hasil-waris");
+    if (!hasilDiv) {
+      hasilDiv = document.createElement("div");
+      hasilDiv.className = "hasil-waris mt-3 text-sm";
+      const target =
+        formGroup.querySelector(".dynamic-harta-group") || formGroup;
+      target.appendChild(hasilDiv);
+    }
 
-  if (hasilDiv) {
     let html =
       "<p class='text-sm font-semibold'>Hasil Pembagian Waris:</p><ul class='text-sm list-disc ml-4'>";
     hasilPembagian.forEach((item) => {
@@ -774,7 +736,6 @@ function showWarisCalculation(f3Chart, options = {}) {
     html += "</ul>";
     hasilDiv.innerHTML = html;
   }
-  f3Chart.updateTree(allData);
 }
 
 function formatRupiah(value) {
