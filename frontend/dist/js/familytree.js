@@ -60,67 +60,61 @@ function create(treeData) {
   f3Chart.updateTree({ initial: true });
   f3EditTree.open(f3Chart.getMainDatum());
 
-  // setTimeout(() => {
-  //   const svgWrapper = document.getElementById("htmlSvg");
-  //   if (svgWrapper) {
-  //     svgWrapper.style.position = "absolute";
-  //     svgWrapper.style.top = "0";
-  //     svgWrapper.style.left = "0";
-  //     svgWrapper.style.right = "0";
-  //     svgWrapper.style.bottom = "0";
-  //     svgWrapper.style.width = "100%";
-  //     svgWrapper.style.height = "100%";
-  //     svgWrapper.style.display = "block";
-  //     svgWrapper.style.zIndex = "2";
-  //   }
-
-  //   // Pusatkan view ke kartu utama setelah style di-reset
-  //   const mainId = f3Chart.getMainDatum()?.id;
-  //   if (mainId) {
-  //     f3Chart.focusOn(mainId); // atau f3Chart.fitView() jika banyak node
-  //   }
-  // }, 800);
-
-  // Pusatkan view ke kartu utama setelah style di-reset
-  const mainId = f3Chart.getMainDatum()?.id;
-  if (mainId) {
-    // Paksa trigger event click pada card utama agar benar-benar ke tengah
-    const mainCard = document.querySelector(`.card[data-id="${mainId}"]`);
-    if (mainCard) {
-      mainCard.click(); // trigger event agar library auto-center
+  setTimeout(() => {
+    const svgWrapper = document.getElementById("htmlSvg");
+    if (svgWrapper) {
+      svgWrapper.style.position = "absolute";
+      svgWrapper.style.top = "0";
+      svgWrapper.style.left = "0";
+      svgWrapper.style.right = "0";
+      svgWrapper.style.bottom = "0";
+      svgWrapper.style.width = "100%";
+      svgWrapper.style.height = "100%";
+      svgWrapper.style.display = "block";
+      svgWrapper.style.zIndex = "2";
     }
-    setTimeout(() => {
-      let centered = false;
-      try {
-        if (typeof f3Chart.focusOn === "function") {
-          f3Chart.focusOn(mainId);
-          centered = true;
-        }
-      } catch (e) {}
+
+    // Pusatkan view ke kartu utama setelah style di-reset
+    const mainId = f3Chart.getMainDatum()?.id;
+    if (mainId) {
+      // Paksa trigger event click pada card utama agar benar-benar ke tengah
+      const mainCard = document.querySelector(`.card[data-id="${mainId}"]`);
+      if (mainCard) {
+        mainCard.click(); // trigger event agar library auto-center
+      }
       setTimeout(() => {
+        let centered = false;
         try {
-          if (!centered && typeof f3Chart.fitView === "function") {
-            f3Chart.fitView();
+          if (typeof f3Chart.focusOn === "function") {
+            f3Chart.focusOn(mainId);
             centered = true;
           }
         } catch (e) {}
         setTimeout(() => {
           try {
-            const mainCard2 = document.querySelector(
-              `.card[data-id="${mainId}"]`
-            );
-            if (mainCard2 && typeof mainCard2.scrollIntoView === "function") {
-              mainCard2.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-                inline: "center",
-              });
+            if (!centered && typeof f3Chart.fitView === "function") {
+              f3Chart.fitView();
+              centered = true;
             }
           } catch (e) {}
+          setTimeout(() => {
+            try {
+              const mainCard2 = document.querySelector(
+                `.card[data-id="${mainId}"]`
+              );
+              if (mainCard2 && typeof mainCard2.scrollIntoView === "function") {
+                mainCard2.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                  inline: "center",
+                });
+              }
+            } catch (e) {}
+          }, 300);
         }, 300);
-      }, 300);
-    }, 100);
-  }
+      }, 100);
+    }
+  }, 800);
 
   window.f3ChartInstance = f3Chart;
   window.showWarisCalculation = showWarisCalculation;
@@ -138,22 +132,17 @@ function highlightCardsFromStorage() {
 
     const allData = JSON.parse(saved);
 
-    // Hapus highlight lama
-    document.querySelectorAll(".card.card-meninggal").forEach((card) => {
-      card.classList.remove("card-meninggal");
-    });
-
     allData.forEach((person) => {
       const status = String(
         person.data["status(hidup/meninggal)"] || ""
       ).toLowerCase();
       const id = person.id;
-      const card = document.querySelector(`.card[data-id="${id}"]`);
-      if (card) {
-        if (status === "meninggal") {
-          card.classList.add("card-meninggal");
-        } else {
-          card.classList.remove("card-meninggal");
+
+      if (status === "meninggal") {
+        const card = document.querySelector(`.card[data-id="${id}"]`);
+        if (card) {
+          card.style.border = "3px solid red";
+          card.style.borderRadius = "8px";
         }
       }
     });
@@ -757,13 +746,7 @@ function showWarisCalculation(f3Chart, options = {}, dataOverride = null) {
 
   const ahliWaris = identifikasiAhliWaris(allData, almarhum);
   const hasilPembagian = hitungPembagianWaris(totalHarta, ahliWaris, almarhum);
-
-  // ✅ Simpan hasil ke global & localStorage
   window.lastWarisResult = { hasilPembagian, totalHarta, almarhum };
-  localStorage.setItem(
-    "warisResult_" + getUserId(),
-    JSON.stringify(window.lastWarisResult)
-  );
 
   // === Buat mapping hasil warisan
   const mapWarisan = {};
@@ -787,7 +770,7 @@ function showWarisCalculation(f3Chart, options = {}, dataOverride = null) {
     } else {
       delete orang.data.waris;
     }
-    orang.lastUpdated = Date.now(); // pancing update
+    orang.lastUpdated = Date.now(); // untuk pancing update visual
   });
 
   console.log("🔍 Data akhir yang dikirim ke diagram:", allData);
@@ -795,17 +778,22 @@ function showWarisCalculation(f3Chart, options = {}, dataOverride = null) {
   // === Simpan ulang ke localStorage
   localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
 
-  // === Bersihkan dan render ulang diagram di frame berikutnya
-  f3Chart.updateTree([]);
+  // === Perbarui diagram: destroy lalu create ulang
+  f3Chart.updateTree([]); // kosongkan dulu
 
   requestAnimationFrame(() => {
     const container = document.getElementById("FamilyChart");
     if (container) container.innerHTML = "";
 
-    create(allData);
+    create(allData); // render ulang
 
     if (typeof displaySavedWarisResult === "function") {
       displaySavedWarisResult(window.lastWarisResult);
+      window.lastWarisResult = { hasilPembagian, totalHarta, almarhum };
+      localStorage.setItem(
+        "warisResult_" + getUserId(),
+        JSON.stringify(window.lastWarisResult)
+      );
     }
   });
 
