@@ -168,3 +168,9 @@
     display: none;
   }
 }
+
+
+.card ::after {
+  border-color: #111827 !important;
+}
+

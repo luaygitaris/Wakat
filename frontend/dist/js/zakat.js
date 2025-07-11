@@ -57,7 +57,49 @@ function contentHitungZakat(contentId) {
     activeBtn.classList.add("active");
   }
 }
+// penjelasan ternak
+  function contentPenjelasan(jenis) {
+    const semuaJenis = ["Kambing", "Sapi", "Unta"];
+    const isDesktop = window.innerWidth >= 1024;
 
+    semuaJenis.forEach((item) => {
+      // Sembunyikan semua dulu
+      document.getElementById(item + "-desktop").classList.add("hidden");
+      document.getElementById(item + "-mobile").classList.add("hidden");
+    });
+
+    // Tampilkan yang sesuai
+    if (isDesktop) {
+      document.getElementById(jenis + "-desktop").classList.remove("hidden");
+    } else {
+      document.getElementById(jenis + "-mobile").classList.remove("hidden");
+    }
+
+    // Ganti tombol aktif di desktop
+    if (isDesktop) {
+      document.querySelectorAll(".nav-link").forEach((btn) =>
+        btn.classList.remove("active")
+      );
+      const activeBtn = Array.from(document.querySelectorAll(".nav-link")).find(
+        (btn) => btn.textContent.trim() === jenis
+      );
+      if (activeBtn) activeBtn.classList.add("active");
+    }
+  }
+
+  // Jalankan otomatis default saat halaman dimuat
+  window.addEventListener("DOMContentLoaded", () => {
+    contentPenjelasan("Kambing");
+  });
+
+  // Deteksi resize layar untuk refresh tampilan saat pindah ukuran
+  window.addEventListener("resize", () => {
+    const activeBtn = document.querySelector(".nav-link.active");
+    const selected = activeBtn
+      ? activeBtn.textContent.trim()
+      : document.querySelector("select").value;
+    contentPenjelasan(selected);
+  });
 // Jalankan saat halaman pertama kali dimuat
 document.addEventListener("DOMContentLoaded", function () {
   // Tampilkan form default (Froam1)
@@ -1005,7 +1047,12 @@ function hitungZakatPertanian() {
 
 // function temuan
 function hitungZakatRikaz() {
-  const nilaiTemuanString = document.getElementById("nilaiTemuan").value.replace("Rp ", "").replace(/\./g, "").replace(/,/g, ".") || 0;
+  const nilaiTemuanString =
+    document
+      .getElementById("nilaiTemuan")
+      .value.replace("Rp ", "")
+      .replace(/\./g, "")
+      .replace(/,/g, ".") || 0;
   const nilaiTemuan = parseFloat(nilaiTemuanString);
 
   console.log("Nilai input string setelah dibersihkan:", nilaiTemuanString); // Untuk debugging
