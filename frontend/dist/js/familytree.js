@@ -43,6 +43,8 @@ function create(treeData) {
 
       f3Chart.updateTree([]);
       f3Chart.updateTree(updated);
+      // Tambahkan ini agar border merah tetap muncul setelah edit
+      setTimeout(highlightCardsFromStorage, 100);
     });
   setTimeout(() => {
     const observer = new MutationObserver(() => {
@@ -75,7 +77,36 @@ function create(treeData) {
     // Pusatkan view ke kartu utama setelah style di-reset
     const mainId = f3Chart.getMainDatum()?.id;
     if (mainId) {
-      f3Chart.focusOn(mainId); // atau f3Chart.fitView() jika banyak node
+      // Paksa trigger event click pada card utama agar benar-benar ke tengah
+      const mainCard = document.querySelector(`.card[data-id="${mainId}"]`);
+      if (mainCard) {
+        mainCard.click(); // trigger event agar library auto-center
+      }
+      setTimeout(() => {
+        let centered = false;
+        try {
+          if (typeof f3Chart.focusOn === 'function') {
+            f3Chart.focusOn(mainId);
+            centered = true;
+          }
+        } catch (e) {}
+        setTimeout(() => {
+          try {
+            if (!centered && typeof f3Chart.fitView === 'function') {
+              f3Chart.fitView();
+              centered = true;
+            }
+          } catch (e) {}
+          setTimeout(() => {
+            try {
+              const mainCard2 = document.querySelector(`.card[data-id="${mainId}"]`);
+              if (mainCard2 && typeof mainCard2.scrollIntoView === 'function') {
+                mainCard2.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+              }
+            } catch (e) {}
+          }, 300);
+        }, 300);
+      }, 100);
     }
   }, 800);
 
@@ -95,17 +126,22 @@ function highlightCardsFromStorage() {
 
     const allData = JSON.parse(saved);
 
+    // Hapus highlight lama
+    document.querySelectorAll('.card.card-meninggal').forEach(card => {
+      card.classList.remove('card-meninggal');
+    });
+
     allData.forEach((person) => {
       const status = String(
         person.data["status(hidup/meninggal)"] || ""
       ).toLowerCase();
       const id = person.id;
-
-      if (status === "meninggal") {
-        const card = document.querySelector(`.card[data-id="${id}"]`);
-        if (card) {
-          card.style.border = "3px solid red";
-          card.style.borderRadius = "8px";
+      const card = document.querySelector(`.card[data-id="${id}"]`);
+      if (card) {
+        if (status === "meninggal") {
+          card.classList.add("card-meninggal");
+        } else {
+          card.classList.remove("card-meninggal");
         }
       }
     });
