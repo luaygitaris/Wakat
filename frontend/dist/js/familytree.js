@@ -58,26 +58,26 @@ function create(treeData) {
   f3Chart.updateTree({ initial: true });
   f3EditTree.open(f3Chart.getMainDatum());
 
-  setTimeout(() => {
-    const svgWrapper = document.getElementById("htmlSvg");
-    if (svgWrapper) {
-      svgWrapper.style.position = "absolute";
-      svgWrapper.style.top = "0";
-      svgWrapper.style.left = "0";
-      svgWrapper.style.right = "0";
-      svgWrapper.style.bottom = "0";
-      svgWrapper.style.width = "100%";
-      svgWrapper.style.height = "100%";
-      svgWrapper.style.display = "block";
-      svgWrapper.style.zIndex = "2";
-    }
+  // setTimeout(() => {
+  //   const svgWrapper = document.getElementById("htmlSvg");
+  //   if (svgWrapper) {
+  //     svgWrapper.style.position = "absolute";
+  //     svgWrapper.style.top = "0";
+  //     svgWrapper.style.left = "0";
+  //     svgWrapper.style.right = "0";
+  //     svgWrapper.style.bottom = "0";
+  //     svgWrapper.style.width = "100%";
+  //     svgWrapper.style.height = "100%";
+  //     svgWrapper.style.display = "block";
+  //     svgWrapper.style.zIndex = "2";
+  //   }
 
-    // Pusatkan view ke kartu utama setelah style di-reset
-    const mainId = f3Chart.getMainDatum()?.id;
-    if (mainId) {
-      f3Chart.focusOn(mainId); // atau f3Chart.fitView() jika banyak node
-    }
-  }, 800);
+  //   // Pusatkan view ke kartu utama setelah style di-reset
+  //   const mainId = f3Chart.getMainDatum()?.id;
+  //   if (mainId) {
+  //     f3Chart.focusOn(mainId); // atau f3Chart.fitView() jika banyak node
+  //   }
+  // }, 800);
 
   window.f3ChartInstance = f3Chart;
   window.showWarisCalculation = showWarisCalculation;
@@ -168,8 +168,11 @@ function convertInputsToCustomFields() {
 
     // === STATUS → Radio Button ===
     if (statusField && !statusField.closest('div[data-converted="status"]')) {
+      const formGroup = statusField.closest("[data-f3-form]");
+      const personId = formGroup?.dataset?.id;
       const savedStatus =
-        localStorage.getItem("status_hidup_meninggal") ||
+        (personId &&
+          localStorage.getItem(`status_hidup_meninggal_${personId}`)) ||
         (statusField.tagName === "INPUT"
           ? statusField.value
           : statusField.options[statusField.selectedIndex]?.value || "hidup");
@@ -293,9 +296,39 @@ function convertInputsToCustomFields() {
           btnHitung.className =
             "btn-hitung-waris bg-white text-black px-4 py-2 rounded shadow font-semibold";
           btnHitung.innerText = "Simpan";
+          // tombol hitung
           btnHitung.onclick = () => {
-            showWarisCalculation(window.f3ChartInstance, { formGroup });
+            const hartaInput = formGroup.querySelector('input[name="harta"]');
+            const rawHarta = hartaInput?.value?.replace(/[^\d]/g, "") || "0";
+            const jumlahHarta = parseFloat(rawHarta) || 0;
+
+            const STORAGE_KEY = "myFamilyTree_" + getUserId();
+            const saved = localStorage.getItem(STORAGE_KEY);
+            const allData = saved ? JSON.parse(saved) : [];
+
+            const almarhum = allData.find(
+              (p) =>
+                String(p.data["status(hidup/meninggal)"]).toLowerCase() ===
+                "meninggal"
+            );
+
+            if (almarhum) {
+              almarhum.data.harta = jumlahHarta;
+              console.log("💾 Menyimpan harta:", jumlahHarta);
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+            }
+
+            // ✅ Reload ulang data untuk pastikan konsistensi
+            const updated = localStorage.getItem(STORAGE_KEY);
+            const updatedData = updated ? JSON.parse(updated) : [];
+
+            showWarisCalculation(
+              window.f3ChartInstance,
+              { formGroup },
+              updatedData
+            );
           };
+
           formGroup.appendChild(btnHitung);
         } else if (btnHitung && !adaMeninggal) {
           btnHitung.style.display = "none";
@@ -307,7 +340,13 @@ function convertInputsToCustomFields() {
       // Pasang listener pada radio
       container.querySelectorAll('input[type="radio"]').forEach((radio) => {
         radio.addEventListener("change", () => {
-          localStorage.setItem("status_hidup_meninggal", radio.value);
+          const personId = formGroup?.dataset?.id;
+          if (personId) {
+            localStorage.setItem(
+              `status_hidup_meninggal_${personId}`,
+              radio.value
+            );
+          }
           toggleHartaField();
         });
       });
@@ -610,28 +649,42 @@ function addButtons(f3Chart) {
   });
 }
 
-window.addEventListener("load", () => {
-  const savedResult = localStorage.getItem("warisResult_" + getUserId());
-  if (savedResult) {
-    try {
-      const result = JSON.parse(savedResult);
-      displaySavedWarisResult(result);
-    } catch (error) {
-      console.error("Error parsing saved waris result:", error);
-    }
-  }
+// window.addEventListener("load", () => {
+//   const savedResult = localStorage.getItem("warisResult_" + getUserId());
+//   if (savedResult) {
+//     try {
+//       const result = JSON.parse(savedResult);
+//       displaySavedWarisResult(result);
+//     } catch (error) {
+//       console.error("Error parsing saved waris result:", error);
+//     }
+//   }
 
-  // Panggil render riwayat langsung di halaman
-  if (typeof renderTabel === "function") renderTabel();
-});
+//   // Panggil render riwayat langsung di halaman
+//   if (typeof renderTabel === "function") renderTabel();
+// });
+
+function displaySavedWarisResult({ hasilPembagian }) {
+  const el = document.getElementById("hasil");
+  if (!el) return;
+
+  let html = "<h3>Hasil Pembagian Waris:</h3><ul>";
+  hasilPembagian.forEach((item) => {
+    html += `<li>${item.ahli} (${item.nama || "-"}) - ${
+      item.persentase
+    } → ${formatRupiah(item.bagian)}</li>`;
+  });
+  html += "</ul>";
+  el.innerHTML = html;
+}
 
 // === MODIFIKASI: tampilkan hasil waris langsung di form ===
-function showWarisCalculation(f3Chart, options = {}) {
+function showWarisCalculation(f3Chart, options = {}, dataOverride = null) {
   console.log("✅ Fungsi showWarisCalculation dipanggil");
 
   const STORAGE_KEY = "myFamilyTree_" + getUserId();
   const saved = localStorage.getItem(STORAGE_KEY);
-  const allData = saved ? JSON.parse(saved) : [];
+  const allData = dataOverride ?? (saved ? JSON.parse(saved) : []);
 
   const almarhum = allData.find(
     (p) =>
@@ -656,7 +709,13 @@ function showWarisCalculation(f3Chart, options = {}) {
 
   const ahliWaris = identifikasiAhliWaris(allData, almarhum);
   const hasilPembagian = hitungPembagianWaris(totalHarta, ahliWaris, almarhum);
+
+  // ✅ Simpan hasil ke global & localStorage
   window.lastWarisResult = { hasilPembagian, totalHarta, almarhum };
+  localStorage.setItem(
+    "warisResult_" + getUserId(),
+    JSON.stringify(window.lastWarisResult)
+  );
 
   // === Buat mapping hasil warisan
   const mapWarisan = {};
@@ -672,7 +731,7 @@ function showWarisCalculation(f3Chart, options = {}) {
     }
   });
 
-  // === Masukkan warisan ke setiap data orang
+  // === Masukkan warisan ke setiap orang
   allData.forEach((orang) => {
     const map = mapWarisan[orang.id];
     if (map) {
@@ -680,22 +739,22 @@ function showWarisCalculation(f3Chart, options = {}) {
     } else {
       delete orang.data.waris;
     }
-    orang.lastUpdated = Date.now();
+    orang.lastUpdated = Date.now(); // pancing update
   });
+
   console.log("🔍 Data akhir yang dikirim ke diagram:", allData);
-  // === Simpan ke localStorage
+
+  // === Simpan ulang ke localStorage
   localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
 
-  // === Update diagram
-  f3Chart.updateTree([]); // clear lama
-
-  f3Chart.updateTree([]); // clear dulu
+  // === Bersihkan dan render ulang diagram di frame berikutnya
+  f3Chart.updateTree([]);
 
   requestAnimationFrame(() => {
     const container = document.getElementById("FamilyChart");
     if (container) container.innerHTML = "";
 
-    create(allData); // render ulang 1 frame setelah clear
+    create(allData);
 
     if (typeof displaySavedWarisResult === "function") {
       displaySavedWarisResult(window.lastWarisResult);
@@ -711,7 +770,7 @@ function showWarisCalculation(f3Chart, options = {}) {
     if (typeof renderTabel === "function") renderTabel();
   }
 
-  // === Tampilkan hasil ke dalam form (jika sedang buka form)
+  // === Tampilkan hasil di dalam form jika sedang terbuka
   const formGroup =
     options.formGroup ||
     document.querySelector(".dynamic-harta-group")?.closest(".f3-form");
