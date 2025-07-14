@@ -553,9 +553,7 @@ function data() {
         "nama lengkap": "Budi Santoso",
         "status(hidup/meninggal)": "hidup",
         agama: "Islam",
-        harta: 100000,
-        avatar:
-          "https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg",
+        harta: 0,
         gender: "M",
       },
     },
@@ -596,38 +594,11 @@ function getUserId() {
   }
   return "guest";
 }
-// Biarkan tombol submit pada familytree tetap menjadi submit (tidak diubah lagi)
 
+// Biarkan tombol submit pada familytree tetap menjadi submit (tidak diubah lagi)
 function addButtons(f3Chart) {
   document.addEventListener("DOMContentLoaded", function () {
     let container = document.getElementById("tombol");
-
-    const btnWaris = document.createElement("button");
-    btnWaris.id = "calculateInheritance";
-    btnWaris.textContent = "Hitung Warisan";
-    btnWaris.style.cssText = `
-      margin-right: 10px;
-      padding: 12px 24px;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 500;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      transition: all 0.2s ease;
-    `;
-    btnWaris.onmouseover = () => {
-      btnWaris.style.backgroundColor = "#1d4ed8";
-      btnWaris.style.transform = "translateY(-1px)";
-    };
-    btnWaris.onmouseout = () => {
-      btnWaris.style.backgroundColor = "#2563eb";
-      btnWaris.style.transform = "translateY(0)";
-    };
-    btnWaris.onclick = () => {
-      showWarisCalculation(f3Chart);
-    };
 
     const btnReset = document.createElement("button");
     btnReset.id = "resetFamilyTree";
@@ -671,13 +642,10 @@ function addButtons(f3Chart) {
     } catch (error) {
       // console.error("Error menambahkan tombol:", error);
       container.innerHTML = `
-       
-        <button id="calculateInheritance" onclick="showWarisCalculation(window.f3ChartInstance)" 
-                style="margin-right: 10px; padding: 12px 24px; background-color: #2563eb; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-          Hitung Warisan
-        </button>
+
         <button id="resetFamilyTree" onclick="resetTree()" 
-                style="margin-left: 10px; padding: 12px 24px; background-color: #16a34a; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                style=" padding: 12px 24px; background-color: #f44336;  color: white; border: none; border-radius: 8px; 
+                cursor: pointer; font-weight: 500; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);justify-content: end; align-items: center; display: flex; margin:10px">
           Reset Silsilah Keluarga
         </button>
        
@@ -685,21 +653,6 @@ function addButtons(f3Chart) {
     }
   });
 }
-
-// window.addEventListener("load", () => {
-//   const savedResult = localStorage.getItem("warisResult_" + getUserId());
-//   if (savedResult) {
-//     try {
-//       const result = JSON.parse(savedResult);
-//       displaySavedWarisResult(result);
-//     } catch (error) {
-//       console.error("Error parsing saved waris result:", error);
-//     }
-//   }
-
-//   // Panggil render riwayat langsung di halaman
-//   if (typeof renderTabel === "function") renderTabel();
-// });
 
 function displaySavedWarisResult({ hasilPembagian }) {
   const el = document.getElementById("hasil");
@@ -1415,156 +1368,6 @@ function tampilkanHasilWaris(hasilPembagian, totalHarta, almarhum, formGroup) {
   // 5. Tempelkan hasilnya
   hasilDiv.innerHTML = html;
 }
-
-// function displaySavedWarisResult({ hasilPembagian, totalHarta, almarhum }) {
-//   const el = document.getElementById("hasil");
-//   if (!el) {
-//     console.error("Element with id 'hasil' not found.");
-//     return;
-//   }
-
-//   let html = `
-//       <h3 class="font-bold text-lg mb-2">Hasil Pembagian Waris:</h3>
-//       <p><strong>Almarhum:</strong> ${almarhum.data["nama lengkap"]}</p>
-//       <p><strong>Total Harta:</strong> ${formatRupiah(totalHarta)}</p>
-//       <div class="overflow-x-auto mt-4">
-//         <table class="w-full text-sm text-left text-gray-700 border text-center">
-//           <thead class="bg-gray-200 text-gray-800">
-//             <tr>
-//               <th class="px-4 py-2 border">Ahli Waris</th>
-//               <th class="px-4 py-2 border">Nama</th>
-//               <th class="px-4 py-2 border">Bagian Per Orang</th>
-//               <th class="px-4 py-2 border">Total Perolehan</th>
-//               <th class="px-4 py-2 border">Keterangan</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//   `;
-
-//   let totalTerbagi = 0;
-//   hasilPembagian.forEach((item) => {
-//     if (item.bagian) {
-//       totalTerbagi += item.bagian;
-//       html += `
-//         <tr class="bg-white border-b">
-//           <td class="px-4 py-2 border">${item.ahli}</td>
-//           <td class="px-4 py-2 border">${item.nama || "-"}</td>
-//           <td class="px-4 py-2 border">${item.persentase}</td>
-//           <td class="px-4 py-2 border">${formatRupiah(item.bagian)}</td>
-//           <td class="px-4 py-2 border">-</td>
-//         </tr>
-//       `;
-//     } else {
-//       html += `
-//         <tr class="bg-white border-b">
-//           <td class="px-4 py-2 border">${item.ahli}</td>
-//           <td class="px-4 py-2 border">${item.nama || "-"}</td>
-//           <td class="px-4 py-2 border">-</td>
-//           <td class="px-4 py-2 border">-</td>
-//           <td class="px-4 py-2 border">${item.keterangan}</td>
-//         </tr>
-//       `;
-//     }
-//   });
-
-//   html += `
-//           </tbody>
-//           <tfoot>
-//             <tr class="bg-gray-100 font-bold">
-//               <td colspan="3" class="px-4 py-2 border text-right">Total Terbagi:</td>
-//               <td class="px-4 py-2 border">${formatRupiah(totalTerbagi)}</td>
-//               <td class="px-4 py-2 border">-</td>
-//             </tr>
-//           </tfoot>
-//         </table>
-//       </div>
-//   `;
-
-//   const sisaHarta = totalHarta - totalTerbagi;
-//   if (sisaHarta > 0) {
-//     html += `
-//       <div class="mt-4 p-4 bg-yellow-100 border border-yellow-300 rounded">
-//         <strong>Sisa Harta:</strong> ${formatRupiah(sisaHarta)}
-//         <br><small>Sisa harta dapat diberikan kepada ahli waris terdekat atau untuk kepentingan umum.</small>
-//       </div>
-//     `;
-//   }
-
-//   // Tambahkan tombol simpan ke riwayat
-//   html += `
-//     <div class="mt-4 flex flex-col items-center">
-//       <button id="btnSimpanRiwayatWaris" style="padding: 10px 24px; background: #2563eb; color: white; border: none; border-radius: 6px; font-weight: 500; margin-bottom: 10px; cursor: pointer;">Simpan ke Riwayat</button>
-//       <small>Data silsilah keluarga dan hasil waris akan disimpan ke riwayat dengan nama yang Anda tentukan.</small>
-//     </div>
-//   `;
-
-//   el.innerHTML = html;
-
-//   // Event handler tombol simpan ke riwayat
-//   const btnSimpan = document.getElementById("btnSimpanRiwayatWaris");
-//   if (btnSimpan) {
-//     btnSimpan.onclick = function () {
-//       let nama = prompt(
-//         "Masukkan nama riwayat waris (misal: Waris Budi 2025):"
-//       );
-//       if (!nama || !nama.trim()) {
-//         alert("Nama riwayat tidak boleh kosong!");
-//         return;
-//       }
-
-//       // Ambil data familytree terbaru
-//       let familyTreeData = null;
-//       try {
-//         if (
-//           window.f3ChartInstance &&
-//           typeof window.f3ChartInstance.getChartData === "function"
-//         ) {
-//           familyTreeData = window.f3ChartInstance.getChartData();
-//         } else {
-//           const STORAGE_KEY = "myFamilyTree_" + getUserId();
-//           const saved = localStorage.getItem(STORAGE_KEY);
-//           familyTreeData = saved ? JSON.parse(saved) : null;
-//         }
-//       } catch (e) {
-//         familyTreeData = null;
-//       }
-
-//       if (!familyTreeData) {
-//         alert("Gagal mengambil data silsilah keluarga.");
-//         return;
-//       }
-
-//       // Ambil riwayat lama
-//       let riwayat = [];
-//       try {
-//         const old = localStorage.getItem("riwayatWaris_" + getUserId());
-//         riwayat = old ? JSON.parse(old) : [];
-//       } catch (e) {
-//         riwayat = [];
-//       }
-
-//       // Simpan data baru
-//       riwayat.push({
-//         nama: nama.trim(),
-//         tanggal: new Date().toISOString(),
-//         familyTree: familyTreeData,
-//         hasilWaris: { hasilPembagian, totalHarta, almarhum },
-//       });
-
-//       localStorage.setItem(
-//         "riwayatWaris_" + getUserId(),
-//         JSON.stringify(riwayat)
-//       );
-
-//       alert("Berhasil disimpan ke riwayat waris!");
-
-//       // ⬅️ Tambahkan baris ini agar langsung muncul di halaman riwayat jika ada
-//       if (typeof renderTabel === "function") {
-//         renderTabel();
-//       }
-//     };
-//   }
-// }
 
 function desimalKePecahan(decimal, precision = 1e-6) {
   let numerator = 1;
