@@ -34,11 +34,7 @@
         <!-- BEGIN: Notification -->
         <!-- BEGIN: Dalil Waris -->
         <div class="col-span-3 lg:col-span-8 xl:col-span-6 mt-2">
-          <h2
-            class="text-2xl font-bold text-center truncate"
-          >
-            Hitung Zakat
-          </h2>
+          <h2 class="text-2xl font-bold text-center truncate">Hitung Zakat</h2>
 
           <!-- Select untuk tampilan mobile -->
           <div class="intro-y h-10 mt-6">
@@ -106,7 +102,7 @@
           </div>
 
           <!-- Wrapper -->
-          <div class="cls-inp bg-white shadow rounded-lg p-5 mt-3">
+          <div class="rounded-lg p-5 mt-3">
             <!-- Container semua form -->
             <div
               class="relative overflow-x-auto shadow-md flex flex-col gap-6 justify-center py-5 rounded-lg"
@@ -116,45 +112,47 @@
                 id="Froam1"
                 class="hitung block bg-white shadow-xl rounded-xl p-5 w-full max-w-xl"
               >
-                <h2 class="text-2xl font-bold mb-6 text-center text-yellow-600">
+                <h2
+                  class="text-2xl font-bold mb-6 text-center text-yellow-600 intro-y"
+                >
                   Form Zakat Emas dan Perak
                 </h2>
                 <div class="space-y-4">
                   <div>
-                    <label class="block text-gray-700">Jenis</label>
+                    <label class="block text-gray-700 intro-y">Jenis</label>
                     <select
                       id="jenis"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full mt-1 p-2 border rounded-lg intro-y"
                     >
                       <option value="emas">Emas</option>
                       <option value="perak">Perak</option>
                     </select>
                   </div>
                   <div>
-                    <label class="block text-gray-700"
+                    <label class="block text-gray-700 mt-3 intro-y"
                       >Berat Harta (gram)</label
                     >
                     <input
                       type="text"
                       id="berat"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full mt-1 p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 100"
                     />
                   </div>
                   <div>
-                    <label class="block text-gray-700"
+                    <label class="block text-gray-700 mt-3 intro-y"
                       >Harga per gram (Rp)</label
                     >
                     <input
                       type="text"
                       id="harga"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full mt-1 p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 1200000"
                     />
                   </div>
                 </div>
                 <button
-                  class="p-3 mt-3 border bg-primary text-white rounded-lg"
+                  class="p-3 mt-3 border bg-primary text-white rounded-lg intro-y"
                   onclick="hitungEmasPerak()"
                 >
                   Hitung Zakat
@@ -167,62 +165,74 @@
                 id="Froam2"
                 class="hitung hidden bg-white shadow-xl rounded-xl p-8 w-full max-w-xl"
               >
-                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">
+                <h2
+                  class="text-2xl font-bold mb-6 text-center text-gray-800 intro-y"
+                >
                   Form Zakat Perniagaan
                 </h2>
+
                 <div class="space-y-4 items-center">
                   <div>
-                    <label class="block text-gray-700">Uang</label>
+                    <label class="block text-gray-700 intro-y">Uang</label>
                     <input
                       type="text"
                       id="kas"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 50000000"
                     />
                   </div>
+
                   <div>
-                    <label class="block text-gray-700"
+                    <label class="block text-gray-700 mt-3 intro-y"
                       >Persediaan Dagangan</label
                     >
                     <input
                       type="text"
                       id="persediaan"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 30000000"
                     />
                   </div>
+
                   <div>
-                    <label class="block text-gray-700">Piutang</label>
+                    <label class="block text-gray-700 mt-3 intro-y"
+                      >Piutang</label
+                    >
                     <input
                       type="text"
                       id="piutang"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 10000000"
                     />
                   </div>
+
                   <div>
-                    <label class="block text-gray-700">Utang</label>
+                    <label class="block text-gray-700 mt-3 intro-y"
+                      >Utang</label
+                    >
                     <input
                       type="text"
                       id="utang"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 5000000"
                     />
                   </div>
+
                   <div>
-                    <label class="block text-gray-700"
+                    <label class="block text-gray-700 mt-3 intro-y"
                       >Harga Emas(per gram)</label
                     >
                     <input
                       type="text"
                       id="hargaEmas"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 1200000"
                     />
                   </div>
                 </div>
+
                 <button
-                  class="p-3 mt-3 border bg-primary text-white rounded-lg"
+                  class="p-3 mt-3 border bg-primary text-white rounded-lg intro-y"
                   onclick="hitungZakat()"
                 >
                   Hitung Zakat
@@ -235,24 +245,32 @@
                 id="Froam3"
                 class="hitung hidden bg-white shadow-xl rounded-xl p-8 w-full max-w-xl"
               >
-                <h2 class="text-2xl font-bold mb-6 text-center text-green-700">
+                <h2
+                  class="text-2xl font-bold mb-6 text-center text-green-700 intro-y"
+                >
                   Form Zakat Pertanian
                 </h2>
+
                 <div class="space-y-4">
                   <div>
-                    <label class="block text-gray-700">Hasil Panen(kg)</label>
+                    <label class="block text-gray-700 intro-y mt-3"
+                      >Hasil Panen(kg)</label
+                    >
                     <input
                       type="text"
                       id="hasilPanen"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 1000"
                     />
                   </div>
+
                   <div>
-                    <label class="block text-gray-700">Jenis Pengairan</label>
+                    <label class="block text-gray-700 intro-y mt-3"
+                      >Jenis Pengairan</label
+                    >
                     <select
                       id="pengairan"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full p-2 border rounded-lg intro-y"
                       style="font-size: 12px"
                     >
                       <option value="alami">Alami(hujan/sungai)</option>
@@ -260,8 +278,9 @@
                     </select>
                   </div>
                 </div>
+
                 <button
-                  class="p-3 mt-3 border bg-primary text-white rounded-lg"
+                  class="p-3 mt-3 border bg-primary text-white rounded-lg intro-y"
                   onclick="hitungZakatPertanian()"
                 >
                   Hitung Zakat
@@ -274,37 +293,47 @@
                 id="Froam4"
                 class="hitung hidden bg-white shadow-xl rounded-xl p-8 w-full max-w-xl"
               >
-                <h2 class="text-2xl font-bold mb-6 text-center text-green-700">
+                <h2
+                  class="text-2xl font-bold mb-6 text-center text-green-700 intro-y"
+                >
                   Form Zakat Ternak
                 </h2>
+
                 <div class="space-y-4">
                   <div>
-                    <label class="block text-gray-700">Jenis Ternak</label>
+                    <label class="block text-gray-700 intro-y"
+                      >Jenis Ternak</label
+                    >
                     <select
                       id="jenisTernak"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full p-2 border rounded-lg intro-y"
                     >
                       <option value="kambing">Kambing</option>
                       <option value="sapi">Sapi</option>
                       <option value="unta">Unta</option>
                     </select>
                   </div>
+
                   <div>
-                    <label class="block text-gray-700">Jumlah Ternak</label>
+                    <label class="block text-gray-700 intro-y mt-3"
+                      >Jumlah Ternak</label
+                    >
                     <input
                       type="text"
                       id="jumlahTernak"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full intro-y p-2 border rounded-lg"
                       placeholder="Contoh: 50"
                     />
                   </div>
                 </div>
+
                 <button
-                  class="p-3 mt-3 border bg-primary text-white rounded-lg"
+                  class="p-3 mt-3 border bg-primary text-white rounded-lg intro-y"
                   onclick="hitungZakatTernak()"
                 >
                   Hitung Zakat
                 </button>
+
                 <div id="hasilTernak" class="mt-6"></div>
               </div>
 
@@ -313,40 +342,46 @@
                 id="Froam5"
                 class="hitung hidden bg-white shadow-xl rounded-xl p-8 w-full max-w-xl"
               >
-                <h2 class="text-2xl font-bold mb-6 text-center text-yellow-600">
+                <h2
+                  class="text-2xl font-bold mb-6 text-center text-yellow-600 intro-y"
+                >
                   Form Zakat Barang Temuan (Rikaz)
                 </h2>
+
                 <div class="space-y-4">
                   <div>
-                    <label class="block text-gray-700"
+                    <label class="block text-gray-700 intro-y"
                       >Nilai Barang Temuan (Rp)</label
                     >
                     <input
                       type="text"
                       id="nilaiTemuan"
-                      class="w-full mt-1 p-2 border rounded-lg"
+                      class="w-full mt-1 p-2 border rounded-lg intro-y"
                       placeholder="Contoh: 10000000"
                     />
                   </div>
                 </div>
+
                 <button
-                  class="p-3 mt-3 border bg-primary text-white rounded-lg"
+                  class="p-3 mt-3 border bg-primary text-white rounded-lg intro-y"
                   onclick="hitungZakatRikaz()"
                 >
                   Hitung Zakat
                 </button>
+
                 <div id="hasilRikaz" class="mt-6"></div>
               </div>
             </div>
           </div>
           <!-- end hitung -->
+
           <div class="col-span-12 2xl:col-span-3">
             <div class="2xl:border-l -mb-10 pb-10">
               <div
                 class="2xl:pl-6 grid grid-cols-12 gap-x-6 2xl:gap-x-0 gap-y-6"
               >
                 <!-- BEGIN: Important Notes -->
-                <div
+                <!-- <div
                   class="col-span-12 md:col-span-6 xl:col-span-12 mt-3 2xl:mt-8"
                 >
                   <div class="intro-x flex items-center h-10">
@@ -449,8 +484,9 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- END: Important Notes -->
+
                 <!-- BEGIN: Schedules -->
                 <div
                   class="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-12 xl:col-start-1 xl:row-start-2 2xl:col-start-auto 2xl:row-start-auto mt-3"
@@ -459,13 +495,13 @@
                     <h2 class="text-lg font-medium truncate mr-5">
                       1446 Hijriah
                     </h2>
-                    <a
+                    <!-- <a
                       href=""
                       class="ml-auto text-primary truncate flex items-center"
                     >
                       <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Add New
                       Schedules
-                    </a>
+                    </a> -->
                   </div>
                   <div class="mt-5">
                     <div class="intro-x box">
