@@ -10,3 +10,239 @@
   border: 3px solid red !important;
   border-radius: 10px;
 }
+
+/* Gaya dasar untuk form */
+#familyForm {
+  max-width: 100%;
+  padding: 16px;
+  background-color: black;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+#familyForm .f3-form {
+  background-color: black;
+}
+
+/* Header form */
+#familyForm .f3-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Tombol aksi di header */
+#familyForm > div[style*="text-align: right"] {
+  margin-bottom: 16px;
+}
+
+#familyForm .f3-add-relative-btn,
+#familyForm .f3-edit-btn {
+  display: inline-block;
+  padding: 8px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+#familyForm .f3-add-relative-btn svg,
+#familyForm .f3-edit-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Radio group gender */
+#familyForm .f3-radio-group {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+#familyForm .f3-radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Field form */
+#familyForm .f3-form-field {
+  margin-bottom: 16px;
+}
+
+#familyForm .f3-form-field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#familyForm .f3-form-field input[type="text"],
+#familyForm .f3-form-field select,
+#familyForm .f3-form-field textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#familyForm .f3-form-field textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Tombol radio status */
+#familyForm .flex.gap-4.items-center {
+  display: flex;
+  gap: 16px;
+}
+
+#familyForm .form-radio {
+  margin-right: 8px;
+}
+
+/* Tombol aksi bawah */
+#familyForm .f3-form-buttons {
+  display: flex;
+  justify-content: right;
+  margin-top: 24px;
+}
+
+#familyForm .f3-form-buttons button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#familyForm .f3-form-buttons .f3-cancel-btn,
+#familyForm .f3-remove-relative-btn {
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  color: black;
+  display: none;
+}
+
+#familyForm .f3-form-buttons button[type="submit"] {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+}
+
+#familyForm > div.dynamic-harta-group.mt-2 > label {
+  color: white !important; /* Override warna putih */
+}
+/* Tombol delete dan remove */
+#familyForm > div:has(button.f3-delete-btn),
+#familyForm > div:has(button.f3-remove-relative-btn) {
+  margin-top: 8px;
+}
+
+#familyForm .f3-delete-btn {
+  position: absolute;
+  top: 505px;
+  max-width: 80px;
+  padding: 8px;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Section harta waris */
+#familyForm .dynamic-harta-group {
+  margin-top: 16px;
+}
+
+#familyForm .dynamic-harta-group label {
+  color: #333 !important; /* Override warna putih */
+}
+
+#familyForm .btn-hitung-waris {
+  width: 100%;
+  margin-top: 8px;
+}
+#familyForm .f3-close-btn {
+  margin-top: 10px;
+}
+/* Media queries untuk mobile */
+@media (max-width: 640px) {
+  #familyForm {
+    padding: 12px;
+  }
+
+  #familyForm .f3-close-btn {
+    max-width: 30px;
+    margin-top: 10px;
+  }
+
+  #familyForm > div:nth-child(2) {
+    max-width: 240px;
+  }
+  #familyForm .f3-radio-group {
+    gap: 8px;
+  }
+
+  #familyForm .f3-form-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #familyForm .f3-form-buttons button {
+    width: 230px;
+  }
+
+  /* Perbaikan tampilan radio button status di mobile */
+  #familyForm .flex.gap-4.items-center {
+    /* flex-direction: column; */
+    /* align-items: flex-start; */
+    gap: 8px;
+  }
+
+  #familyForm .f3-form-field input[type="text"],
+  #familyForm .f3-form-field select,
+  #familyForm > div.dynamic-harta-group.mt-2 > input {
+    max-width: 230px; /* Batasi lebar input teks */
+  }
+  /* Perbaikan textarea waris */
+  #familyForm .f3-form-field textarea {
+    min-height: 60px;
+    max-width: 240px;
+  }
+
+  /* Tombol aksi di header */
+  #familyForm > div[style*="text-align: right"] {
+    margin-bottom: 12px;
+  }
+
+  #familyForm .f3-add-relative-btn,
+  #familyForm .f3-edit-btn {
+    padding: 6px;
+  }
+
+  #familyForm .f3-add-relative-btn svg,
+  #familyForm .f3-edit-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+  #familyForm .f3-delete-btn,
+  #familyForm .f3-remove-relative-btn,
+  #familyForm > button.btn-hitung-waris {
+    max-width: 230px;
+  }
+  #familyForm .f3-delete-btn {
+    position: relative;
+    top: 0;
+  }
+}
+
+.f3 .link {
+  stroke: #000 !important; /* Hitam */
+}
+
+.card[data-status="meninggal"] {
+  border: 3px solid red !important;
+  border-radius: 8px;
+}
