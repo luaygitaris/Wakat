@@ -85,14 +85,12 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Jika buka halaman langsung dengan path tertentu
     const pathParts = window.location.pathname.split("/").filter(Boolean);
     let parentId = "dashboard", subId = "dashboard";
     if (pathParts.length === 2) {
       parentId = pathParts[0];
       subId = pathParts[1];
     }
-    // Cek login dan akses awal
     const isLoggedIn = !!localStorage.getItem("token") && !!localStorage.getItem("user");
     const allowedNoLogin = [
       ["dashboard", "dashboard"],
