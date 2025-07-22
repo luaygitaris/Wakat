@@ -3,31 +3,25 @@
   <ul>
     <li>
       <div class="side-menu side-menu--active">
-        <a
-          data-page="dashboard"
-          id="dashboard-top-menu"
-          href="/"
-          class="side-menu__icon">
+        <a data-page="dashboard" id="dashboard-top-menu" href="/" class="side-menu__icon">
           <i data-lucide="home"></i>
         </a>
         <div class="side-menu__title">
-          <a data-page="dashboard" id="dashboard-top-menu" href="/"
-            >Dashboard</a
-          >
+          <a data-page="dashboard" id="dashboard-top-menu" href="/">Dashboard</a>
           <div class="side-menu__sub-icon icon-dashboard transform rotate-180">
             <i data-lucide="chevron-down"></i>
           </div>
         </div>
       </div>
       <ul class="side-menu__sub-open">
-        <li data-page="waris">
-          <a id="dashboard-top-menu" href="javascript:;" class="side-menu">
+        <li>
+          <a href="javascript:;" class="side-menu" data-parent="dashboard" data-page="waris">
             <div class="side-menu__icon"><i data-lucide="activity"></i></div>
             <div class="side-menu__title">Waris</div>
           </a>
         </li>
-        <li data-page="zakat">
-          <a id="dashboard-top-menu" href="javascript:;" class="side-menu">
+        <li>
+          <a href="javascript:;" class="side-menu" data-parent="dashboard" data-page="zakat">
             <div class="side-menu__icon"><i data-lucide="activity"></i></div>
             <div class="side-menu__title">Zakat</div>
           </a>
@@ -35,44 +29,16 @@
       </ul>
     </li>
     <li id="side-menu-waris" class="hidden">
-      <a id="waris-top-menu" href="javascript:;" class="side-menu">
+      <a href="javascript:;" class="side-menu" data-parent="waris" data-page="hitung">
         <div class="side-menu__icon"><i data-lucide="home"></i></div>
-        <div class="side-menu__title">
-          Waris
-          <div class="side-menu__sub-icon">
-            <i data-lucide="chevron-down"></i>
-          </div>
-        </div>
+        <div class="side-menu__title">Waris</div>
       </a>
-      <ul class="">
-        <li data-page="hitung">
-          <a id="waris-top-menu" href="javascript:;" class="side-menu">
-            <div class="side-menu__icon"><i data-lucide="activity"></i></div>
-            <div class="side-menu__title">hitung</div>
-          </a>
-        </li>
-      </ul>
     </li>
     <li id="side-menu-zakat" class="hidden">
-      <a id="zakat-top-menu" href="javascript:;" class="side-menu">
+      <a href="javascript:;" class="side-menu" data-parent="zakat" data-page="hitung">
         <div class="side-menu__icon"><i data-lucide="shopping-bag"></i></div>
-        <div class="side-menu__title">
-          Zakat
-          <div class="side-menu__sub-icon">
-            <i data-lucide="chevron-down"></i>
-          </div>
-        </div>
+        <div class="side-menu__title">Zakat</div>
       </a>
-      <ul class="">
-       
-        <li data-page="hitung">
-          <a href="javascript:;" class="side-menu">
-            <div class="side-menu__icon"><i data-lucide="activity"></i></div>
-            <div class="side-menu__title">Hitung</div>
-          </a>
-        </li>
-      </ul>
     </li>
   </ul>
 </nav>
-<!-- END: Side Menu -->

@@ -1,24 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
   function switchPage(parentId, subId) {
-    const isLoggedIn = !!localStorage.getItem("token") && !!localStorage.getItem("user");
+    const isLoggedIn =
+      !!localStorage.getItem("token") && !!localStorage.getItem("user");
+
     // Daftar halaman yang boleh diakses tanpa login
     const allowedNoLogin = [
       ["dashboard", "dashboard"],
-      ["dashboard", "zakat"],
-      ["dashboard", "waris"]
+      ["dashboard", "waris"], // Tambahkan ini
+      ["dashboard", "zakat"], // Tambahkan ini
     ];
-    // Jika belum login dan akses selain halaman yang diizinkan, redirect ke dashboard
+
+    // Jika belum login dan mencoba akses halaman terlarang
     if (!isLoggedIn) {
-      const allowed = allowedNoLogin.some(([p, s]) => p === parentId && s === subId);
+      const allowed = allowedNoLogin.some(
+        ([p, s]) => p === parentId && s === subId
+      );
       if (!allowed) {
+        // Redirect ke dashboard jika mencoba akses halaman terlarang
         parentId = "dashboard";
         subId = "dashboard";
       }
     }
+
+    // Sembunyikan semua konten
     document.querySelectorAll(".content").forEach((content) => {
       content.style.display = "none";
     });
-    // Khusus dashboard: cek login
+
+    // Handle dashboard khusus
     if (parentId === "dashboard" && subId === "dashboard") {
       const dashLogin = document.getElementById("dashboard-login-content");
       const dashDefault = document.getElementById("dashboard-dashboard-aaa");
@@ -30,27 +39,43 @@ document.addEventListener("DOMContentLoaded", function () {
       updateBreadcrumb(parentId, subId);
       return;
     }
-    // Jika bukan dashboard utama, pastikan dashboard-login-content & dashboard-dashboard-aaa disembunyikan
+
+    // Sembunyikan konten dashboard jika bukan halaman dashboard
     const dashLogin = document.getElementById("dashboard-login-content");
     const dashDefault = document.getElementById("dashboard-dashboard-aaa");
     if (dashLogin) dashLogin.style.display = "none";
     if (dashDefault) dashDefault.style.display = "none";
-    // Default: tampilkan page sesuai ID
-    const pageToShow = document.getElementById(`${parentId}-${subId}-aaa`);
+
+    // Tampilkan halaman yang diminta
+    const pageId = `${parentId}-${subId}-aaa`;
+    const pageToShow = document.getElementById(pageId);
+
     if (pageToShow) {
       pageToShow.style.display = "block";
+    } else {
+      // Fallback ke dashboard jika halaman tidak ditemukan
+      console.warn(`Page ${pageId} not found, falling back to dashboard`);
+      document.getElementById("dashboard-dashboard-aaa").style.display =
+        "block";
+      parentId = "dashboard";
+      subId = "dashboard";
     }
+
     updateBreadcrumb(parentId, subId);
   }
 
   function handleMenuClick(menuItem, parentId, subId) {
     // Hapus semua active class
-    document.querySelectorAll(".side-menu").forEach((menu) => {
-      menu.classList.remove("side-menu--active");
-    });
+    document
+      .querySelectorAll(".side-menu--active, .menu--active")
+      .forEach((menu) => {
+        menu.classList.remove("side-menu--active", "menu--active");
+      });
 
     // Tambahkan active class pada menu yang diklik
-    menuItem.classList.add("side-menu--active");
+    menuItem.classList.add(
+      menuItem.classList.contains("menu") ? "menu--active" : "side-menu--active"
+    );
 
     // Tentukan URL baru
     const newUrl = subId === "dashboard" ? "/" : `/${parentId}/${subId}`;
@@ -60,53 +85,67 @@ document.addEventListener("DOMContentLoaded", function () {
     switchPage(parentId, subId);
   }
 
-  function setupMenuListeners() {
-    const subMenus = document.querySelectorAll("li[data-page] > a");
 
-    subMenus.forEach((link) => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
+ function setupMenuListeners() {
+  const menuLinks = document.querySelectorAll(".side-menu, .menu");
 
-        const subLi = this.closest("li[data-page]");
-        const subId = subLi.getAttribute("data-page");
-
-        let parentLi = subLi.closest("ul").closest("li");
-        let parentId = "dashboard"; // default fallback
-
-        if (parentLi && parentLi.querySelector("a")) {
-          const parentLink = parentLi.querySelector("a");
-          const idParts = parentLink.id ? parentLink.id.split("-") : [];
-          if (idParts.length > 0) {
-            parentId = idParts[0];
-          }
-        }
-
-        handleMenuClick(this, parentId, subId);
-      });
-    });
-
-    const pathParts = window.location.pathname.split("/").filter(Boolean);
-    let parentId = "dashboard", subId = "dashboard";
-    if (pathParts.length === 2) {
-      parentId = pathParts[0];
-      subId = pathParts[1];
-    }
-    const isLoggedIn = !!localStorage.getItem("token") && !!localStorage.getItem("user");
-    const allowedNoLogin = [
-      ["dashboard", "dashboard"],
-      ["dashboard", "zakat"],
-      ["dashboard", "waris"]
-    ];
-    if (!isLoggedIn) {
-      const allowed = allowedNoLogin.some(([p, s]) => p === parentId && s === subId);
-      if (!allowed) {
-        parentId = "dashboard";
-        subId = "dashboard";
-        history.replaceState(null, "", "/");
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      
+      let parentId = this.getAttribute("data-parent");
+      let subId = this.getAttribute("data-page");
+      
+      // Handle menu dashboard utama
+      if (subId === "dashboard") {
+        handleMenuClick(this, "dashboard", "dashboard");
+        return;
       }
-    }
-    switchPage(parentId, subId);
+      
+      // Handle submenu waris/zakat di dashboard
+      if (parentId === "dashboard" && (subId === "waris" || subId === "zakat")) {
+        handleMenuClick(this, parentId, subId);
+        return;
+      }
+      
+      // Handle menu waris/zakat utama (setelah login)
+      if ((parentId === "waris" || parentId === "zakat") && subId === "hitung") {
+        handleMenuClick(this, parentId, subId);
+        return;
+      }
+      
+      // Fallback untuk case lainnya
+      handleMenuClick(this, parentId || "dashboard", subId || "dashboard");
+    });
+  });
+
+  // Inisialisasi halaman saat load pertama
+  const pathParts = window.location.pathname.split("/").filter(Boolean);
+  let parentId = "dashboard", subId = "dashboard";
+  
+  if (pathParts.length === 2) {
+    parentId = pathParts[0];
+    subId = pathParts[1];
   }
+  
+  const isLoggedIn = !!localStorage.getItem("token") && !!localStorage.getItem("user");
+  const allowedNoLogin = [
+    ["dashboard", "dashboard"],
+    ["dashboard", "waris"],
+    ["dashboard", "zakat"]
+  ];
+  
+  if (!isLoggedIn) {
+    const allowed = allowedNoLogin.some(([p, s]) => p === parentId && s === subId);
+    if (!allowed) {
+      parentId = "dashboard";
+      subId = "dashboard";
+      history.replaceState(null, "", "/");
+    }
+  }
+  
+  switchPage(parentId, subId);
+}
 
   setupMenuListeners();
 });
@@ -161,21 +200,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Handler baru untuk mobile menu dashboard
-  const dashboardText = mobileMenu.querySelector('.dashboard-link-mobile');
-  const dashboardDropdown = mobileMenu.querySelector('.dashboard-dropdown-mobile');
+  const dashboardText = mobileMenu.querySelector(".dashboard-link-mobile");
+  const dashboardDropdown = mobileMenu.querySelector(
+    ".dashboard-dropdown-mobile"
+  );
   // Cari submenu dashboard: ambil ul setelah .dashboard-dropdown-mobile
   let dashboardSubmenu = null;
   if (dashboardDropdown) {
     // .dashboard-dropdown-mobile ada di dalam <span> di dalam <div class="menu ...">
     // parent .menu -> parent <li> -> cari ul (submenu)
-    const parentLi = dashboardDropdown.closest('li');
+    const parentLi = dashboardDropdown.closest("li");
     if (parentLi) {
-      dashboardSubmenu = parentLi.querySelector('ul');
+      dashboardSubmenu = parentLi.querySelector("ul");
     }
   }
 
   if (dashboardText) {
-    dashboardText.addEventListener('click', function(e) {
+    dashboardText.addEventListener("click", function (e) {
       e.preventDefault();
       document.querySelectorAll(".content").forEach((content) => {
         content.style.display = "none";
@@ -189,12 +230,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   if (dashboardDropdown && dashboardSubmenu) {
-    dashboardDropdown.addEventListener('click', function(e) {
+    dashboardDropdown.addEventListener("click", function (e) {
       e.preventDefault();
-      dashboardSubmenu.classList.toggle('menu__sub-open');
+      dashboardSubmenu.classList.toggle("menu__sub-open");
       // Cari icon <i data-lucide="chevron-down"> di dalam dashboardDropdown
-      const icon = dashboardDropdown.querySelector('i[data-lucide="chevron-down"]');
-      if (icon) icon.classList.toggle('rotate-180');
+      const icon = dashboardDropdown.querySelector(
+        'i[data-lucide="chevron-down"]'
+      );
+      if (icon) icon.classList.toggle("rotate-180");
     });
   }
 
@@ -202,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const menuLinks = mobileMenu.querySelectorAll("a.menu");
   menuLinks.forEach((link) => {
     // Jangan override handler dashboard utama
-    if (link.querySelector('.dashboard-link-mobile')) return;
+    if (link.querySelector(".dashboard-link-mobile")) return;
     link.addEventListener("click", function (e) {
       const parentLi = this.closest("li");
       const submenu = parentLi?.querySelector("ul");
